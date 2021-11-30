@@ -45,6 +45,11 @@ public class LocalService {
     }
     
     @Transactional
+    public boolean existsLocal(Integer id){
+        return localRepository.existsById(id);
+    }
+    
+    @Transactional
     public void eliminarLocal(Integer id) {
         localRepository.deleteById(id);
     }
