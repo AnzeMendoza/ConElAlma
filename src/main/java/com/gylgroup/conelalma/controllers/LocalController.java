@@ -65,8 +65,13 @@ public class LocalController {
     public RedirectView modificarLocal(@ModelAttribute Local local, RedirectAttributes attributes){
         RedirectView redirectView = new RedirectView("/Locales");
         localService.modificarLocal(local);
-        
         return redirectView;
+    }
+    
+    @PostMapping("/eliminar")
+    public RedirectView eliminarLocal(@PathVariable Integer id){
+        localService.eliminarLocal(id);
+        return new RedirectView("/Locales");
     }
     
 }
