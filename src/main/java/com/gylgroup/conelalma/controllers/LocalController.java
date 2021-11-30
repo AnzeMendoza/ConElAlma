@@ -3,7 +3,6 @@ package com.gylgroup.conelalma.controllers;
 import com.gylgroup.conelalma.entities.Local;
 import com.gylgroup.conelalma.services.LocalService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
