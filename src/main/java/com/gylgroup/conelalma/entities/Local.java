@@ -18,7 +18,8 @@ public class Local {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    
+    
     private String direccion;
     private Integer cantidadMaximaPersonas;
     private Double precio;
