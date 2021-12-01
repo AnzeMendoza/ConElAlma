@@ -1,12 +1,9 @@
 package com.gylgroup.conelalma.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.gylgroup.conelalma.enums.Calificacion;
 
@@ -29,6 +26,10 @@ public class Comentario {
     @Enumerated(EnumType.STRING)
     private Calificacion calificacion;
 
+    @Column(length = 255)
+    @NotEmpty(message = "El nombre es obligatorio")
+    @Size(min = 10, max = 255, message = "Debe tener min 10 caracteres y menos de 255")
+    @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener solo letras.")
     private String descripcion;
 
     @OneToOne

@@ -2,8 +2,8 @@ package com.gylgroup.conelalma.services;
 
 
 import com.gylgroup.conelalma.entities.Comentario;
-import com.gylgroup.conelalma.repositorys.ComentarioRepository;
-import com.gylgroup.conelalma.repositorys.ReservaRepository;
+import com.gylgroup.conelalma.repositories.ComentarioRepository;
+import com.gylgroup.conelalma.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +26,8 @@ public class ComentarioService {
         if(dto.getDescripcion().trim()==null || dto.getDescripcion().trim().length()<10){
             throw new Exception("La descripcion no puede estar vacia o tener menos de 10 caracteres");
         }
-        if(!comentarioRepository.existsComentarioById(dto.getId())){
-            throw new Exception("No existe un comentario asociado al ID: "+dto.getId());
-        }
-
-        if(!reservaRepository.existsReservaById(dto.getReserva().getId())){
-            throw new Exception("No existe un comentario asociado a la reserva con ID : "+dto.getReserva().getId());
+        if(comentarioRepository.existsComentarioById(dto.getId())){
+            throw new Exception("Ya existe un comentario asociado al ID: "+dto.getId());
         }
 
         Comentario comentario = new Comentario();

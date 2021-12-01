@@ -1,7 +1,7 @@
 package com.gylgroup.conelalma.services;
 
 import com.gylgroup.conelalma.entities.Reserva;
-import com.gylgroup.conelalma.repositorys.ReservaRepository;
+import com.gylgroup.conelalma.repositories.ReservaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class ReservaService {
 
         reserva.setPresupuestoLive(dto.getPresupuestoLive());
         reserva.setFechaReserva(dto.getFechaReserva());
-        reserva.setEstado(dto.getEstado());
+        reserva.setEstado(true);
         reserva.setTipoDePago(dto.getTipoDePago());
         reserva.setPagoEfectuado(dto.getPagoEfectuado());
 
@@ -65,12 +65,16 @@ public class ReservaService {
 
     @Transactional
     public void bajaReserva(Integer id){
-        reservaRepository.deleteById(id);
+        if(reservaRepository.existsReservaById(id)){
+            reservaRepository.deleteById(id);
+        }
     }
 
     @Transactional
     public void altaReserva(Integer id){
-        reservaRepository.habilitar(id);
+        if(reservaRepository.existsReservaById(id)){
+            reservaRepository.habilitar(id);
+        }
     }
 
 }
