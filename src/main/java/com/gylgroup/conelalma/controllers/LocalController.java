@@ -53,7 +53,7 @@ public class LocalController {
     public ModelAndView editarLocal(@PathVariable Integer id){
         ModelAndView mav = new ModelAndView("");
         if(localService.existsLocal(id)){
-            mav.addObject("Local", localService.BuscarLocalPorId(id));
+            mav.addObject("Local", localService.buscarLocalPorId(id));
             mav.addObject("title","Editar Local");
             mav.addObject("action", "modificar");
         }

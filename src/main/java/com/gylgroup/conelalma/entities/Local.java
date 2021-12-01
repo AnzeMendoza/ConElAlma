@@ -10,18 +10,20 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE Local SET estado = false WHERE id = ?")
 public class Local {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @NotNull(message ="La direccion es obligatoria")
+    @NotNull
     @NotEmpty(message ="La direccion es obligatoria")
     private String direccion;
     @NotNull(message ="La cantidad de Personas no puede ser nulla")
@@ -29,4 +31,5 @@ public class Local {
     @NotNull(message = "El precio no puede ser nullo")
     private Double precio;
     private String foto;
+    private boolean estado;
 }

@@ -40,8 +40,23 @@ public class LocalService {
     }
     
     @Transactional
-    public Local BuscarLocalPorId(Integer id){
+    public Local buscarLocalPorId(Integer id){
        return localRepository.BuscarLocalPorId(id);
+    }
+    
+    @Transactional
+    public List<Local> filtrarPorPrecioMax(Double precio){
+        return localRepository.BuscarPorPrecioMaximo(precio);
+    }
+    
+    @Transactional
+    public List<Local> filtrarPorCapacidad(Integer capacidad){
+        return localRepository.BuscarPorCantidadPersonas(capacidad);
+    }
+    
+    @Transactional
+    public List<Local> filtrarPorUbicacion(String ubicacion){
+        return localRepository.BuscarPorDireccion(ubicacion);
     }
     
     @Transactional
