@@ -12,11 +12,13 @@ import com.gylgroup.conelalma.enums.TipoEvento;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE menu SET estado = false WHERE id = ?")
 public class Menu {
 
     @Id
@@ -30,4 +32,6 @@ public class Menu {
     private Integer cantidadBaseComensales;
     private Double precioBase;
     private String foto;
+
+    private Boolean estado;
 }

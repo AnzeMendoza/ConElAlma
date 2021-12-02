@@ -12,15 +12,18 @@ import com.gylgroup.conelalma.enums.TipoEvento;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE bebida SET estado = false WHERE id = ?")
 public class Bebida {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer id;
 
     @Enumerated(EnumType.STRING)
@@ -30,6 +33,8 @@ public class Bebida {
     private Integer cantidadBaseComensales;
     private Double precioBase;
     private String foto;
+
+    private Boolean estado;
 
 
 }
