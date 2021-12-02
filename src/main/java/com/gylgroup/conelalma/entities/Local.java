@@ -22,15 +22,15 @@ public class Local {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull
+    
     @NotEmpty(message ="El nombre es obligatorio")
     private String nombre;
-    @NotNull
+    
     @NotEmpty(message ="La direccion es obligatoria")
     private String direccion;
-    @NotNull(message ="La cantidad de Personas no puede ser nulla")
+    @NotNull(message ="La cantidad de Personas no puede ser nula")
     private Integer cantidadMaximaPersonas;
-    @NotNull(message = "El precio no puede ser nullo")
+    @NotNull(message = "El precio no puede ser nulo")
     private Double precio;
     private String foto;
     private boolean estado;
