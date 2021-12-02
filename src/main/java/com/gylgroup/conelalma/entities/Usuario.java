@@ -30,4 +30,6 @@ public class Usuario {
     private String email;
     private String contrasenia;
     private String foto;
+
+
 }

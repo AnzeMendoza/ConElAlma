@@ -39,4 +39,5 @@ public class Comentario {
     private Reserva reserva;
 
     private Boolean estado;
+
 }

@@ -10,21 +10,22 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/comentarios")
 public class ComentarioController {
 
     @Autowired
     private ComentarioService comentarioService;
-
+/*
     @GetMapping
     public ModelAndView listaComentarios(){
-        ModelAndView mav = new ModelAndView("lista-comentarios");
+        ModelAndView mav = new ModelAndView("comentarios");
         //traer comentarios solo en alta?
-        mav.addObject("listaComentarios",comentarioService.traerTodos());
+        mav.addObject("comentarios",comentarioService.traerTodos());
         return mav;
     }
-
     @GetMapping("/crear")
     public ModelAndView crearComentario(){
         ModelAndView mav = new ModelAndView("comentario-formulario");
@@ -88,7 +89,7 @@ public class ComentarioController {
         RedirectView reMav = new RedirectView("/comentarios");
         comentarioService.bajaComentario(id);
         return reMav;
-    }
+    }*/
 
 
 }

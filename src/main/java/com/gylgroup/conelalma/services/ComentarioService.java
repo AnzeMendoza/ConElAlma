@@ -53,8 +53,8 @@ public class ComentarioService {
         if(!reservaRepository.existsReservaById(dto.getReserva().getId())){
             throw new Exception("No existe un comentario asociado a la reserva con ID : "+dto.getReserva().getId());
         }
-
-        Comentario comentario = new Comentario();
+        //AGREGAR EXCEPCION
+        Comentario comentario = comentarioRepository.findById(dto.getId()).orElse(null);
 
         comentario.setCalificacion(dto.getCalificacion());
         comentario.setDescripcion(dto.getDescripcion());
