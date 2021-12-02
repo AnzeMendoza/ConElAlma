@@ -10,6 +10,7 @@ public class ConelalmaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ConelalmaApplication.class, args);
+                
 	}
 
 }

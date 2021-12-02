@@ -24,14 +24,14 @@ public class LocalController {
     @GetMapping()
     public ModelAndView locales(){
         List<Local> misLocales = localService.misLocales();
-        ModelAndView model = new ModelAndView("");
+        ModelAndView model = new ModelAndView("prueba.html");
         model.addObject("Locales", misLocales);
         return model;
     }
     
     @GetMapping("/crear")
     public ModelAndView crearLocal(){
-        ModelAndView model = new ModelAndView("");
+        ModelAndView model = new ModelAndView("pruebaform.html");
         model.addObject("local", new Local());
         model.addObject("title","Crear nuevo Local");
         model.addObject("action", "guardar");
@@ -51,9 +51,9 @@ public class LocalController {
     
     @GetMapping("/editar/{id}")
     public ModelAndView editarLocal(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("pruebaform.html");
         if(localService.existsLocal(id)){
-            mav.addObject("Local", localService.buscarLocalPorId(id));
+            mav.addObject("local", localService.buscarLocalPorId(id));
             mav.addObject("title","Editar Local");
             mav.addObject("action", "modificar");
         }
@@ -67,7 +67,7 @@ public class LocalController {
         return redirectView;
     }
     
-    @PostMapping("/eliminar")
+    @GetMapping("/eliminar/{id}")
     public RedirectView eliminarLocal(@PathVariable Integer id){
         localService.eliminarLocal(id);
         return new RedirectView("/Locales");

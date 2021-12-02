@@ -22,7 +22,9 @@ public class Local {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+    @NotNull
+    @NotEmpty(message ="El nombre es obligatorio")
+    private String nombre;
     @NotNull
     @NotEmpty(message ="La direccion es obligatoria")
     private String direccion;
