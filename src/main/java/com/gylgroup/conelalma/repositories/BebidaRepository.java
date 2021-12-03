@@ -1,4 +1,4 @@
-package com.gylgroup.conelalma.repositorys;
+package com.gylgroup.conelalma.repositories;
 
 import com.gylgroup.conelalma.entities.Bebida;
 import com.gylgroup.conelalma.entities.Menu;

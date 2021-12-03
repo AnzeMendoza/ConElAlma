@@ -2,7 +2,7 @@ package com.gylgroup.conelalma.services;
 
 import com.gylgroup.conelalma.entities.Bebida;
 import com.gylgroup.conelalma.entities.Menu;
-import com.gylgroup.conelalma.repositorys.BebidaRepository;
+import com.gylgroup.conelalma.repositories.BebidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 

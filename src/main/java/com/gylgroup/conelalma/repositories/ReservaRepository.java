@@ -1,4 +1,4 @@
-package com.gylgroup.conelalma.repositorys;
+package com.gylgroup.conelalma.repositories;
 
 import com.gylgroup.conelalma.entities.Reserva;
 import org.springframework.data.jpa.repository.JpaRepository;

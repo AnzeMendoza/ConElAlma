@@ -1,7 +1,7 @@
 package com.gylgroup.conelalma.services;
 
 import com.gylgroup.conelalma.entities.Menu;
-import com.gylgroup.conelalma.repositorys.MenuRepository;
+import com.gylgroup.conelalma.repositories.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
