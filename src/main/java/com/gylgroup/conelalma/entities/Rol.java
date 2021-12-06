@@ -22,4 +22,6 @@ public class Rol {
 
     @Column(unique = true)
     private String nombre;
+
+    private Boolean estado;
 }

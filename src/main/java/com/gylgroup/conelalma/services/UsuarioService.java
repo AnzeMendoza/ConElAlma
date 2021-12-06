@@ -8,7 +8,6 @@ import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.repositories.RolRepository;
 import com.gylgroup.conelalma.repositories.UsuarioRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,48 +22,87 @@ public class UsuarioService {
     RolRepository rolRepository;
 
     @Transactional
-    public void agregarUsuario(String nombre, String apellido, String celular, Rol rol, String email,
-            String contrasenia, String foto) throws ExceptionService {
+    public void save(Usuario usuario, Rol rol) throws ExceptionService {
 
-        if (usuarioRepository.findByEmail(email).isPresent()) {
+        Optional<Usuario> opUsuario = usuarioRepository.findByEmail(usuario.getEmail());
+        if (opUsuario.isPresent()) {
+
             throw new ExceptionService("YA EXISTE UN USUARIO CON EL EMAIL INDICADO!");
         }
 
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setApellido(apellido);
-        usuario.setCelular(celular);
-        usuario.setRol(rol);
-        usuario.setEmail(email);
-        usuario.setContrasenia(contrasenia);// encoder.encode(contrasenia) codificar la contrasenia
-        usuario.setFoto(foto);
-        usuario.setEstado(true);
-        usuarioRepository.save(usuario);
+        if (rol == null) {
+
+            usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
+            usuario.setEstado(true);
+            usuarioRepository.save(usuario);
+        } else {
+
+            usuario.setRol(rol);
+            usuario.setEstado(true);
+            usuarioRepository.save(usuario);
+        }
+
+    }
+
+    @Transactional
+    public void update(Integer id, Usuario usuario, Rol rol) throws ExceptionService {
+
+        Optional<Usuario> opUsuario = usuarioRepository.findById(id);
+        if (opUsuario.isPresent()) {
+
+            Usuario upUsuario = opUsuario.get();
+            upUsuario.setNombre(usuario.getNombre());
+            upUsuario.setApellido(usuario.getApellido());
+            upUsuario.setCelular(usuario.getCelular());
+            upUsuario.setEmail(usuario.getEmail());
+            upUsuario.setContrasenia(usuario.getContrasenia());
+            upUsuario.setEstado(true);
+            upUsuario.setRol(rol);
+        } else {
+            throw new ExceptionService("NO EXISTE EL USUARIO!");
+        }
+
     }
 
     @Transactional(readOnly = true)
-    public List<Usuario> buscarTodos() {
+    public Rol findByRol(String nombre) throws ExceptionService {
+
+        Optional<Rol> opRol = rolRepository.findByNombre(nombre);
+        if (opRol.isPresent()) {
+
+            Rol rolCliente = rolRepository.findByNombre(nombre).get();
+            return rolCliente;
+        } else {
+            throw new ExceptionService("ROL CLIENTE INEXISTENTE!");
+        }
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Usuario buscarPorId(Integer id) {
+    public Usuario finById(Integer id) {
         return usuarioRepository.findById(id).orElse(null);
     }
 
     @Transactional
-    public void eliminar(Integer id) {
+    public void disable(Integer id) {
 
         Optional<Usuario> opUsuario = usuarioRepository.findById(id);
         if (opUsuario.isPresent()) {
+
             Usuario usuario = opUsuario.get();
             usuario.setEstado(false);
+            usuarioRepository.save(usuario);
         }
 
     }
 
     @Transactional
-    public void habilitar(Integer id) {
+    public void enable(Integer id) {
 
         Optional<Usuario> opUsuario = usuarioRepository.findById(id);
         if (opUsuario.isPresent()) {
