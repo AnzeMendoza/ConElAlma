@@ -17,7 +17,7 @@ public class ReservaService {
     private ReservaRepository reservaRepository;
 
     @Transactional
-    public void crearReserva(Reserva dto){
+    public void save(Reserva dto){
         Reserva reserva = new Reserva();
 
         reserva.setPresupuestoLive(dto.getPresupuestoLive());
@@ -30,7 +30,7 @@ public class ReservaService {
     }
 
     @Transactional
-    public void modificarReserva(Reserva dto) throws Exception{
+    public void update(Reserva dto) throws Exception{
         Reserva reserva = reservaRepository.findById(dto.getId()).orElseThrow(()-> new Exception("No existe la reserva asociada al ID: "+dto.getId()));
 
         reserva.setPresupuestoLive(dto.getPresupuestoLive());
@@ -43,37 +43,37 @@ public class ReservaService {
     }
 
     @Transactional
-    public Reserva buscarPorId(Integer id){
+    public Reserva findById(Integer id){
         Optional<Reserva> optional = reservaRepository.findById(id);
         return optional.orElse(null);
     }
 
     @Transactional
-    public List<Reserva> traerTodas(){
+    public List<Reserva> findAll(){
         return reservaRepository.findAll();
     }
 
     @Transactional
-    public List<Reserva> traerAltas(){
-        return reservaRepository.traerAltas();
+    public List<Reserva> findAllEnable(){
+        return reservaRepository.findAllEnable();
     }
 
     @Transactional
-    public List<Reserva> traerReservasFecha(Date fechaReserva){
-        return reservaRepository.traerPorFecha(fechaReserva);
+    public List<Reserva> findByFecha(Date fechaReserva){
+        return reservaRepository.findByFecha(fechaReserva);
     }
 
     @Transactional
-    public void bajaReserva(Integer id){
+    public void disable(Integer id){
         if(reservaRepository.existsReservaById(id)){
-            reservaRepository.deleteById(id);
+            reservaRepository.disable(id);
         }
     }
 
     @Transactional
-    public void altaReserva(Integer id){
+    public void enable(Integer id){
         if(reservaRepository.existsReservaById(id)){
-            reservaRepository.habilitar(id);
+            reservaRepository.enable(id);
         }
     }
 

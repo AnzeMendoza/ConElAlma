@@ -27,7 +27,7 @@ public class ComentarioController {
         return mav;
     }
     @GetMapping("/crear")
-    public ModelAndView crearComentario(){
+    public ModelAndView save(){
         ModelAndView mav = new ModelAndView("comentario-formulario");
 
         mav.addObject("comentario",new Comentario());
@@ -41,7 +41,7 @@ public class ComentarioController {
     public ModelAndView editarComentario(@PathVariable Integer id){
         ModelAndView mav = new ModelAndView("comentario-formulario");
 
-        mav.addObject("comentario",comentarioService.buscarPorId(id));
+        mav.addObject("comentario",comentarioService.findById(id));
         mav.addObject("action","modifcar");
         mav.addObject("title","Editar comentario");
 
@@ -52,7 +52,7 @@ public class ComentarioController {
     public RedirectView persistirComentario(@ModelAttribute Comentario comentario, RedirectAttributes attributes){
 
         try {
-            comentarioService.crearComentario(comentario);
+            comentarioService.save(comentario);
             attributes.addFlashAttribute("exito","Comentario registrado con exito.");
             return new RedirectView("/comentarios");
         } catch (Exception e) {
@@ -67,7 +67,7 @@ public class ComentarioController {
         RedirectView reMav = new RedirectView("/comentarios");
 
         try {
-            comentarioService.modificarComentario(comentario);
+            comentarioService.update(comentario);
             attributes.addFlashAttribute("exito", "Modificacion exitosa");
         } catch (Exception e) {
             attributes.addFlashAttribute("comentario",comentario);
@@ -78,16 +78,16 @@ public class ComentarioController {
     }
 
     @PostMapping("/alta/{id}")
-    public RedirectView altaComentario(@PathVariable Integer id){
+    public RedirectView enable(@PathVariable Integer id){
         RedirectView reMav = new RedirectView("/comentarios");
-        comentarioService.altaComentario(id);
+        comentarioService.enable(id);
         return reMav;
     }
 
     @PostMapping("/baja/{id}")
-    public RedirectView bajaComentario(@PathVariable Integer id){
+    public RedirectView disable(@PathVariable Integer id){
         RedirectView reMav = new RedirectView("/comentarios");
-        comentarioService.bajaComentario(id);
+        comentarioService.disable(id);
         return reMav;
     }*/
 

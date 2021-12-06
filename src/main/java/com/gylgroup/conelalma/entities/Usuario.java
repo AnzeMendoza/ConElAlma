@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -26,7 +28,6 @@ public class Usuario {
 
     @ManyToOne
     private Rol rol;
-
     private String email;
     private String contrasenia;
     private String foto;

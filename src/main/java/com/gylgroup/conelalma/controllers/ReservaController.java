@@ -20,12 +20,12 @@ public class ReservaController {
     @GetMapping
     public ModelAndView listaReservas(){
         ModelAndView mav = new ModelAndView("lista_reservas");
-        mav.addObject("listaRerservas",reservaService.traerTodas());
+        mav.addObject("listaRerservas",reservaService.findAll());
         return mav;
     }
 
     @GetMapping("crear")
-    public ModelAndView crearReserva(){
+    public ModelAndView save(){
         ModelAndView mav = new ModelAndView("reserva-formulario");
 
         mav.addObject("reserva",new Reserva());
@@ -39,7 +39,7 @@ public class ReservaController {
     public ModelAndView editarReserva(@PathVariable Integer id){
         ModelAndView mav = new ModelAndView("reserva-formulario");
 
-        mav.addObject("reserva",reservaService.buscarPorId(id));
+        mav.addObject("reserva",reservaService.findById(id));
         mav.addObject("action","modificar");
         mav.addObject("title","Modifcar reserva");
 
@@ -50,7 +50,7 @@ public class ReservaController {
     @PostMapping("/guardar")
     public RedirectView persistirReserva(@ModelAttribute Reserva reserva){
         RedirectView reMav = new RedirectView("/reservas");
-        reservaService.crearReserva(reserva);
+        reservaService.save(reserva);
         return reMav;
     }
 
@@ -58,10 +58,10 @@ public class ReservaController {
     public RedirectView modifcarReserva(@ModelAttribute Reserva reserva,RedirectAttributes attributes){
         RedirectView reMav = new RedirectView("/reservas");
         try {
-            reservaService.modificarReserva(reserva);
+            reservaService.update(reserva);
             attributes.addFlashAttribute("exito", "Modificacion Exitosa");
         } catch (Exception e) {
-            attributes.addFlashAttribute("reserva",reservaService.buscarPorId(reserva.getId()));
+            attributes.addFlashAttribute("reserva",reservaService.findById(reserva.getId()));
             attributes.addFlashAttribute("error-name",e.getMessage());
             reMav.setUrl("/reservas/editar/"+reserva.getId());
         }
@@ -72,14 +72,14 @@ public class ReservaController {
     @PostMapping("/baja/{id}")
     public RedirectView bajaRerserva(@PathVariable Integer id){
         RedirectView reMav = new RedirectView("/reservas");
-        reservaService.bajaReserva(id);
+        reservaService.disable(id);
         return reMav;
     }
 
     @PostMapping("/alta/{id}")
     public RedirectView habilitarRerserva(@PathVariable Integer id){
         RedirectView reMav = new RedirectView("/reservas");
-        reservaService.altaReserva(id);
+        reservaService.enable(id);
         return reMav;
     }
 

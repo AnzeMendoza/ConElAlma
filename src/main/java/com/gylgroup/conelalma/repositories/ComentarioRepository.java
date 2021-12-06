@@ -14,16 +14,20 @@ public interface ComentarioRepository extends JpaRepository<Comentario,Integer> 
 
     @Modifying
     @Query(value = "UPDATE comentario SET estado = true WHERE id = ?1", nativeQuery = true)
-    void habilitar(Integer id);
+    void enable(Integer id);
+
+    @Modifying
+    @Query(value = "UPDATE comentario SET estado = false WHERE id = ?1", nativeQuery = true)
+    void disable(Integer id);
 
     @Query(value = "SELECT * FROM comentario WHERE estado=true", nativeQuery = true)
-    List<Comentario> traerAltas();
+    List<Comentario> findAllEnable();
 
     @Query(value = "SELECT * FROM comentario WHERE usuario_id = ?1 ",nativeQuery = true)
-    List<Comentario> traerPorUsuario(Integer usuario_id);
+    List<Comentario> findByUsuario(Integer usuario_id);
 
     @Query(value = "SELECT * FROM comentario WHERE reserva_id = ?1 ",nativeQuery = true)
-    List<Comentario> traerPorReserva(Integer reserva_id);
+    List<Comentario> findByReserva(Integer reserva_id);
 
     Optional<Comentario> findById(Integer id);
 
