@@ -27,7 +27,7 @@ public class Menu {
 
     @OneToMany
     private List<Combos> listaCombos;
-    
+
     private Integer cantidadBaseComensales;
     private Double precioBase;
     private String foto;
