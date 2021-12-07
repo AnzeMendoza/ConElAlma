@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 @SQLDelete(sql = "UPDATE menu SET estado = false WHERE id = ?")
 public class Menu {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,7 +28,9 @@ public class Menu {
     private List<Combos> listaCombos;
 
     private Integer cantidadBaseComensales;
+
     private Double precioBase;
+
     private String foto;
 
     private Boolean estado;

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class MenuService {
 
-    @Autowired
+/*    @Autowired
     private MenuRepository repository;
 
     @Transactional
@@ -125,5 +125,5 @@ public class MenuService {
         }
 
         return repository.listaMenuXComensales(comensales);
-    }
+    }*/
 }

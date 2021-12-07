@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LocalService {
+
     @Autowired
     private LocalRepository localRepository;
     
@@ -72,6 +73,4 @@ public class LocalService {
     public void disable(Integer id) {
         localRepository.deleteById(id);
     }
-    
-    
 }

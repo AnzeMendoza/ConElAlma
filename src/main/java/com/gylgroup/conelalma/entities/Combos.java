@@ -23,11 +23,13 @@ public class Combos {
 
     @OneToMany
     private List<Bebida> listaBebidas;
+
     @OneToMany
     private List<Comida> listaComida;
 
     private Double precioCombo;
-    private Boolean estado;
-    private String foto;
 
+    private Boolean estado;
+
+    private String foto;
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/Comidas")
 public class ComidaController {
+
     @Autowired
     private ComidaService comidaService;
     
@@ -25,6 +26,7 @@ public class ComidaController {
         mav.addObject("comidas", comidaService.findAll());
         return mav;
     }
+
     @GetMapping("/crear")
     public ModelAndView crearComida(){
         ModelAndView mav = new ModelAndView("");
@@ -69,5 +71,4 @@ public class ComidaController {
         comidaService.disable(id);
         return new RedirectView("/Comidas");
     }
-    
 }

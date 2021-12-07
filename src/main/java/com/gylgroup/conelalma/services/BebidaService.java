@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BebidaService {
-
+/*
     @Autowired
     private BebidaRepository repository;
 
     @Transactional
     public void crearBebida(Bebida dto) throws Exception{
-
+        dto.get
         if(dto.getTipoEvento() ==null ){
             throw new Exception("El tipo de evento no puede ser null");
         }
@@ -125,7 +125,5 @@ public class BebidaService {
             throw new Exception("La cantidad de comensales debe ser mayor a 0");
         }
         return repository.listaMenuXComensales(comensales);
-    }
-
-
+    }*/
 }

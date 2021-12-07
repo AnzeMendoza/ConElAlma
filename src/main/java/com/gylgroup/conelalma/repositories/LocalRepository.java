@@ -23,8 +23,6 @@ public interface LocalRepository extends JpaRepository<Local,Integer> {
     
     @Query("SELECT l FROM Local l WHERE l.direccion =: direccion")
     List<Local> BuscarPorDireccion(@Param("direccion") String direccion);
-    
-    
+
     boolean existsById(Integer Id);
-    
 }

@@ -20,12 +20,14 @@ public class Comida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @NotEmpty(message="El nombre no puede ser nulo")
     private String nombre;
+
     @NotNull(message="Debe de asignarle un precio")
     private Double precioUnitario;
+
     private boolean estado;
-    
 }
 
 

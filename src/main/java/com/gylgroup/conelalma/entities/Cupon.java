@@ -30,7 +30,9 @@ public class Cupon {
     private Integer id;
 
     private String codigo;
+
     private Boolean estado;
+
     private Integer descuento;
 
     @CreatedDate

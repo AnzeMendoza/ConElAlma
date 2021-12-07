@@ -25,23 +25,20 @@ public class UsuarioService {
     public void save(Usuario usuario, Rol rol) throws ExceptionService {
 
         Optional<Usuario> opUsuario = usuarioRepository.findByEmail(usuario.getEmail());
-        if (opUsuario.isPresent()) {
 
+        if (opUsuario.isPresent()) {
             throw new ExceptionService("YA EXISTE UN USUARIO CON EL EMAIL INDICADO!");
         }
 
         if (rol == null) {
-
             usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
             usuario.setEstado(true);
             usuarioRepository.save(usuario);
         } else {
-
             usuario.setRol(rol);
             usuario.setEstado(true);
             usuarioRepository.save(usuario);
         }
-
     }
 
     @Transactional
@@ -92,27 +89,24 @@ public class UsuarioService {
 
     @Transactional
     public void disable(Integer id) {
-
         Optional<Usuario> opUsuario = usuarioRepository.findById(id);
+
         if (opUsuario.isPresent()) {
 
             Usuario usuario = opUsuario.get();
             usuario.setEstado(false);
             usuarioRepository.save(usuario);
         }
-
     }
 
     @Transactional
     public void enable(Integer id) {
-
         Optional<Usuario> opUsuario = usuarioRepository.findById(id);
+
         if (opUsuario.isPresent()) {
             Usuario usuario = opUsuario.get();
             usuario.setEstado(true);
             usuarioRepository.save(usuario);
         }
-
     }
-
 }

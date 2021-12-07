@@ -26,9 +26,7 @@ public interface BebidaRepository extends JpaRepository<Bebida,Integer> {
     @Query(value = "SELECT * FROM bebida WHERE estado=true", nativeQuery = true)
     List<Menu> obtenerAltas();
 
-
     @Modifying
     @Query(value = "UPDATE bebida SET estado = true WHERE id = ?1", nativeQuery = true)
     void darAltaBebida(Integer id);
-
 }

@@ -18,7 +18,6 @@ import org.hibernate.annotations.SQLDelete;
 @Setter
 @SQLDelete(sql = "UPDATE Local SET estado = false WHERE id = ?")
 public class Local {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,10 +27,14 @@ public class Local {
     
     @NotEmpty(message ="La direccion es obligatoria")
     private String direccion;
+
     @NotNull(message ="La cantidad de Personas no puede ser nula")
     private Integer cantidadMaximaPersonas;
+
     @NotNull(message = "El precio no puede ser nulo")
     private Double precio;
+
     private String foto;
+
     private boolean estado;
 }

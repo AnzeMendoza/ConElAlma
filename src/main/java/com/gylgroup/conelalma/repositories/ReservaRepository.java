@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva,Integer> {
-
     @Modifying
     @Query(value="UPDATE reserva  SET presupuesto_live_id = ?1 , fecha_reserva= ?2, estado = ?3, tipo_de_pago = ?4 , pago_efectuado = ?5 WHERE id = ?6 ",nativeQuery = true)
     void modificarReserva(Integer presupuesto_id, Date fecha_reserva, Boolean estado, String tipo_pago, Boolean pego_efectuado, Integer id);

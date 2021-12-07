@@ -27,21 +27,17 @@ public class RolService {
 
         Optional<Rol> opRol = rolRepository.findByNombre(rol.getNombre());
         if (opRol.isPresent()) {
-
             throw new ExceptionService("YA EXISTE UN ROL CON EL NOMBRE INDICADO!");
         } else {
-
             rol.setEstado(true);
             rolRepository.save(rol);
         }
-
     }
 
     public void update(Integer id, Rol rol) throws ExceptionService {
-
         Optional<Rol> opRol = rolRepository.findById(id);
-        if (opRol.isPresent()) {
 
+        if (opRol.isPresent()) {
             Rol upRol = opRol.get();
             upRol.setNombre(rol.getNombre());
             upRol.setEstado(true);
@@ -51,7 +47,6 @@ public class RolService {
 
     @Transactional
     public void disable(Integer id) {
-
         Optional<Rol> opRol = rolRepository.findById(id);
         if (opRol.isPresent()) {
 
@@ -59,20 +54,15 @@ public class RolService {
             rol.setEstado(false);
             rolRepository.save(rol);
         }
-
     }
 
     @Transactional
     public void enable(Integer id) {
-
         Optional<Rol> opRol = rolRepository.findById(id);
         if (opRol.isPresent()) {
-
             Rol rol = opRol.get();
             rol.setEstado(true);
             rolRepository.save(rol);
         }
-
     }
-
 }

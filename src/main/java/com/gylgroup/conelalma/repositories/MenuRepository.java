@@ -1,7 +1,6 @@
 package com.gylgroup.conelalma.repositories;
 
 import com.gylgroup.conelalma.entities.Menu;
-import jdk.jfr.Registered;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,8 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface MenuRepository extends JpaRepository<Menu,Integer> {
-
-
     // LA BUSQUEDA COMPLETA DE MENU EN LISTA se resuelve con findAll() en el service
     // LA MODIFICACION DE MENU se resuelve con el repository.save en el service
 
@@ -31,7 +28,4 @@ public interface MenuRepository extends JpaRepository<Menu,Integer> {
     @Modifying
     @Query(value = "UPDATE menu SET estado = true WHERE id = ?1", nativeQuery = true)
     void darAltaMenu(Integer id);
-
-
-
 }

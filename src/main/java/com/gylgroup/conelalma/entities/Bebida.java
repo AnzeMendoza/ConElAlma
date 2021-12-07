@@ -22,8 +22,8 @@ public class Bebida {
     private Integer id;
 
     private String nombre;
+
     private Double precioUnitario;
+
     private Boolean estado;
-
-
 }
