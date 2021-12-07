@@ -1,22 +1,21 @@
 package com.gylgroup.conelalma.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import com.gylgroup.conelalma.enums.TipoEvento;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE menu SET estado = false WHERE id = ?")
 public class Menu {
 
     @Id
@@ -26,8 +25,12 @@ public class Menu {
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
 
-    private String comboMenu;
+    @OneToMany
+    private List<Combos> listaCombos;
+
     private Integer cantidadBaseComensales;
     private Double precioBase;
     private String foto;
+
+    private Boolean estado;
 }
