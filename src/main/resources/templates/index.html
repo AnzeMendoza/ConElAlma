@@ -1,26 +1,492 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <title>Bienvenidos</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>ConElAlma Home</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+ 
 </head>
 
-<body>
-    <nav th:replace="components/fragments :: navbar"></nav>
-    <header>
-        <h1 class="text-center">Bienvenidos</h1>
-    </header>
 
-    <footer th:replace="components/fragments :: footer"></footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+      <h1><a th:href="@{/}">ConElAlma</a></h1>
+     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
+          <li><a class="nav-link scrollto" href="#menu">Platos</a></li>
+          <li><a class="nav-link scrollto" href="#gallery">Locales</a></li>
+          <li><a class="nav-link scrollto" href="#events">Eventos</a></li>
+          <li><a class="nav-link scrollto" href="#testimonials">Comentarios</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+      <a th:href="@{/login}" class="book-a-table-btn scrollto d-none d-lg-flex">Login</a>
+      <a th:href="@{/signup}" class="book-a-table-btn scrollto d-none d-lg-flex">Registrarse</a>
+
+    </div>
+  </header><!-- Fin Header -->
+
+ <!-- ======= Home seccion ======= -->
+ <section id="hero" class="d-flex align-items-center">
+  <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1>Bienvenido a <span>Con El Alma</span></h1>
+        <h2>Servicio integral de catering para todo tipo de eventos.</h2>
+
+        <div class="btns">
+          <a href="#menu" class="btn-menu animated fadeInUp scrollto">Nuestros menus</a>
+          <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Promociones</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section><!-- Fin home seccion -->
+
+  <!-- ======= Seccion nosotros ======= -->
+  <section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row">
+        <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+          <div class="about-img">
+            <img th:src="@{/img/nosotros.jpg}" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+          <h3>Descripcion de nosotros como empresa. Fecha fundacion, años experiencia, servicios, etc.</h3>
+          <p class="fst-italic">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+            magna aliqua.
+          </p>
+          <ul>
+            <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+            <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+            <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+          </ul>
+          <p>
+            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- Fin seccion nosotros -->
+    
+ <!-- ======= Ejemplo de platos ======= -->
+ <section id="menu" class="menu section-bg">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Menu</h2>
+      <p>Algunos de nuestros platos</p>
+    </div>
+
+    <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
+
+      <div class="col-lg-6 menu-item filter-starters">
+        <img th:src="@{/img/plato-1.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 1</a><span>$5.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Lorem, deren, trataro, filede, nerada
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-specialty">
+        <img th:src="@{/img/plato-2.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 2</a><span>$6.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Lorem, deren, trataro, filede, nerada
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-starters">
+        <img th:src="@{/img/plato-3.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 3</a><span>$7.95</span>
+        </div>
+        <div class="menu-ingredients">
+          A delicate crab cake served on a toasted roll with lettuce and tartar sauce
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-salads">
+        <img th:src="@{/img/plato-4.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 4</a><span>$8.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Lorem, deren, trataro, filede, nerada
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-specialty">
+        <img th:src="@{/img/plato-5.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 5</a><span>$9.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Grilled chicken with provolone, artichoke hearts, and roasted red pesto
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-starters">
+        <img th:src="@{/img/plato-6.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 6</a><span>$4.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Lorem, deren, trataro, filede, nerada
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-salads">
+        <img th:src="@{/img/plato-7.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 7</a><span>$9.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Fresh spinach, crisp romaine, tomatoes, and Greek olives
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-salads">
+        <img th:src="@{/img/plato-8.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 8</a><span>$9.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Fresh spinach with mushrooms, hard boiled egg, and warm bacon vinaigrette
+        </div>
+      </div>
+
+      <div class="col-lg-6 menu-item filter-specialty">
+        <img th:src="@{/img/plato-9.jpg}" class="menu-img" alt="">
+        <div class="menu-content">
+          <a href="#">Plato muestra 9</a><span>$12.95</span>
+        </div>
+        <div class="menu-ingredients">
+          Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- Fin Ejemplo de platos -->
+
+<!-- ======= Galeria fotos de locales ======= -->
+<section id="gallery" class="gallery">
+
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Galeria</h2>
+      <p>Algunas fotos de nuestros locales</p>
+    </div>
+  </div>
+
+  <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+
+    <div class="row g-0">
+
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-1.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-1.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-2.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-2.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-4.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-3.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-5.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-4.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-5.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-5.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-6.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-6.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-7.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-7.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-4">
+        <div class="gallery-item">
+          <a href="assets/img/gallery/gallery-8.jpg" class="gallery-lightbox" data-gall="gallery-item">
+            <img th:src="@{/img/evento-8.jpg}" alt="" class="img-fluid">
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- Fin Galeria fotos de locales -->
+
+<!-- ======= Seccion Eventos ======= -->
+<section id="events" class="events">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Eventos</h2>
+      <p>Organiza tus eventos en nuestros locales</p>
+    </div>
+
+    <div class="events-slider swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+          <div class="row event-item">
+            <div class="col-lg-6"> <!--SOCIAL IMAGEN-->
+              <img th:src="@{/img/evento-social.jpg}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 content"><!--SOCIAL DESCRIPCION-->
+              <h3>Eventos sociales</h3>
+              <div class="price">
+                <p><span>$9580</span></p>
+              </div>
+              <p class="fst-italic">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua.
+              </p>
+              <ul>
+                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                <li><i class="bi bi-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+              </ul>
+              <p>
+                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur
+              </p>
+            </div>
+          </div>
+        </div><!-- End testimonial item -->
+
+        <div class="swiper-slide">
+          <div class="row event-item">
+            <div class="col-lg-6"> <!--EMPRESARIAL IMAGEN-->
+              <img th:src="@{/img/evento-empresarial.jpg}" class="img-fluid" alt="">
+            </div>
+            <div class="col-lg-6 pt-4 pt-lg-0 content"> <!--EMPRESARIAL DESCRIPCION-->
+              <h3>Eventos empresariales</h3>
+              <div class="price">
+                <p><span>$15800</span></p>
+              </div>
+              <p class="fst-italic">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua.
+              </p>
+              <ul>
+                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                <li><i class="bi bi-check-circled"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                <li><i class="bi bi-check-circled"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+              </ul>
+              <p>
+                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                velit esse cillum dolore eu fugiat nulla pariatur
+              </p>
+            </div>
+          </div>
+        </div><!-- End testimonial item -->
+
+
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+  </div>
+</section><!-- Fin Seccion Eventos -->
+
+
+<!-- ======= Opiniones de clientes ======= -->
+<section id="testimonials" class="testimonials section-bg">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Reseñas</h2>
+      <p>Que opinan los clientes de nuestros servicios!</p>
+    </div>
+
+    <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper" >
+
+        <div class="swiper-slide" th:each="comentario : ${comentarios}">
+          <div class="testimonial-item" >
+            <p th:text="${comentario.descripcion}"></p>
+            <img th:src="@{/img/testimonials-1.jpg}" class="testimonial-img" alt="">
+            <h3 th:text="|${comentario.usuario.nombre} ${comentario.usuario.apellido}|"></h3>
+            <h4 th:text="${comentario.calificacion}"></h4>
+          </div>
+        </div>
+
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</section><!-- Fin de opiniones de clientes -->
+
+
+<!-- ======= Seccion de contacto ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Contacto</h2>
+      <p>Contactanos</p>
+    </div>
+  </div>
+
+  <div class="container" data-aos="fade-up">
+
+    <div class="row mt-5">
+
+      <div class="col-lg-4">
+        <div class="info">
+          <div class="address">
+            <i class="bi bi-geo-alt"></i>
+            <h4>Direccion:</h4>
+            <p>Calle Falsa 123, Springfield</p>
+          </div>
+
+          <div class="open-hours">
+            <i class="bi bi-clock"></i>
+            <h4>Horario de atencion:</h4>
+            <p>
+              Lunes-Sabados:<br>
+              11:00 AM - 23:00 PM
+            </p>
+          </div>
+
+          <div class="email">
+            <i class="bi bi-envelope"></i>
+            <h4>Email:</h4>
+            <p>conelalma@ejemplo.com</p>
+          </div>
+
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4>Telefono:</h4>
+            <p>+54 11-5878-9654</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-8 mt-5 mt-lg-0">
+
+        <form action="#" method="post" role="form" class="email-form">
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Nombre" required>
+            </div>
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Correo electronico" required>
+            </div>
+          </div>
+          <div class="form-group mt-3">
+            <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" required>
+          </div>
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" rows="8" placeholder="Mensaje" required></textarea>
+          </div>
+          <div class="my-3">
+            <div class="loading">Cargando...</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Su mensaje ha sido enviado. Gracias!</div>
+          </div>
+          <div class="text-center"><button type="submit">Enviar mensaje</button></div>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- ======= Fin Seccion de contacto ======= -->
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>ConElAlma</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer><!-- Fin Footer -->
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
 </body>
 
 </html>

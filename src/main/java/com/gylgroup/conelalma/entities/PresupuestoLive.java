@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import com.gylgroup.conelalma.enums.TipoEvento;
@@ -34,21 +36,28 @@ public class PresupuestoLive {
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
 
-/*    @OneToOne
+    @NotNull(message = "Menu debe ser asignado")
+    @OneToOne
     private Menu menu;
 
-
+    @NotNull(message = "Menu debe ser asignado")
     @OneToOne
-    private Bebida bebida;*/
+    private Bebida bebida;
 
+    @NotNull(message = "La cantidad de comensales debe ser mayor a 0")
+    @Min(value = 0, message = "La cantidad de comensales debe ser mayor a 0")
     private Integer cantidadComensales;
 
-/*    @OneToOne
+    @NotNull(message = "Local debe ser asignado")
+    @OneToOne
     private Local local;
 
+    @NotNull(message = "Cupon debe ser asignado")
     @OneToOne
-    private Cupon cupon;*/
+    private Cupon cupon;
 
+    @NotNull(message = "Debe asignarse el precio final.")
+    @Min(value = 0, message = "tiene que ser mayor a 0")
     private Double precioFinal;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -57,11 +66,13 @@ public class PresupuestoLive {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime fechaEventoSolicitada;
 
-/*    @ManyToOne
-    private Usuario usuario;*/
+    @NotNull(message = "Usuario debe ser asignado")
+    @ManyToOne
+    private Usuario usuario;
 
     private Boolean estado;
 
-/*    @OneToMany(mappedBy = "presupuestoLive")
-    private List<Reserva> reservas;*/
+    @NotNull(message = "Reserva debe ser asignado")
+    @OneToMany(mappedBy = "presupuestoLive")
+    private List<Reserva> reservas;
 }

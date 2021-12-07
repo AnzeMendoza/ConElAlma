@@ -10,16 +10,19 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
+
 @Service
 public class BebidaService {
-/*
+
     @Autowired
     private BebidaRepository repository;
 
     @Transactional
     public void crearBebida(Bebida dto) throws Exception{
         dto.get
-        if(dto.getTipoEvento() ==null ){
+
+/*        if(dto.getTipoEvento() ==null ){
             throw new Exception("El tipo de evento no puede ser null");
         }
         if(dto.getComboBebida().trim()==null ){
@@ -36,7 +39,7 @@ public class BebidaService {
         }
         if(!repository.existsBebidaBy(dto.getId())){
             throw new Exception("No existe una Bebida asociada al ID: "+dto.getId());
-        }
+        }*/
 
         Bebida bebida = new Bebida();
 
@@ -125,5 +128,5 @@ public class BebidaService {
             throw new Exception("La cantidad de comensales debe ser mayor a 0");
         }
         return repository.listaMenuXComensales(comensales);
-    }*/
+    }
 }

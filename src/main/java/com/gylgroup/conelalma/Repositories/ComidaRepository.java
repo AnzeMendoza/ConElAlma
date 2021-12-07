@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComidaRepository extends JpaRepository<Comida,Integer> {
-    
+
+    //Todo usar el que ya viene jpa, porque hay dos?
     @Query("SELECT c FROM Comida c WHERE c.id =: id")
     Comida findbyId(@Param("id") Integer id);
     
