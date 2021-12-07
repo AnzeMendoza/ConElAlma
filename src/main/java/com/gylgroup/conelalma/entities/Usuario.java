@@ -42,6 +42,7 @@ public class Usuario {
     @NotEmpty(message = "El apellido es obligatorio!")
     private String apellido;
 
+    @NotEmpty(message = "El celular es obligatorio!")
     private String celular;
 
     @ManyToOne
