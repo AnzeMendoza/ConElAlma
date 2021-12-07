@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Listar Prestamo</title>
+</head>
+<body>
+<h1 th:text="${titulo}"></h1>
+
+<table class="default">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Tipo de Evento</th>
+    <th scope="col">Cantidad de comensales</th>
+    <th scope="col">precio final</th>
+    <th scope="col">fecha presupuesto</th>
+    <th scope="col">fecha evento solicitado</th>
+    <th scope="col">estado</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="presupuesto:${presupuestos}">
+    <td th:text="${presupuesto.id}"></td>
+    <td th:text="${presupuesto.tipoEvento}"></td>
+    <td th:text="${presupuesto.cantidadComensales}"></td>
+    <td th:text="${presupuesto.precioFinal}"></td>
+    <td th:text="${presupuesto.fechaPresupuesto}"></td>
+    <td th:text="${presupuesto.fechaEventoSolicitada}"></td>
+    <td th:text="${presupuesto.estado}"></td>
+    <!--
+    <td>
+
+      <a th:href="@{/formulario/autor/__${autor.id}__}"
+         class="btn btn-warning">
+         Editar
+      </a>
+
+      <a th:href="@{/eliminar/autor/__${autor.id}__}"
+         class="btn"
+         th:classappend="${autor.alta} ? btn-danger : btn-success"
+         th:text="${autor.alta} ? Desactivar : Activar">
+        Eliminar
+      </a>
+    </td>-->
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

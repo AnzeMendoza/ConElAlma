@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PresupuestoLiveRepository extends JpaRepository<PresupuestoLive, Integer> {
+    boolean existsById(Integer id);
 }

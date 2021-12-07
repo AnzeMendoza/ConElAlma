@@ -12,12 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
 
 import com.gylgroup.conelalma.enums.TipoEvento;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @NoArgsConstructor
@@ -32,31 +34,33 @@ public class PresupuestoLive {
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
 
-    @OneToOne
+/*    @OneToOne
     private Menu menu;
 
     @OneToOne
-    private Bebida bebida;
+    private Bebida bebida;*/
 
-    private Integer candidadComensales;
+    private Integer cantidadComensales;
 
-    @OneToOne
+/*    @OneToOne
     private Local local;
 
     @OneToOne
-    private Cupon cupon;
+    private Cupon cupon;*/
 
     private Double precioFinal;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime fechaPresupuesto;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime fechaEventoSolicitada;
 
-    @ManyToOne
-    private Usuario usuario;
+/*    @ManyToOne
+    private Usuario usuario;*/
 
     private Boolean estado;
 
-    @OneToMany(mappedBy = "presupuestoLive")
-    private List<Reserva> reservas;
+/*    @OneToMany(mappedBy = "presupuestoLive")
+    private List<Reserva> reservas;*/
 }
