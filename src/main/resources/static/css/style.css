@@ -1,0 +1,17 @@
+.navbar .navbar-nav > li .navbar-item,
+.navbar .navbar-brand,
+.nav-link {
+  color: red;
+}
+
+.text-muted {
+  color: red !important;
+}
+
+.ocultar {
+  display: none;
+}
+
+.mostrar {
+  display: block;
+}
