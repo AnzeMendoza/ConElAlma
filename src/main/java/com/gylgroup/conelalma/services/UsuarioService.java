@@ -58,7 +58,6 @@ public class UsuarioService {
             upUsuario.setContrasenia(usuario.getContrasenia());
             upUsuario.setEstado(true);
             upUsuario.setRol(rol);
-
             usuarioRepository.save(upUsuario);
         } else {
             throw new ExceptionService("NO EXISTE EL USUARIO!");
@@ -108,6 +107,7 @@ public class UsuarioService {
 
         Optional<Usuario> opUsuario = usuarioRepository.findById(id);
         if (opUsuario.isPresent()) {
+
             Usuario usuario = opUsuario.get();
             usuario.setEstado(true);
             usuarioRepository.save(usuario);

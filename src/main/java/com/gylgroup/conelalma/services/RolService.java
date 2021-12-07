@@ -37,6 +37,7 @@ public class RolService {
 
     }
 
+    @Transactional
     public void update(Integer id, Rol rol) throws ExceptionService {
 
         Optional<Rol> opRol = rolRepository.findById(id);
@@ -46,7 +47,15 @@ public class RolService {
             upRol.setNombre(rol.getNombre());
             upRol.setEstado(true);
             rolRepository.save(upRol);
+        } else {
+            throw new ExceptionService("NO EXISTE EL ROL!");
         }
+
+    }
+
+    @Transactional(readOnly = true)
+    public Rol findById(Integer id) {
+        return rolRepository.findById(id).orElse(null);
     }
 
     @Transactional
