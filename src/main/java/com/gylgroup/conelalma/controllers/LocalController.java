@@ -23,7 +23,7 @@ public class LocalController {
     //Función para retornar el listado de Locales de la DDBB
     @GetMapping()
     public ModelAndView locales(){
-        List<Local> misLocales = localService.misLocales();
+        List<Local> misLocales = localService.findAll();
         ModelAndView model = new ModelAndView("prueba.html");
         model.addObject("Locales", misLocales);
         return model;
@@ -42,7 +42,7 @@ public class LocalController {
     public RedirectView guardarLocal(@ModelAttribute Local local, RedirectAttributes attributes){
         RedirectView rv = new RedirectView("/Locales");
         try{
-            localService.crearLocal(local);
+            localService.save(local);
         }catch(Exception e){
             rv.setUrl("/Locales/crear"); 
         }
@@ -53,7 +53,7 @@ public class LocalController {
     public ModelAndView editarLocal(@PathVariable Integer id){
         ModelAndView mav = new ModelAndView("pruebaform.html");
         if(localService.existsLocal(id)){
-            mav.addObject("local", localService.buscarLocalPorId(id));
+            mav.addObject("local", localService.findById(id));
             mav.addObject("title","Editar Local");
             mav.addObject("action", "modificar");
         }
@@ -63,13 +63,13 @@ public class LocalController {
     @PostMapping("/modificar")
     public RedirectView modificarLocal(@ModelAttribute Local local, RedirectAttributes attributes){
         RedirectView redirectView = new RedirectView("/Locales");
-        localService.modificarLocal(local);
+        localService.update(local);
         return redirectView;
     }
     
     @GetMapping("/eliminar/{id}")
     public RedirectView eliminarLocal(@PathVariable Integer id){
-        localService.eliminarLocal(id);
+        localService.disable(id);
         return new RedirectView("/Locales");
     }
     

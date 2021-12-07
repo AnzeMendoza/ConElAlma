@@ -63,10 +63,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-<<<<<<< HEAD
-			
-=======
->>>>>>> c30e522ee1099d67f35e19b9823a5a135ebf25dd
+
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

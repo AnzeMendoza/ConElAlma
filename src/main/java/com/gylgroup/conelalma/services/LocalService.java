@@ -13,7 +13,7 @@ public class LocalService {
     private LocalRepository localRepository;
     
     @Transactional
-    public void crearLocal(Local miLocal){
+    public void save(Local miLocal){
         Local local = new Local();
         local.setNombre(miLocal.getNombre());
         local.setCantidadMaximaPersonas(miLocal.getCantidadMaximaPersonas());
@@ -25,7 +25,7 @@ public class LocalService {
     }
     
     @Transactional
-    public void modificarLocal(Local miLocal){
+    public void update(Local miLocal){
         if(localRepository.existsById(miLocal.getId())){
             Local local = localRepository.BuscarLocalPorId(miLocal.getId());
             local.setNombre(miLocal.getNombre());
@@ -39,12 +39,12 @@ public class LocalService {
     }
     
     @Transactional
-    public List<Local> misLocales(){
+    public List<Local> findAll(){
         return localRepository.misLocales();
     }
     
     @Transactional
-    public Local buscarLocalPorId(Integer id){
+    public Local findById(Integer id){
        return localRepository.BuscarLocalPorId(id);
     }
     
@@ -69,7 +69,7 @@ public class LocalService {
     }
     
     @Transactional
-    public void eliminarLocal(Integer id) {
+    public void disable(Integer id) {
         localRepository.deleteById(id);
     }
     
