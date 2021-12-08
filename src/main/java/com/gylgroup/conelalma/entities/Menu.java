@@ -2,7 +2,6 @@ package com.gylgroup.conelalma.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.gylgroup.conelalma.enums.TipoEvento;
@@ -10,7 +9,7 @@ import com.gylgroup.conelalma.enums.TipoEvento;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
+
 
 import java.util.List;
 
@@ -36,11 +35,11 @@ public class Menu {
 
     @NotNull(message = "Debe asignarse el precio base.")
     @Min(value = 0, message = "tiene que ser mayor a 0")
-    private Double precioBase;
+    private Double precioMenu;
 
     //@NotNull(message = "Tiene que estar asignado")
     //@NotEmpty(message = "Debe incluir el path de foto")
     private String foto;
 
-    private Boolean estado;
+    
 }
