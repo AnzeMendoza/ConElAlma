@@ -61,7 +61,7 @@ public class Cupon {
     
     //@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
-    @PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
+    //@PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
     @LastModifiedDate
     private LocalDateTime fechaModificacion;
     

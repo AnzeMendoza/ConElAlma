@@ -33,7 +33,7 @@ public class CuponController {
     
     @PostMapping("/guardar")
     public RedirectView save(@RequestParam String nombre, @RequestParam String codigo, @RequestParam Integer descuento){
-    cuponService.save(nombre, codigo, descuento);
+    cuponService.save(codigo, descuento);
     return new RedirectView("/todos");
     }
 
