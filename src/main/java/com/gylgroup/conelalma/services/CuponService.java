@@ -12,10 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CuponService {
-
     @Autowired
     private CuponRepository cuponRepository;
-    
 
     @Transactional
     public void save(String nombre, String codigo, Integer descuento) {
@@ -73,7 +71,7 @@ public class CuponService {
     }
 
     @Transactional(readOnly = true)
-    public Cupon findByDescuento(String descuento) {
+    public Cupon findByDescuento(Integer descuento) {
         Cupon cupon = cuponRepository.findByDescuento(descuento);
         return cupon;
     }
@@ -115,8 +113,4 @@ public class CuponService {
         return cuponList;
         
     }
-
-        
-    
-
 }
