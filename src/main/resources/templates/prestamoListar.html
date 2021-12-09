@@ -17,6 +17,7 @@
     <th scope="col">fecha presupuesto</th>
     <th scope="col">fecha evento solicitado</th>
     <th scope="col">estado</th>
+    <th scope="col">Acciones</th>
   </tr>
   </thead>
   <tbody>
@@ -28,21 +29,46 @@
     <td th:text="${presupuesto.fechaPresupuesto}"></td>
     <td th:text="${presupuesto.fechaEventoSolicitada}"></td>
     <td th:text="${presupuesto.estado}"></td>
-    <!--
     <td>
 
-      <a th:href="@{/formulario/autor/__${autor.id}__}"
-         class="btn btn-warning">
+      <a th:href="@{/presupuesto/formulario/__${presupuesto.id}__}">
          Editar
       </a>
 
-      <a th:href="@{/eliminar/autor/__${autor.id}__}"
-         class="btn"
-         th:classappend="${autor.alta} ? btn-danger : btn-success"
-         th:text="${autor.alta} ? Desactivar : Activar">
-        Eliminar
+      <a th:href=" ${presupuesto.estado} ? @{/presupuesto/desactivar/__${presupuesto.id}__} : @{/presupuesto/activar/__${presupuesto.id}__}"
+         th:text="${presupuesto.estado} ? Desactivar : Activar">
       </a>
-    </td>-->
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="col-md-6">
+  <a  th:href="@{/presupuesto/formulario/0}">Nuevo presupuesto</a>
+</div>
+
+<h1>Presupuestos activos</h1>
+<table class="default">
+  <thead>
+  <tr>
+    <th scope="col">Id</th>
+    <th scope="col">Tipo de Evento</th>
+    <th scope="col">Cantidad de comensales</th>
+    <th scope="col">precio final</th>
+    <th scope="col">fecha presupuesto</th>
+    <th scope="col">fecha evento solicitado</th>
+    <th scope="col">estado</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="presupuestoActivo:${presupuestosActivos}">
+    <td th:text="${presupuestoActivo.id}"></td>
+    <td th:text="${presupuestoActivo.tipoEvento}"></td>
+    <td th:text="${presupuestoActivo.cantidadComensales}"></td>
+    <td th:text="${presupuestoActivo.precioFinal}"></td>
+    <td th:text="${presupuestoActivo.fechaPresupuesto}"></td>
+    <td th:text="${presupuestoActivo.fechaEventoSolicitada}"></td>
+    <td th:text="${presupuestoActivo.estado}"></td>
   </tr>
   </tbody>
 </table>
