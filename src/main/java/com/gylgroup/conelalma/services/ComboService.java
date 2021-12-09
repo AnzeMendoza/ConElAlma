@@ -39,6 +39,11 @@ public class ComboService {
     }
     
     @Transactional
+    public Combos findById(Integer id){
+        return comboRepository.findById(id).get();
+    }
+    
+    @Transactional
     public List<Combos> findAllAndEstado(){
         return comboRepository.findAllAndEstado();
     }
