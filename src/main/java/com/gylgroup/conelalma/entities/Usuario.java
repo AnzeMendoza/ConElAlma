@@ -57,6 +57,7 @@ public class Usuario {
     @Size(min = 4, max = 6, message = "La longitud de la contraseña es de 4-6 dígitos")
     private String contrasenia;
 
+    @Column(nullable = true)
     private String foto;
 
     private Boolean estado;

@@ -45,6 +45,7 @@ public class RolService {
 
             Rol upRol = opRol.get();
             upRol.setNombre(rol.getNombre());
+            upRol.setDescripcion(rol.getDescripcion());
             upRol.setEstado(true);
             rolRepository.save(upRol);
         } else {

@@ -29,5 +29,11 @@ public class Rol {
     @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener solo letras!")
     private String nombre;
 
+    @Column(length = 64)
+    @NotEmpty(message = "El nombre es obligatorio!")
+    @Size(min = 3, max = 64, message = "Debe tener min 7 caracteres y menos de 64")
+    @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener solo letras!")
+    private String descripcion;
+
     private Boolean estado;
 }

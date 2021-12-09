@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -44,7 +45,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/guardarEmpleados")
-    public ModelAndView guardarUsuario(@Valid Usuario usuario, BindingResult bindingResult,
+    public ModelAndView guardarUsuario(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            @Valid Usuario usuario, BindingResult bindingResult,
             @RequestParam(required = false) Rol rol,
             RedirectAttributes attributes) {
 
@@ -61,7 +63,7 @@ public class UsuarioController {
 
             try {
 
-                usuarioService.save(usuario, rol);
+                usuarioService.save(usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "REGISTRO CON EXITO!");
                 mav.setViewName("redirect:/usuario/todos");
             } catch (Exception e) {
@@ -88,7 +90,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/modificar")
-    public ModelAndView modificarUsuario(@RequestParam Integer id, @Valid Usuario usuario, BindingResult bindingResult,
+    public ModelAndView modificarUsuario(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            @RequestParam Integer id, @Valid Usuario usuario, BindingResult bindingResult,
             @RequestParam Rol rol,
             RedirectAttributes attributes) {
 
@@ -106,7 +109,7 @@ public class UsuarioController {
 
             try {
                 // System.err.println("div " + 5 / 0);
-                usuarioService.update(id, usuario, rol);
+                usuarioService.update(id, usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
                 mav.setViewName("redirect:/usuario/todos");
             } catch (Exception e) {
@@ -147,8 +150,10 @@ public class UsuarioController {
     }
 
     @PostMapping("/guardar")
-    public ModelAndView guardarCliente(@Valid Usuario usuario,
-            BindingResult bindingResult, RedirectAttributes attributes) {
+    public ModelAndView guardarCliente(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            @Valid Usuario usuario,
+            BindingResult bindingResult,
+            RedirectAttributes attributes) {
 
         ModelAndView mav = new ModelAndView();
 
@@ -159,7 +164,7 @@ public class UsuarioController {
 
             try {
 
-                usuarioService.save(usuario, null);
+                usuarioService.save(usuario, null, imagen);
                 attributes.addFlashAttribute("exito", "REGISTRO CON EXITO!");
                 mav.setViewName("redirect:/usuario/registrarse");
             } catch (Exception e) {
