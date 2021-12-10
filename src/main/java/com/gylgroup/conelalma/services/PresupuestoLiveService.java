@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -67,8 +68,8 @@ public class PresupuestoLiveService {
             TipoEvento tipoEvento,
             Integer cantidadComensales,
             Double precioFinal,
-            LocalDateTime fechaPresupuesto,
-            LocalDateTime fechaEventoSolicitada,
+            Date fechaPresupuesto,
+            Date fechaEventoSolicitada,
             Boolean estado
     ) {
         PresupuestoLive presupuestoLive = new PresupuestoLive();
@@ -123,6 +124,11 @@ public class PresupuestoLiveService {
         changeStatus(id, false);
     }
 
+    @Transactional
+    public List<PresupuestoLive> findByEstadoTrue(){
+        return presupuestoLiveRepository.findByEstadoTrue();
+    }
+
     private void existsById(Integer id) throws Exception {
         if (!presupuestoLiveRepository.existsById(id)) {
             throw new Exception();
@@ -134,4 +140,6 @@ public class PresupuestoLiveService {
         presupuestoLive.setEstado(status);
         presupuestoLiveRepository.save(presupuestoLive);
     }
+
+
 }

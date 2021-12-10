@@ -167,9 +167,7 @@ public class UsuarioController {
                 attributes.addFlashAttribute("error", e.getMessage());
                 mav.setViewName("redirect:/usuario/registrarse");
             }
-
         }
         return mav;
     }
-
 }

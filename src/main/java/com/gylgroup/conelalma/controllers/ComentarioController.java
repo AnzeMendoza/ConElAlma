@@ -18,7 +18,7 @@ public class ComentarioController {
 
     @Autowired
     private ComentarioService comentarioService;
-/*
+
     @GetMapping
     public ModelAndView listaComentarios(){
         ModelAndView mav = new ModelAndView("comentarios");
@@ -89,7 +89,7 @@ public class ComentarioController {
         RedirectView reMav = new RedirectView("/comentarios");
         comentarioService.disable(id);
         return reMav;
-    }*/
+    }
 
 
 }

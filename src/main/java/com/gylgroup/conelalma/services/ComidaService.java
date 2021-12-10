@@ -42,8 +42,9 @@ public class ComidaService {
     
     @Transactional
     public  Comida findById(Integer id){
-        return comidaRepository.findbyId(id);
+        return comidaRepository.findById(id).get();
     }
+
     @Transactional
     public void disable(Integer id) {
         comidaRepository.deleteById(id);
@@ -51,7 +52,7 @@ public class ComidaService {
     
     @Transactional
     public boolean exitsById(Integer id){
-        return comidaRepository.existsById();
+        return comidaRepository.existsById(id);
     }
     
 }

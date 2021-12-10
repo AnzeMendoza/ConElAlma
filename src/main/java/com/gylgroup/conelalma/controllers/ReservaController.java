@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/reservas")
 public class ReservaController {
-/*
+
     @Autowired
     private ReservaService reservaService;
 
@@ -83,5 +83,4 @@ public class ReservaController {
         return reMav;
     }
 
- */
 }
