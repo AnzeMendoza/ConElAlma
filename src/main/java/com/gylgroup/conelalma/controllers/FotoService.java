@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 
 import com.gylgroup.conelalma.exception.ExceptionService;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +21,7 @@ public class FotoService {
 
         try {
 
-            String nombreFoto = archivo.getOriginalFilename();
+            String nombreFoto = randomString() + archivo.getOriginalFilename();
             Path rutaFoto = Paths.get(directory, nombreFoto).toAbsolutePath();
             Files.copy(archivo.getInputStream(), rutaFoto,
                     StandardCopyOption.REPLACE_EXISTING);
@@ -30,6 +31,10 @@ public class FotoService {
             throw new ExceptionService("ERROR AL GUARDAR FOTO");
         }
 
+    }
+
+    public String randomString() {
+        return RandomStringUtils.randomAlphanumeric(4).toUpperCase();
     }
 
 }
