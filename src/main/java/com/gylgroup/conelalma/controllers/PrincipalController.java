@@ -8,7 +8,7 @@ public class PrincipalController {
 
     @GetMapping("/")
     public String iniciarHome() {
-        return "index.html";
+        return "admin.html";
     }
 
 }
