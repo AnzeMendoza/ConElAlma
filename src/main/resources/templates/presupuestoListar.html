@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Listar Prestamo</title>
+  <title>Listar presupuesto</title>
 </head>
 <body>
 <h1 th:text="${titulo}"></h1>
@@ -31,7 +31,7 @@
     <td th:text="${presupuesto.estado}"></td>
     <td>
 
-      <a th:href="@{/presupuesto/formulario/__${presupuesto.id}__}">
+      <a th:href="@{/presupuesto/agregar/__${presupuesto.id}__}">
          Editar
       </a>
 
@@ -44,7 +44,7 @@
 </table>
 
 <div class="col-md-6">
-  <a  th:href="@{/presupuesto/formulario/0}">Nuevo presupuesto</a>
+  <a  th:href="@{/presupuesto/agregar/0}">Nuevo presupuesto</a>
 </div>
 
 <h1>Presupuestos activos</h1>
