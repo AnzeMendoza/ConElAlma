@@ -1,4 +1,3 @@
-
 package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Cupon;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-
-
 @Controller
 @RequestMapping("/cupones")
 public class CuponController {
@@ -22,19 +19,32 @@ public class CuponController {
     @Autowired
     private CuponService cuponService;
 
+    @GetMapping("/crear")
+    public ModelAndView cuponCreate() {
+
+        ModelAndView mav = new ModelAndView("cupon-formulario");
+        mav.addObject("cupon", new Cupon());
+        mav.addObject("title", "Crear cupon");
+        mav.addObject("action", "guardar");
+        return mav;
+    }
+
+    @PostMapping("/guardar")
+    public RedirectView cuponSave(@RequestParam String codigo, @RequestParam Integer descuento) {
+        
+        cuponService.save(codigo, descuento);
+        return new RedirectView("/todos");
+    }
+
     @GetMapping("/todos")
-    public ModelAndView cuponFindAll(){
+    public ModelAndView cuponFindAll() {
+
         ModelAndView mav = new ModelAndView("cupones");
+
         List<Cupon> cupones = cuponService.findAll();
         mav.addObject("cupones", cupones);
         return mav;
-    }
-    
-    
-    @PostMapping("/guardar")
-    public RedirectView save(@RequestParam String nombre, @RequestParam String codigo, @RequestParam Integer descuento){
-    cuponService.save(codigo, descuento);
-    return new RedirectView("/todos");
+
     }
 
 }
