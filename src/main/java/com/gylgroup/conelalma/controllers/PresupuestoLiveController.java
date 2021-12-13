@@ -28,15 +28,12 @@ public class PresupuestoLiveController {
         mav.addObject("titulo", "Listado de todos los presupuestos");
         mav.addObject("presupuestos", presupuestoLiveService.findAll());
         mav.addObject("presupuestosActivos", presupuestoLiveService.findByEstadoTrue());
-        mav.addObject("presupuestoConErrores", null);
         return mav;
     }
 
     @GetMapping("/agregar/{id}")
     public String prestamoFormulario(Model model, @PathVariable("id") int id) throws Exception {
-        model.addAttribute("titulo", "Formulario de presupuesto");
-        model.addAttribute("tiposDeEventos", new ArrayList<>(EnumSet.allOf(TipoEvento.class)));
-
+        sendDataEntities(model);
         if (id == 0) {
             model.addAttribute("presupuesto", new PresupuestoLive());
         } else {
@@ -47,12 +44,11 @@ public class PresupuestoLiveController {
 
     @PostMapping("/agregar/{id}")
     public String prestamoAlta(Model model,
-                            @Valid @ModelAttribute("presupuesto") PresupuestoLive presupuesto,
-                            BindingResult result,
-                            @PathVariable("id") int id) throws Exception {
+                               @Valid @ModelAttribute("presupuesto") PresupuestoLive presupuesto,
+                               BindingResult result,
+                               @PathVariable("id") int id) throws Exception {
         if (result.hasErrors()) {
-            model.addAttribute("titulo", "Formulario de presupuesto");
-            model.addAttribute("tiposDeEventos", new ArrayList<>(EnumSet.allOf(TipoEvento.class)));
+            sendDataEntities(model);
             return "presupuestoFormulario";
         }
 
@@ -82,6 +78,11 @@ public class PresupuestoLiveController {
 
         }
         return new RedirectView("/presupuesto/");
+    }
+
+    private void sendDataEntities(Model model) {
+        model.addAttribute("titulo", "Formulario de presupuesto");
+        model.addAttribute("tiposDeEventos", new ArrayList<>(EnumSet.allOf(TipoEvento.class)));
     }
 }
 
