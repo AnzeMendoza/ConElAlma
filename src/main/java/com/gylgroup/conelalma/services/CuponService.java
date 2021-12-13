@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CuponService {
-
-    @Autowired
+/*    @Autowired
     private CuponRepository cuponRepository;
 
     @Transactional
@@ -95,7 +94,6 @@ public class CuponService {
         } else {
             throw new Exception("No se pudo encontrar el cupón por Descuento");
         }
-
     }
 
     @Transactional
@@ -142,5 +140,13 @@ public class CuponService {
             Cupon cupon = respuesta.get();
             cuponRepository.delete(cupon);
         }
+    }
+
+    
+    @Transactional
+    public List<Cupon>findAllAndEstado(){
+        List<Cupon> cuponList = (List<Cupon>) cuponRepository.findByIdAndEstadoTrue();
+        return cuponList;
+        
     }
 }

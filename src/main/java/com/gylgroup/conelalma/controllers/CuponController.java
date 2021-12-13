@@ -19,9 +19,10 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/cupones")
 public class CuponController {
 
-/*    @Autowired
+/*
+    @Autowired
     private CuponService cuponService;
-
+    
     @GetMapping("/todos")
     public ModelAndView cuponFindAll(){
         ModelAndView mav = new ModelAndView("cupones");
@@ -41,5 +42,4 @@ public class CuponController {
     cuponService.save(codigo, descuento);
     return new RedirectView("/todos");
     }*/
-
 }

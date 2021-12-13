@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CuponRepository extends JpaRepository<Cupon, Integer>{
-
     //@Query(value = "select * from cupon where nombre=:nombre", nativeQuery = true)
     //Cupon findByNombre(@Param("nombre") String nombre);
 
