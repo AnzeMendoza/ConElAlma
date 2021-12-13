@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CuponService {
-
-    @Autowired
+/*    @Autowired
     private CuponRepository cuponRepository;
     
 
@@ -62,19 +61,19 @@ public class CuponService {
 
     @Transactional(readOnly = true)
     public Cupon findByNombre(String nombre) {
-        Cupon cupon = cuponRepository.findByNombre(nombre);
+        Cupon cupon = cuponRepository.findByNombre(nombre).get();
         return cupon;
     }
 
     @Transactional(readOnly = true)
     public Cupon findByCodigo(String codigo) {
-        Cupon cupon = cuponRepository.findByCodigo(codigo);
+        Cupon cupon = cuponRepository.findByCodigo(codigo).get();
         return cupon;
     }
 
     @Transactional(readOnly = true)
     public Cupon findByDescuento(String descuento) {
-        Cupon cupon = cuponRepository.findByDescuento(descuento);
+        Cupon cupon = cuponRepository.findByDescuento(descuento).get();
         return cupon;
     }
 
@@ -111,12 +110,10 @@ public class CuponService {
     
     @Transactional
     public List<Cupon>findAllAndEstado(){
-        List<Cupon> cuponList = (List<Cupon>) cuponRepository.findAllAndEstado(Boolean.TRUE);
+        List<Cupon> cuponList = (List<Cupon>) cuponRepository.findByIdAndEstadoTrue();
         return cuponList;
         
     }
 
-        
-    
-
+        */
 }

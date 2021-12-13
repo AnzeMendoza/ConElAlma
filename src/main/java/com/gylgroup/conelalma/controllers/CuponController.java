@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/cupones")
 public class CuponController {
     
+/*
     @Autowired
     private CuponService cuponService;
     
@@ -37,6 +38,7 @@ public class CuponController {
     cuponService.save(nombre, codigo, descuento);
     return new RedirectView("/todos");
     }
+*/
 
 
 }
