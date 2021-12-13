@@ -33,13 +33,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @Setter
 public class Cupon {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
-    
     @Column(length = 64)
     @NotEmpty(message = "El codigo es obligatorio")
     @Size(min = 2, max = 64, message = "Debe tener min 2 caracteres y menos de 64")
@@ -64,8 +61,7 @@ public class Cupon {
     //@PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
     @LastModifiedDate
     private LocalDateTime fechaModificacion;
-    
-    
+
     @NotNull
     @OneToOne
     private Usuario usuario;

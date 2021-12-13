@@ -66,8 +66,8 @@ public class CuponService {
         }
     }
 
-    /*
-    @Transactional(readOnly = true)
+
+/*    @Transactional(readOnly = true)
     public Cupon findByNombre(String nombre) throws Exception {
         Cupon cupon = cuponRepository.findByNombre(nombre);
         if (cupon != null) {
@@ -75,8 +75,8 @@ public class CuponService {
         } else {
             throw new Exception("No se pudo encontrar el cupón por Nombre");
         }
-    }
-     */
+    }*/
+
     @Transactional(readOnly = true)
     public Cupon findByCodigo(String codigo) throws Exception {
         Cupon cupon = cuponRepository.findByCodigo(codigo);
@@ -124,10 +124,9 @@ public class CuponService {
         }
     }
 
-    
     @Transactional
     public List<Cupon> findAllAndEstado() throws Exception {
-        List<Cupon> cuponList = (List<Cupon>) cuponRepository.findAllAndEstado(Boolean.TRUE);
+        List<Cupon> cuponList = (List<Cupon>) cuponRepository.findAllByEstado(Boolean.TRUE);
         if (cuponList.size() > 0) {
             return cuponList;
         } else {
@@ -135,9 +134,7 @@ public class CuponService {
         }
 
     }
-    
-    
-        /*
+
     @Transactional
     public void cuponDelete(Integer id){
         Optional<Cupon> respuesta = cuponRepository.findById(id);
@@ -146,5 +143,4 @@ public class CuponService {
             cuponRepository.delete(cupon);
         }
     }
-     */
 }
