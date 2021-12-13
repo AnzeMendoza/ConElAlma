@@ -11,12 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -33,28 +28,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @Setter
 public class Cupon {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
-    
     @Column(length = 64)
     @NotEmpty(message = "El codigo es obligatorio")
     @Size(min = 2, max = 64, message = "Debe tener min 2 caracteres y menos de 64")
-    @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener solo letras.")
+    @Pattern(regexp = "[a-zA-Z0-9 ]{2,64}", message = "Debe contener letras y numeros solamente.")
     private String codigo;
-    
+
     private Boolean estado;
-    
-    @NotNull(message = "El descuento no puede estar vacio")
-    @Min(value = 0, message = "El descuento debe ser mayor a 0")
+
+    @Min(0)
+    @Max(100)
+    @NotNull(message = "tiene que asignarse un descuento")
     private Integer descuento;
-    
-    @NotNull
-    //@Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyy-MM-dd")
+
+    @NotNull(message = "Tiene que asignarse la fecha de creación")
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime fechaCreacion;
@@ -64,9 +55,9 @@ public class Cupon {
     //@PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
     @LastModifiedDate
     private LocalDateTime fechaModificacion;
-    
-    
-    @NotNull
+
+
+    @NotNull(message = "Debe asignarse un usuario")
     @OneToOne
     private Usuario usuario;
 }

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- INICIO NAV-->
+<nav th:fragment="navbar" class="navbar navbar-expand-md  sticky-top">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Inicio</a>
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 mb-md-0 w-100">
+                <!--DROPDOWN USUARIOS-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-usuarios" role="button">
+                        Usuarios
+                    </a>
+                    <ul aria-labelledby="dropdown-usuarios" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/usuario/todos}">Crear Usuarios</a>
+
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/rol/todos}">Crear Roles</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <!--DROPDOWN MENU-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-mascotas" role="button">
+                        Menu
+                    </a>
+                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item">Mostrar todos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">Crear menu</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <!--DROPDOWN PROYECTOS-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-mascotas" role="button">
+                        Bebidas
+                    </a>
+                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item">Mostrar todas</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item">Crear bebida</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--DROPDOWN Local-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-mascotas" role="button">
+                        Locales
+                    </a>
+                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Mostrar Locales</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Crear Local</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--DROPDOWN CUPONES-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-mascotas" role="button">
+                        Cupones
+                    </a>
+                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Motras todos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Crear cupón</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--DROPDOWN Presupuesto-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-mascotas" role="button">
+                        Presupuesto
+                    </a>
+                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Mis presupuestos</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Crear mi presupuesto</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--DROPDOWN Reserva-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-mascotas" role="button">
+                        Reserva
+                    </a>
+                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Mis reserva</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Mostrar Reservas</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--DROPDOWN Comentario-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                        id="dropdown-mascotas" role="button">
+                        Comentario
+                    </a>
+                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Mostrar Comentarios</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/tickets}">Crear comentario</a>
+                        </li>
+                    </ul>
+                </li>
+                <!--DROPDOWN SALIR-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link" th:href="@{/usuario/registrarse}" id="dropdown-mascotas"
+                        role="button">
+                        Registro
+                    </a>
+
+                </li>
+
+                <!--DROPDOWN SESION-->
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link" th:href="@{/login}" id="dropdown-mascotas" role="button">
+                        Iniciar Sesión
+                    </a>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+
+</nav>
+
+<!--FIN NAV-->
+
+<footer th:fragment="footer" class="footer py-3 footer-custom ">
+    <div class="container d-flex justify-content-center">
+
+        <span class="text-muted">&copy;Copyright Team10 Con El Alma. All Rights Reserved</span>
+    </div>
+</footer>
+
+</html>
