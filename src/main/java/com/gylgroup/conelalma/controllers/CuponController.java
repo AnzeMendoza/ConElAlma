@@ -18,16 +18,20 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @RequestMapping("/cupones")
 public class CuponController {
-    
+
 /*
     @Autowired
     private CuponService cuponService;
     
-
     @GetMapping("/todos")
     public ModelAndView cuponFindAll(){
         ModelAndView mav = new ModelAndView("cupones");
-        List<Cupon> cupones = cuponService.findAll();
+        List<Cupon> cupones = null;
+        try {
+            cupones = cuponService.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mav.addObject("cupones", cupones);
         return mav;
     }
@@ -35,10 +39,7 @@ public class CuponController {
     
     @PostMapping("/guardar")
     public RedirectView save(@RequestParam String nombre, @RequestParam String codigo, @RequestParam Integer descuento){
-    cuponService.save(nombre, codigo, descuento);
+    cuponService.save(codigo, descuento);
     return new RedirectView("/todos");
-    }
-*/
-
-
+    }*/
 }

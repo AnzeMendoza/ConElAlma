@@ -28,7 +28,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 @Setter
 public class Cupon {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -53,9 +52,10 @@ public class Cupon {
     
     //@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
-    @PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
+    //@PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
     @LastModifiedDate
     private LocalDateTime fechaModificacion;
+
 
     @NotNull(message = "Debe asignarse un usuario")
     @OneToOne
