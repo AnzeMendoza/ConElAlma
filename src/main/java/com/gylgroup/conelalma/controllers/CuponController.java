@@ -3,9 +3,13 @@ package com.gylgroup.conelalma.controllers;
 import com.gylgroup.conelalma.entities.Cupon;
 import com.gylgroup.conelalma.services.CuponService;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +20,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/cupones")
 public class CuponController {
 
-
     @Autowired
     private CuponService cuponService;
 
@@ -26,15 +29,24 @@ public class CuponController {
         ModelAndView mav = new ModelAndView("cupon-formulario");
         mav.addObject("cupon", new Cupon());
         mav.addObject("title", "Crear cupon");
-        mav.addObject("action", "guardar");
+        //mav.addObject("action", "guardar");
         return mav;
     }
 
     @PostMapping("/guardar")
-    public RedirectView cuponSave(@RequestParam String codigo, @RequestParam Integer descuento) {
-        
-        cuponService.save(codigo, descuento);
-        return new RedirectView("/todos");
+    public RedirectView cuponSave(Cupon cupon) {
+        cuponService.save(cupon);
+        return new RedirectView("/cupones/todos");
+    }
+
+    @PostMapping("/editar/{id}")
+    public RedirectView cuponUpdate(@PathVariable Integer id, Cupon cupon) {
+        try {
+            cuponService.update(id, cupon);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return new RedirectView("/cupones/todos");
     }
 
     @GetMapping("/todos")
@@ -50,11 +62,5 @@ public class CuponController {
         mav.addObject("cupones", cupones);
         return mav;
     }
-    
-    
-    @PostMapping("/guardar")
-    public RedirectView save(@RequestParam String nombre, @RequestParam String codigo, @RequestParam Integer descuento){
-    cuponService.save(codigo, descuento);
-    return new RedirectView("/todos");
-    }
+
 }

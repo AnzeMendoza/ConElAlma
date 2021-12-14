@@ -1,6 +1,7 @@
 package com.gylgroup.conelalma.entities;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,10 +25,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@NoArgsConstructor
 @Getter
 @Setter
 public class Cupon {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -48,16 +49,22 @@ public class Cupon {
     @NotNull(message = "Tiene que asignarse la fecha de creación")
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private LocalDateTime fechaCreacion;
-    
+    private Date fechaCreacion;
+
     //@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
     //@PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
     @LastModifiedDate
-    private LocalDateTime fechaModificacion;
+    private Date fechaModificacion;
 
-
+    /*
     @NotNull(message = "Debe asignarse un usuario")
     @OneToOne
     private Usuario usuario;
+     */
+    public Cupon() {
+        setEstado(Boolean.TRUE);
+        setFechaCreacion(new Date());
+        setFechaModificacion(new Date());
+    }
 }
