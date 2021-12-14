@@ -62,5 +62,19 @@ public class CuponController {
         mav.addObject("cupones", cupones);
         return mav;
     }
+    
+    @GetMapping("activos")
+    public ModelAndView cuponFindEnable(){
+        ModelAndView mav = new ModelAndView("cuponesActivos");
+        List<Cupon> cupones = null;
+        try{
+        cupones = cuponService.findAllAndEstado();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        mav.addObject("cuponesActivos", cupones);
+        return mav;
+                
+    }
 
 }

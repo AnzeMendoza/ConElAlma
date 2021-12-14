@@ -10,28 +10,30 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light"></nav>
         <div class="container-fluid"/>
-            <a class="navbar-brand" href="#"/>Navbar</a>
-            <div>Hola desde editorial html</div>
-            <table>
-                <thead>
-                    <tr>
+        <a class="navbar-brand" href="#"/>Navbar</a>
+    <div>Hola desde editorial html</div>
+    <table>
+        <thead>
+            <tr>
 
-                        <th>codigo</th>
-                        <th>descuento</th>
-                        <th>Id</th>
-                        <th>fechaddd</th>
+                <th>codigo</th>
+                <th>descuento</th>
+                <th>Id</th>
+                <th>fechaddd</th>
 
-                    </tr>
-                </thead>
-                <tbody>
+            </tr>
+        </thead>
+        <tbody>
 
-                    <tr th:each="cupon : ${cupones}">     
-                        <td th:text="${cupon.codigo}"></td>
-                        <td th:text="${cupon.descuento}"></td>
-                        <td th:text="${cupon.id}"></td>
-                        <td th:text="${cupon.fechaCreacion}"></td>
-                    </tr>
-                </tbody>
-            </table>
-    </body>
+            <tr th:each="cupon : ${cupones}">     
+                <td th:text="${cupon.codigo}"></td>
+                <td th:text="${cupon.descuento}"></td>
+                <td th:text="${cupon.id}"></td>
+                <td th:text="${cupon.fechaCreacion}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+</body>
 </html>

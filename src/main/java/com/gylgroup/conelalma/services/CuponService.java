@@ -23,15 +23,15 @@ public class CuponService {
     }
 
     @Transactional
-    public void update(Integer id, String codigo, Integer descuento, Integer idUsuario) throws Exception {
+    public void update(Integer id, Cupon cupon) throws Exception {
         Optional<Cupon> respuesta = cuponRepository.findById(id);
         if (respuesta.isPresent()) {
             Date date = new Date();
-            Cupon cupon = respuesta.get();
-            cupon.setCodigo(codigo);
-            cupon.setDescuento(descuento);
-            cupon.setFechaModificacion(date);
-            cuponRepository.save(cupon);
+            Cupon opcupon = respuesta.get();
+            opcupon.setCodigo(cupon.getCodigo());
+            opcupon.setDescuento(cupon.getDescuento());
+            opcupon.setFechaModificacion(date);
+            cuponRepository.save(opcupon);
         } else {
             throw new Exception("No se pudo encontrar el cupon para modificar");
         }
