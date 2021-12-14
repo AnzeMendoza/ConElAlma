@@ -3,6 +3,7 @@ package com.gylgroup.conelalma.services;
 import com.gylgroup.conelalma.entities.Cupon;
 import com.gylgroup.conelalma.repositories.CuponRepository;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,31 +13,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CuponService {
+<<<<<<< HEAD
    @Autowired
+=======
+    @Autowired
+>>>>>>> 5af15177c1775f79da38aee912ff6d672e5998c1
     private CuponRepository cuponRepository;
 
     @Transactional
-    public void save(String codigo, Integer descuento) {
-        Cupon cupon = new Cupon();
-        LocalDateTime date = LocalDateTime.now();
-        cupon.setCodigo(codigo);
-        cupon.setDescuento(descuento);
-        cupon.setEstado(Boolean.TRUE);
-        cupon.setFechaCreacion(date);
-        cupon.setFechaModificacion(date);
-
+    public void save(Cupon cupon) {
+        
         cuponRepository.save(cupon);
     }
 
     @Transactional
-    public void update(Integer id, String codigo, Integer descuento, Integer idUsuario) throws Exception {
+    public void update(Integer id, Cupon cupon) throws Exception {
         Optional<Cupon> respuesta = cuponRepository.findById(id);
         if (respuesta.isPresent()) {
-            Cupon cupon = respuesta.get();
-            cupon.setCodigo(codigo);
-            cupon.setDescuento(descuento);
-            cupon.setFechaModificacion(LocalDateTime.now());
-            cuponRepository.save(cupon);
+            Date date = new Date();
+            Cupon opcupon = respuesta.get();
+            opcupon.setCodigo(cupon.getCodigo());
+            opcupon.setDescuento(cupon.getDescuento());
+            opcupon.setFechaModificacion(date);
+            cuponRepository.save(opcupon);
         } else {
             throw new Exception("No se pudo encontrar el cupon para modificar");
         }
@@ -59,6 +58,12 @@ public class CuponService {
         }
     }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 5af15177c1775f79da38aee912ff6d672e5998c1
     @Transactional(readOnly = true)
     public Cupon findByCodigo(String codigo) throws Exception {
         Cupon cupon = cuponRepository.findByCodigo(codigo);
@@ -83,9 +88,10 @@ public class CuponService {
     public void enable(Integer id) throws Exception {
         Optional<Cupon> respuesta = cuponRepository.findById(id);
         if (respuesta.isPresent()) {
+            Date date = new Date();
             Cupon cupon = respuesta.get();
             cupon.setEstado(Boolean.TRUE);
-            cupon.setFechaModificacion(LocalDateTime.now());
+            cupon.setFechaModificacion(date);
             cuponRepository.save(cupon);
         } else {
             throw new Exception("No se pudo habilitar el cupón porque no se encontró el ID");
@@ -96,9 +102,10 @@ public class CuponService {
     public void disable(Integer id) throws Exception {
         Optional<Cupon> respuesta = cuponRepository.findById(id);
         if (respuesta.isPresent()) {
+            Date date = new Date();
             Cupon cupon = respuesta.get();
             cupon.setEstado(Boolean.FALSE);
-            cupon.setFechaModificacion(LocalDateTime.now());
+            cupon.setFechaModificacion(date);
             cuponRepository.save(cupon);
         } else {
             throw new Exception("No se pudo hablitar el cupón porque no se encontró el ID");
@@ -124,10 +131,13 @@ public class CuponService {
         }
     }
 
+<<<<<<< HEAD
 /*    @Transactional
     public List<Cupon>findAllAndEstado(){
         List<Cupon> cuponList = (List<Cupon>) cuponRepository.findBy();
         return cuponList;
         
     }*/
+=======
+>>>>>>> 5af15177c1775f79da38aee912ff6d672e5998c1
 }
