@@ -11,7 +11,6 @@
   <thead>
   <tr>
     <th scope="col">Id</th>
-    <th scope="col">Tipo de Evento</th>
     <th scope="col">Cantidad de comensales</th>
     <th scope="col">precio final</th>
     <th scope="col">fecha presupuesto</th>
@@ -23,7 +22,6 @@
   <tbody>
   <tr th:each="presupuesto:${presupuestos}">
     <td th:text="${presupuesto.id}"></td>
-    <td th:text="${presupuesto.tipoEvento}"></td>
     <td th:text="${presupuesto.cantidadComensales}"></td>
     <td th:text="${presupuesto.precioFinal}"></td>
     <td th:text="${presupuesto.fechaPresupuesto}"></td>
@@ -52,7 +50,6 @@
   <thead>
   <tr>
     <th scope="col">Id</th>
-    <th scope="col">Tipo de Evento</th>
     <th scope="col">Cantidad de comensales</th>
     <th scope="col">precio final</th>
     <th scope="col">fecha presupuesto</th>
@@ -63,7 +60,6 @@
   <tbody>
   <tr th:each="presupuestoActivo:${presupuestosActivos}">
     <td th:text="${presupuestoActivo.id}"></td>
-    <td th:text="${presupuestoActivo.tipoEvento}"></td>
     <td th:text="${presupuestoActivo.cantidadComensales}"></td>
     <td th:text="${presupuestoActivo.precioFinal}"></td>
     <td th:text="${presupuestoActivo.fechaPresupuesto}"></td>

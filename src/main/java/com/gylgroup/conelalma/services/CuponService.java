@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CuponService {
-/*    @Autowired
+   @Autowired
     private CuponRepository cuponRepository;
 
     @Transactional
@@ -43,14 +43,8 @@ public class CuponService {
     }
 
     @Transactional
-    public List<Cupon> findAll() throws Exception {
-        List<Cupon> cuponList = cuponRepository.findAll();
-        if (cuponList.size() > 0) {
-            return cuponList;
-        } else {
-            throw new Exception("No hay cupones cargados");
-
-        }
+    public List<Cupon> findAll() {
+            return  cuponRepository.findAll();
     }
 
     @Transactional
@@ -64,17 +58,6 @@ public class CuponService {
 
         }
     }
-
-
-/*    @Transactional(readOnly = true)
-    public Cupon findByNombre(String nombre) throws Exception {
-        Cupon cupon = cuponRepository.findByNombre(nombre);
-        if (cupon != null) {
-            return cupon;
-        } else {
-            throw new Exception("No se pudo encontrar el cupón por Nombre");
-        }
-    }*/
 
     @Transactional(readOnly = true)
     public Cupon findByCodigo(String codigo) throws Exception {
@@ -123,14 +106,13 @@ public class CuponService {
     }
 
     @Transactional
-    public List<Cupon> findAllAndEstado() throws Exception {
+    public List<Cupon> findAllByEstado() throws Exception {
         List<Cupon> cuponList = (List<Cupon>) cuponRepository.findAllByEstado(Boolean.TRUE);
         if (cuponList.size() > 0) {
             return cuponList;
         } else {
             throw new Exception("No se encontraron cupones habilitados");
         }
-
     }
 
     @Transactional
@@ -142,11 +124,10 @@ public class CuponService {
         }
     }
 
-    
-    @Transactional
+/*    @Transactional
     public List<Cupon>findAllAndEstado(){
-        List<Cupon> cuponList = (List<Cupon>) cuponRepository.findByIdAndEstadoTrue();
+        List<Cupon> cuponList = (List<Cupon>) cuponRepository.findBy();
         return cuponList;
         
-    }
+    }*/
 }

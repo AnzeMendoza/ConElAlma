@@ -13,9 +13,6 @@ import java.util.Optional;
 @Repository
 public interface BebidaRepository extends JpaRepository<Bebida,Integer> {
 
-    // LA BUSQUEDA COMPLETA DE BEBIDAS EN LISTA se resuelve con findAll() en el service
-    // LA MODIFICACION DE BEBIDA se resuelve con el repository.save en el service
-
     @Query(value = "SELECT * FROM bebida WHERE cantidad_base_comensales= ?1",nativeQuery = true)
     List<Menu> listaMenuXComensales(Integer cantBaseComensales);
 

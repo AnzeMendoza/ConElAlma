@@ -1,8 +1,7 @@
 package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.PresupuestoLive;
-import com.gylgroup.conelalma.enums.TipoEvento;
-import com.gylgroup.conelalma.services.PresupuestoLiveService;
+import com.gylgroup.conelalma.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.EnumSet;
 
 @Controller
 @RequestMapping("/presupuesto")
@@ -21,6 +18,18 @@ public class PresupuestoLiveController {
 
     @Autowired
     private PresupuestoLiveService presupuestoLiveService;
+
+    @Autowired
+    private MenuService menuService;
+
+    @Autowired
+    private LocalService localService;
+
+    @Autowired
+    private CuponService cuponService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping("/")
     public ModelAndView listar() {
@@ -82,7 +91,11 @@ public class PresupuestoLiveController {
 
     private void sendDataEntities(Model model) {
         model.addAttribute("titulo", "Formulario de presupuesto");
-        model.addAttribute("tiposDeEventos", new ArrayList<>(EnumSet.allOf(TipoEvento.class)));
+//        model.addAttribute("tiposDeEventos", new ArrayList<>(EnumSet.allOf(TipoEvento.class)));
+//        model.addAttribute("menues", menuService.findAll());
+        model.addAttribute("locales", localService.findAll());
+        model.addAttribute("cupones", cuponService.findAll());
+        model.addAttribute("usuarios",  usuarioService.findAll());
     }
 }
 

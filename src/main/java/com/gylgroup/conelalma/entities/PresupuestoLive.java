@@ -1,21 +1,14 @@
 package com.gylgroup.conelalma.entities;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import com.gylgroup.conelalma.enums.TipoEvento;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,17 +19,14 @@ public class PresupuestoLive {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+/*
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
+*/
 
-/*
     @NotNull(message = "Menu debe ser asignado")
     @OneToOne
     private Menu menu;
-
-    @NotNull(message = "Menu debe ser asignado")
-    @OneToOne
-    private Bebida bebida;
 
     @NotNull(message = "Local debe ser asignado")
     @OneToOne
@@ -54,7 +44,6 @@ public class PresupuestoLive {
     @OneToMany(mappedBy = "presupuestoLive")
     private List<Reserva> reservas;
 
-*/
     @NotNull(message = "La cantidad de comensales debe ser mayor a 0")
     @Min(value = 0, message = "La cantidad de comensales debe ser mayor a 0")
     private Integer cantidadComensales;
