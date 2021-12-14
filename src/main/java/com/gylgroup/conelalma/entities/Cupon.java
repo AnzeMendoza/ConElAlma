@@ -1,34 +1,20 @@
 package com.gylgroup.conelalma.entities;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.*;
-
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.util.Date;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 public class Cupon {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -41,20 +27,23 @@ public class Cupon {
 
     private Boolean estado;
 
-    @Min(0)
-    @Max(100)
+    @Min(value = 0, message = "Descuento tiene que ser mayor a 0 y menos a 100")
+    @Max(value = 100, message = "Descuento tiene que ser mayor a 0 y menos a 100")
     @NotNull(message = "tiene que asignarse un descuento")
     private Integer descuento;
 
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyy-MM-dd")
     @NotNull(message = "Tiene que asignarse la fecha de creación")
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date fechaCreacion;
 
-    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
-    //@PastOrPresent(message = "La fecha debe ser actual o anterior a la de hoy")
-    @LastModifiedDate
+    @NotNull(message = "Tiene que asignarse la fecha de modificación")
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
     private Date fechaModificacion;
 
     /*
@@ -62,6 +51,7 @@ public class Cupon {
     @OneToOne
     private Usuario usuario;
      */
+
     public Cupon() {
         setEstado(Boolean.TRUE);
         setFechaCreacion(new Date());
