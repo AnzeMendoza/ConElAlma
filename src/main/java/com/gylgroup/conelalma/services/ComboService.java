@@ -48,15 +48,18 @@ public class ComboService {
         return comboRepository.findAllAndEstado();
     }
     
-    @Transactional
-    public void disable(Integer id){
-        comboRepository.deleteById(id);
-    }
-    
+        
     @Transactional
     public void enable(Integer id){
         comboRepository.enable(id);
     }
+    
+    @Transactional
+    public void disable(Integer id){
+        comboRepository.disable(id);
+    }
+    
+    
     
     
     

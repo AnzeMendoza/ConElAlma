@@ -26,9 +26,9 @@ public class ComidaService {
     
     @Transactional
     public void update(Comida miComida){
-        Optional<Comida> comida = comidaRepository.findById(miComida.getId());
-        if(comida.isPresent()){
-            Comida updateComida = comida.get();
+        
+        if(comidaRepository.existsById(miComida.getId())){
+            Comida updateComida = new Comida();
             updateComida.setNombre(miComida.getNombre());
             updateComida.setPrecioUnitario(miComida.getPrecioUnitario());
             comidaRepository.save(updateComida);
@@ -40,18 +40,17 @@ public class ComidaService {
         return comidaRepository.findAll();
     }
     
-    @Transactional
-    public  Comida findById(Integer id){
-        return comidaRepository.findbyId(id);
-    }
+    
     @Transactional
     public void disable(Integer id) {
-        comidaRepository.deleteById(id);
+        comidaRepository.disable(id);
     }
     
     @Transactional
-    public boolean exitsById(Integer id){
-        return comidaRepository.existsById();
+    public void enable(Integer id) {
+        comidaRepository.enable(id);
     }
+    
+    
     
 }

@@ -67,8 +67,14 @@ public class ComidaController {
     }
     
     @GetMapping("/eliminar/{id}")
-    public RedirectView eliminarLocal(@PathVariable Integer id){
+    public RedirectView eliminar(@PathVariable Integer id){
         comidaService.disable(id);
+        return new RedirectView("/Comidas");
+    }
+    
+    @GetMapping("/Alta/{id}")
+    public RedirectView Alta(@PathVariable Integer id){
+        comidaService.enable(id);
         return new RedirectView("/Comidas");
     }
 }

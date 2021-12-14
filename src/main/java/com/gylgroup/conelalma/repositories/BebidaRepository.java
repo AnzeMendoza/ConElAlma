@@ -21,7 +21,7 @@ public interface BebidaRepository extends JpaRepository<Bebida,Integer> {
 
     Optional<Bebida> findById(Integer id);
 
-    Boolean existsBebidaBy(Integer id);
+//     existsById(Integer id);
 
     @Query(value = "SELECT * FROM bebida WHERE estado=true", nativeQuery = true)
     List<Menu> obtenerAltas();

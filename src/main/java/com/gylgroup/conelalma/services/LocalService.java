@@ -71,6 +71,11 @@ public class LocalService {
     
     @Transactional
     public void disable(Integer id) {
-        localRepository.deleteById(id);
+        localRepository.disable(id);
+    }
+    
+    @Transactional
+    public void enable(Integer id) {
+        localRepository.enable(id);
     }
 }

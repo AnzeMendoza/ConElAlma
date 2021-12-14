@@ -73,4 +73,10 @@ public class LocalController {
         return new RedirectView("/Locales");
     }
     
+    @GetMapping("/Alta/{id}")
+    public RedirectView altaLocal(@PathVariable Integer id){
+        localService.enable(id);
+        return new RedirectView("/Locales");
+    }
+    
 }

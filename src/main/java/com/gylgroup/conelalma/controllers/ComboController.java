@@ -44,7 +44,7 @@ public class ComboController {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardarLocal(@ModelAttribute Combos combo, RedirectAttributes attributes){
+    public RedirectView guardar(@ModelAttribute Combos combo, RedirectAttributes attributes){
         RedirectView rv = new RedirectView("/Locales");
         try{
             comboService.save(combo);
@@ -55,8 +55,8 @@ public class ComboController {
     }
     
     @GetMapping("/editar/{id}")
-    public ModelAndView editarLocal(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("pruebaform.html");
+    public ModelAndView editar(@PathVariable Integer id){
+        ModelAndView mav = new ModelAndView("");
         Combos optional = comboService.findById(id);
         if(optional != null){
             mav.addObject("combo", comboService.findById(id));
@@ -67,18 +67,23 @@ public class ComboController {
     }
     
     @PostMapping("/modificar")
-    public RedirectView modificarLocal(@ModelAttribute Combos combo, RedirectAttributes attributes){
+    public RedirectView modificar(@ModelAttribute Combos combo, RedirectAttributes attributes){
         RedirectView redirectView = new RedirectView("/Combos");
         comboService.update(combo);
         return redirectView;
     }
     
     @GetMapping("/eliminar/{id}")
-    public RedirectView eliminarLocal(@PathVariable Integer id){
+    public RedirectView eliminar(@PathVariable Integer id){
         comboService.disable(id);
         return new RedirectView("/Combos");
     }
     
+    @GetMapping("/Alta/{id}")
+    public RedirectView Dardealta(@PathVariable Integer id){
+        comboService.enable(id);
+        return new RedirectView("/Combos");
+    }
     
     
     
