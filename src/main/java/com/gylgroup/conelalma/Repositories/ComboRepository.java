@@ -22,8 +22,5 @@ public interface ComboRepository extends JpaRepository<Combos,Integer> {
     @Query(value = "UPDATE Combos SET estado = false WHERE id = ?1", nativeQuery = true)
     void disable(Integer id);
     
-    @Override
-    Optional<Combos> findById(Integer Id);
     
-    boolean existsById(Integer Id);
 }

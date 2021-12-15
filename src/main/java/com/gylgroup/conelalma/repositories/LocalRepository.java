@@ -25,6 +25,9 @@ public interface LocalRepository extends JpaRepository<Local,Integer> {
     @Query("SELECT l FROM Local l WHERE l.direccion =: direccion")
     List<Local> BuscarPorDireccion(@Param("direccion") String direccion);
     
+    @Query("SELECT l FROM Local l WHERE l.estado = 1")
+    List<Local> findAllAndEstado();
+    
     @Modifying
     @Query(value = "UPDATE Local SET estado = true WHERE id = ?1", nativeQuery = true)
     void enable(Integer id);
@@ -32,5 +35,5 @@ public interface LocalRepository extends JpaRepository<Local,Integer> {
     @Modifying
     @Query(value = "UPDATE Local SET estado = false WHERE id = ?1", nativeQuery = true)
     void disable(Integer id);
-    boolean existsById(Integer Id);
+    
 }

@@ -45,6 +45,11 @@ public class LocalService {
     }
     
     @Transactional
+    public List<Local> findAllAndEstado(){
+        return localRepository.findAllAndEstado();
+    }
+    
+    @Transactional
     public Local findById(Integer id){
        return localRepository.BuscarLocalPorId(id);
     }

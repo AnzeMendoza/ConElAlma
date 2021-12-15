@@ -2,6 +2,7 @@ package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Comida;
 import com.gylgroup.conelalma.services.ComidaService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +23,14 @@ public class ComidaController {
     
     @GetMapping()
     public ModelAndView misComidas(){
-        ModelAndView mav = new ModelAndView("");
-        mav.addObject("comidas", comidaService.findAll());
+        ModelAndView mav = new ModelAndView("comidaList.html");
+        mav.addObject("comidas", comidaService.findAllAndEstado());
         return mav;
     }
 
     @GetMapping("/crear")
     public ModelAndView crearComida(){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("comidaForm.html");
         mav.addObject("title", "Crear Comida");
         mav.addObject("action", "guardar");
         mav.addObject("comida", new Comida());
@@ -50,8 +51,8 @@ public class ComidaController {
     
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("");
-        if(comidaService.exitsById(id)){
+        ModelAndView mav = new ModelAndView("comidaForm.html");
+        if(comidaService.existsById(id)){
             mav.addObject("comida", comidaService.findById(id));
             mav.addObject("title","Editar Comida");
             mav.addObject("action", "modificar");

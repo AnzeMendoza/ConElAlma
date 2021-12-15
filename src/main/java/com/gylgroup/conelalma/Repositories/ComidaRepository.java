@@ -5,18 +5,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ComidaRepository extends JpaRepository<Comida,Integer> {
-
-    <Optional> Comida findById(Integer id);
-   
-    @Override
-    List<Comida> findAll();
-   
-    boolean existsById(Integer id);
+public interface ComidaRepository extends JpaRepository<Comida,Integer> {     
+     
+    @Query("SELECT c FROM Comida c WHERE c.estado = 1")
+    List<Comida> findAllAndEstado();
     
     @Modifying
     @Query(value = "UPDATE Comida SET estado = true WHERE id = ?1", nativeQuery = true)

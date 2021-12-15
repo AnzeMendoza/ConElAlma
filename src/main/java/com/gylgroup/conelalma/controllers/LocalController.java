@@ -23,7 +23,7 @@ public class LocalController {
     //Función para retornar el listado de Locales de la DDBB
     @GetMapping()
     public ModelAndView locales(){
-        List<Local> misLocales = localService.findAll();
+        List<Local> misLocales = localService.findAllAndEstado();
         ModelAndView model = new ModelAndView("prueba.html");
         model.addObject("Locales", misLocales);
         return model;

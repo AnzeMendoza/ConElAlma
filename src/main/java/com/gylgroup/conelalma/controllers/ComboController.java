@@ -27,16 +27,16 @@ public class ComboController {
     
     @GetMapping()
     public ModelAndView listarTodos(){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("combosListar");
         mav.addObject("combos", comboService.findAllAndEstado());
         return mav;
     }
     
     @GetMapping("/crear")
     public ModelAndView crear(){
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = new ModelAndView("combosFormulario.html");
         mav.addObject("combo",new Combos());
-        mav.addObject("comidas", comidaService.findAll());
+        mav.addObject("comidas", comidaService.findAllAndEstado());
 //        mav.addObject("bebidas", bebidaService.findAll());
         mav.addObject("title", "Crear Combo");
         mav.addObject("action","guardar");
@@ -56,7 +56,7 @@ public class ComboController {
     
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("");
+        ModelAndView mav = new ModelAndView("combosFormulario.html");
         Combos optional = comboService.findById(id);
         if(optional != null){
             mav.addObject("combo", comboService.findById(id));
