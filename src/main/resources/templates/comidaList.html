@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <a class="btn btn-success" th:href="@{/Comidas/crear}">Crear Nuevo</a>
+        <a class="btn btn-success" th:href="@{/comidas/crear}">Crear Nuevo</a>
         <table class="table"  >
             <thead>
                 <tr >
@@ -25,8 +25,8 @@
                     <td th:text="${comida.precioUnitario}"></td>
                     <td>
                         
-                        <a th:href="@{/Comidas/eliminar/}+${comida.id}" class="btn btn-danger">Eliminar</a>
-                        <a th:href="@{/Comidas/editar/}+${comida.id}" class="btn btn-warning">Editar</a>
+                        <a th:href="@{/comidas/eliminar/}+${comida.id}" class="btn btn-danger">Eliminar</a>
+                        <a th:href="@{/comidas/editar/}+${comida.id}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
             </tbody>
