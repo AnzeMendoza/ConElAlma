@@ -9,7 +9,7 @@
 <body>
 <div>TODO write content</div>
 
-<form th:action="@{/cupon/agregar}" th:object="${cupon}" method="Post">
+<form th:action="@{/cupon/__${action}__}" th:object="${cupon}" method="Post">
   <div class="form-group col-md-6">
     <label for="codigo">codigo:</label>
     <input type="text" id="codigo" th:field="*{codigo}">

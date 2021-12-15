@@ -34,6 +34,8 @@ public class CuponController {
         ModelAndView mav = new ModelAndView("cupon-formulario");
         mav.addObject("cupon", new Cupon());
         mav.addObject("title", "Crear cupon");
+        mav.addObject("action", "agregar");
+
         return mav;
     }
 
@@ -51,29 +53,35 @@ public class CuponController {
         ModelAndView mav = new ModelAndView("cupon-formulario");
         if(cuponService.existsById(id)){
             mav.addObject("cupon", cuponService.findById(id));
+            mav.addObject("action", "editar/"+id);
         }
         return mav;
     }
 
     @PostMapping("/editar/{id}")
-    public RedirectView cuponUpdate(@PathVariable Integer id, Cupon cupon) {
+    public String cuponUpdate(@PathVariable Integer id,
+                              @Valid Cupon cupon,
+                              BindingResult result) {
         try {
+            if(result.hasErrors()){
+                return "cupon-formulario";
+            }
             cuponService.update(id, cupon);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return new RedirectView("/cupon/agregar/"+id);
+        return "redirect:/cupon/";
     }
 
     @GetMapping("/activar/{id}")
     public RedirectView activar(@PathVariable("id") int id) {
         cuponService.enable(id);
-        return new RedirectView("/cupon");
+        return new RedirectView("/cupon/");
     }
 
     @GetMapping("/desactivar/{id}")
     public RedirectView desactivar(@PathVariable("id") int id) {
         cuponService.disable(id);
-        return new RedirectView("/cupon");
+        return new RedirectView("/cupon/");
     }
 }
