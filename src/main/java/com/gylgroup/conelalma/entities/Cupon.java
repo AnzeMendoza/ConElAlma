@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 import java.util.Date;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 public class Cupon {
@@ -35,14 +35,14 @@ public class Cupon {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
     @NotNull(message = "Tiene que asignarse la fecha de creación")
-    @CreatedDate
+    //@CreatedDate
     @Column(nullable = false, updatable = false)
     private Date fechaCreacion;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
     @NotNull(message = "Tiene que asignarse la fecha de modificación")
-    @CreatedDate
+    //@CreatedDate
     @Column(nullable = false, updatable = false)
     private Date fechaModificacion;
 

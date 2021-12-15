@@ -13,9 +13,13 @@
   <div class="form-group col-md-6">
     <label for="codigo">codigo:</label>
     <input type="text" id="codigo" th:field="*{codigo}">
+    <span  th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></span>
+
     <br>
     <label for="descuento">descuento:</label>
     <input type="text" id="descuento" th:field="*{descuento}">
+    <span  th:if="${#fields.hasErrors('descuento')}" th:errors="*{descuento}"></span>
+
   </div>
   <input type="submit" value="Enviar la información">
 </form>
