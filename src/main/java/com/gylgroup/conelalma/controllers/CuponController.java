@@ -4,6 +4,7 @@ import com.gylgroup.conelalma.entities.Cupon;
 import com.gylgroup.conelalma.services.CuponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,13 +36,15 @@ public class CuponController {
         mav.addObject("cupon", new Cupon());
         mav.addObject("title", "Crear cupon");
         mav.addObject("action", "agregar");
-
         return mav;
     }
 
     @PostMapping("/agregar")
-    public String cuponSave(@Valid Cupon cupon, BindingResult result) {
+    public String cuponSave(@Valid Cupon cupon,
+                            BindingResult result,
+                            Model model) {
         if(result.hasErrors()){
+            model.addAttribute("action", "agregar");
             return "cupon-formulario";
         }
         cuponService.save(cupon);
@@ -61,9 +64,11 @@ public class CuponController {
     @PostMapping("/editar/{id}")
     public String cuponUpdate(@PathVariable Integer id,
                               @Valid Cupon cupon,
-                              BindingResult result) {
+                              BindingResult result,
+                              Model model) {
         try {
             if(result.hasErrors()){
+                model.addAttribute("action", "editar/"+id);
                 return "cupon-formulario";
             }
             cuponService.update(id, cupon);
