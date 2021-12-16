@@ -13,11 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CuponService {
-<<<<<<< HEAD
-   @Autowired
-=======
+
     @Autowired
->>>>>>> 5af15177c1775f79da38aee912ff6d672e5998c1
     private CuponRepository cuponRepository;
 
     @Transactional
@@ -58,12 +55,7 @@ public class CuponService {
         }
     }
 
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 5af15177c1775f79da38aee912ff6d672e5998c1
     @Transactional(readOnly = true)
     public Cupon findByCodigo(String codigo) throws Exception {
         Cupon cupon = cuponRepository.findByCodigo(codigo);
@@ -131,13 +123,12 @@ public class CuponService {
         }
     }
 
-<<<<<<< HEAD
+
 /*    @Transactional
     public List<Cupon>findAllAndEstado(){
         List<Cupon> cuponList = (List<Cupon>) cuponRepository.findBy();
         return cuponList;
         
     }*/
-=======
->>>>>>> 5af15177c1775f79da38aee912ff6d672e5998c1
+
 }

@@ -36,10 +36,8 @@ public class Menu {
 
     @NotNull(message = "Debe asignarse el precio base.")
     @Min(value = 0, message = "tiene que ser mayor a 0")
-    private Double precioBase;
+    private Integer precioBase;
 
-    //@NotNull(message = "Tiene que estar asignado")
-    //@NotEmpty(message = "Debe incluir el path de foto")
     private String foto;
 
     private Boolean estado;
