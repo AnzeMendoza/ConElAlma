@@ -40,7 +40,7 @@ public class Menu {
 
     @NotNull(message = "Debe asignarse el precio base.")
     @Min(value = 0, message = "tiene que ser mayor a 0")
-    private Integer precioBase;
+    private Integer precioMenu;
 
     private String foto;
 

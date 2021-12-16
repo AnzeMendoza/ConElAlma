@@ -38,7 +38,7 @@ public class MenuService {
             menuNew.setNombre(menu.getNombre());
             menuNew.setTipoEvento(menu.getTipoEvento());
             menuNew.setCantidadBaseComensales(menu.getCantidadBaseComensales());
-            menuNew.setPrecioBase(menu.getPrecioBase());
+            menuNew.setPrecioMenu(menu.getPrecioMenu());
             menuNew.setEstado(menu.getEstado());
             menuNew.setListaCombos(menu.getListaCombos());
             menuNew.setFoto(menu.getFoto());
