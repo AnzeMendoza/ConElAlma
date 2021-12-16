@@ -1,0 +1,34 @@
+/*.navbar .navbar-nav > li .navbar-item,
+.navbar .navbar-brand,
+.nav-link {
+  color: red;
+}
+
+.text-muted {
+  color: red !important;
+}
+
+.ocultar {
+  display: none;
+}
+
+.mostrar {
+  display: block;
+}
+*/
+
+/*Inicio Error Controller*/
+.fondo {
+  height: 100%;
+  background-repeat: no-repeat;
+  background: url("../img/errors.svg") no-repeat center center fixed;
+
+  background-size: 100% 100%;
+}
+
+.mover {
+  margin-top: 144px;
+  color: blueviolet;
+  font-weight: bold;
+}
+/*Fin Error Controller*/
