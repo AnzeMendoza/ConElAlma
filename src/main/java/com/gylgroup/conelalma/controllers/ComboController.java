@@ -1,6 +1,6 @@
 package com.gylgroup.conelalma.controllers;
 
-import com.gylgroup.conelalma.entities.Combos;
+import com.gylgroup.conelalma.entities.Combo;
 import com.gylgroup.conelalma.services.BebidaService;
 import com.gylgroup.conelalma.services.ComboService;
 import com.gylgroup.conelalma.services.ComidaService;
@@ -16,8 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
-@RequestMapping("/Combos")
+@RequestMapping("/combos")
 public class ComboController {
+
     @Autowired
     private ComboService comboService;
     @Autowired
@@ -25,7 +26,7 @@ public class ComboController {
     @Autowired
     private ComidaService comidaService;
     
-    @GetMapping()
+    @GetMapping("/")
     public ModelAndView listarTodos(){
         ModelAndView mav = new ModelAndView("combosListar");
         mav.addObject("combos", comboService.findAllAndEstado());
@@ -35,7 +36,7 @@ public class ComboController {
     @GetMapping("/crear")
     public ModelAndView crear(){
         ModelAndView mav = new ModelAndView("combosFormulario.html");
-        mav.addObject("combo",new Combos());
+        mav.addObject("combo",new Combo());
         mav.addObject("comidas", comidaService.findAllAndEstado());
 //        mav.addObject("bebidas", bebidaService.findAll());
         mav.addObject("title", "Crear Combo");
@@ -44,12 +45,12 @@ public class ComboController {
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@ModelAttribute Combos combo, RedirectAttributes attributes){
+    public RedirectView guardar(@ModelAttribute Combo combo, RedirectAttributes attributes){
         RedirectView rv = new RedirectView("/locales");
         try{
             comboService.save(combo);
         }catch(Exception e){
-            rv.setUrl("/Combos/crear"); 
+            rv.setUrl("/combos/crear");
         }
         return rv;
     }
@@ -57,7 +58,7 @@ public class ComboController {
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Integer id){
         ModelAndView mav = new ModelAndView("combosFormulario.html");
-        Combos optional = comboService.findById(id);
+        Combo optional = comboService.findById(id);
         if(optional != null){
             mav.addObject("combo", comboService.findById(id));
             mav.addObject("title","Editar Local");
@@ -67,24 +68,21 @@ public class ComboController {
     }
     
     @PostMapping("/modificar")
-    public RedirectView modificar(@ModelAttribute Combos combo, RedirectAttributes attributes){
+    public RedirectView modificar(@ModelAttribute Combo combo, RedirectAttributes attributes){
         RedirectView redirectView = new RedirectView("/Combos");
         comboService.update(combo);
         return redirectView;
     }
     
-    @GetMapping("/eliminar/{id}")
+    @GetMapping("/baja/{id}")
     public RedirectView eliminar(@PathVariable Integer id){
         comboService.disable(id);
-        return new RedirectView("/Combos");
+        return new RedirectView("/combos");
     }
     
-    @GetMapping("/Alta/{id}")
+    @GetMapping("/alta/{id}")
     public RedirectView Dardealta(@PathVariable Integer id){
         comboService.enable(id);
-        return new RedirectView("/Combos");
+        return new RedirectView("/combos");
     }
-    
-    
-    
 }

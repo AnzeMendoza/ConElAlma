@@ -1,6 +1,6 @@
 package com.gylgroup.conelalma.services;
 
-import com.gylgroup.conelalma.entities.Combos;
+import com.gylgroup.conelalma.entities.Combo;
 import com.gylgroup.conelalma.repositories.ComboRepository;
 import java.util.List;
 import java.util.Optional;
@@ -14,15 +14,15 @@ public class ComboService {
     private ComboRepository comboRepository;
         
     @Transactional
-    public void save(Combos combo){
+    public void save(Combo combo){
         comboRepository.save(combo);
     }
     
     @Transactional
-    public void update(Combos combo){
-        Optional<Combos> miCombo = comboRepository.findById(combo.getId());
+    public void update(Combo combo){
+        Optional<Combo> miCombo = comboRepository.findById(combo.getId());
         if(miCombo.isPresent()){
-            Combos newCombo = miCombo.get();
+            Combo newCombo = miCombo.get();
             newCombo.setEstado(true);
             newCombo.setFoto(combo.getFoto());
             newCombo.setListaBebidas(combo.getListaBebidas());
@@ -34,36 +34,33 @@ public class ComboService {
     }
     
     @Transactional
-    public List<Combos> findAll(){
+    public List<Combo> findAll(){
         return comboRepository.findAll();
     }
     
     @Transactional
-    public Combos findById(Integer id){
+    public Combo findById(Integer id){
         return comboRepository.findById(id).get();
     }
     
     @Transactional
-    public List<Combos> findAllAndEstado(){
-        return comboRepository.findAllAndEstado();
+    public List<Combo> findAllAndEstado(){
+        return comboRepository.findAllByEstado();
     }
-    
-        
+
     @Transactional
     public void enable(Integer id){
-        comboRepository.enable(id);
+        changeStatus(id, true);
     }
     
     @Transactional
     public void disable(Integer id){
-        comboRepository.disable(id);
+        changeStatus(id, false);
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+    private void changeStatus(Integer id, boolean status) {
+        Combo combo = comboRepository.getById(id);
+        combo.setEstado(status);
+        comboRepository.save(combo);
+    }
 }

@@ -27,7 +27,7 @@ public class Menu {
 
     @NotNull(message = "Lista de combos debe ser asignado")
     @OneToMany
-    private List<Combos> listaCombos;
+    private List<Combo> listaCombos;
 
     @NotNull(message = "Debe asignarse cantidad de comensales.")
     @Min(value = 0, message = "tiene que ser mayor a 0")

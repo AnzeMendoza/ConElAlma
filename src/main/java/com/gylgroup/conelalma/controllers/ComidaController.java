@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +28,8 @@ public class ComidaController {
     @GetMapping("/")
     public ModelAndView misComidas() {
         ModelAndView mav = new ModelAndView("comidaList.html");
-        mav.addObject("comidas", comidaService.findAllAndEstado());
+        mav.addObject("comidas", comidaService.findAll());
+        mav.addObject("comidasActivas", comidaService.findAllAndEstado());
         return mav;
     }
 
@@ -42,8 +44,10 @@ public class ComidaController {
 
     @PostMapping("/guardar")
     public String guardar(@Valid @ModelAttribute Comida comida,
-                          BindingResult result){
+                          BindingResult result,
+                          Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("action", "guardar");
             return "comidaForm";
         }
         comidaService.save(comida);
@@ -62,21 +66,26 @@ public class ComidaController {
     }
 
     @PostMapping("/modificar")
-    public RedirectView modificar(@ModelAttribute Comida comida, RedirectAttributes attributes) {
-        RedirectView redirectView = new RedirectView("/comidas");
+    public String modificar(@Valid @ModelAttribute Comida comida,
+                            BindingResult result,
+                            Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("action", "modificar");
+            return "comidaForm";
+        }
         comidaService.update(comida);
-        return redirectView;
+        return "redirect:/comidas/";
     }
 
-    @GetMapping("/eliminar/{id}")
-    public RedirectView eliminar(@PathVariable Integer id) {
+    @GetMapping("/desactivar/{id}")
+    public RedirectView baja(@PathVariable Integer id) {
         comidaService.disable(id);
-        return new RedirectView("/comidas");
+        return new RedirectView("/comidas/");
     }
 
-    @GetMapping("/alta/{id}")
+    @GetMapping("/activar/{id}")
     public RedirectView Alta(@PathVariable Integer id) {
         comidaService.enable(id);
-        return new RedirectView("/comidas");
+        return new RedirectView("/comidas/");
     }
 }

@@ -2,10 +2,11 @@ package com.gylgroup.conelalma.services;
 
 import com.gylgroup.conelalma.entities.Comida;
 import com.gylgroup.conelalma.repositories.ComidaRepository;
-import java.util.List;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class ComidaService {
@@ -40,18 +41,18 @@ public class ComidaService {
     
     @Transactional
     public List<Comida> findAllAndEstado(){
-        return comidaRepository.findAllAndEstado();
+        return comidaRepository.findAllByEstado();
     }
     
     
     @Transactional
     public void disable(Integer id) {
-        comidaRepository.disable(id);
+        changeStatus(id, false);
     }
     
     @Transactional
     public void enable(Integer id) {
-        comidaRepository.enable(id);
+        changeStatus(id, true);
     }
     
     @Transactional
@@ -63,7 +64,10 @@ public class ComidaService {
     public Comida findById(Integer id){
         return comidaRepository.findById(id).get();
     }
-    
-    
-    
+
+    private void changeStatus(Integer id, boolean status) {
+        Comida comida = comidaRepository.getById(id);
+        comida.setEstado(status);
+        comidaRepository.save(comida);
+    }
 }
