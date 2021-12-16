@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
-
-
 @Service
 public class BebidaService {
 
@@ -20,7 +18,7 @@ public class BebidaService {
     @Transactional
     public void save(Bebida bebida) throws ExceptionService{
 
-        if(repository.existsBebidaByNombre(bebida.getNombre())){
+        if(repository.findBebidaByNombre(bebida.getNombre()).isPresent()){
             throw new ExceptionService("Ya existe una bebida con el mismo nombre");
         }
         bebida.setEstado(true);
@@ -60,7 +58,7 @@ public class BebidaService {
     @Transactional(readOnly = true)
     public List<Bebida> findAllByEstado() throws ExceptionService{
 
-        List<Bebida> listaBebida = repository.findAllByEstado(Boolean.TRUE);
+        List<Bebida> listaBebida = repository.findAllByEstado();
 
         if (listaBebida.isEmpty()){
             throw new ExceptionService("No existen bebidas en alta");

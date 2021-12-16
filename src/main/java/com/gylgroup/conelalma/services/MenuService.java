@@ -1,129 +1,106 @@
 package com.gylgroup.conelalma.services;
 
 import com.gylgroup.conelalma.entities.Menu;
+import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.repositories.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class MenuService {
 
-/*    @Autowired
+    @Autowired
     private MenuRepository repository;
 
-    @Transactional
-    public void crearMenu(Menu dto) throws Exception{
 
-        if(dto.getTipoEvento() ==null ){
-            throw new Exception("El tipo de evento no puede ser null");
-        }
-        if(dto.getComboMenu().trim()==null ){
-            throw new Exception("El combo de menu no puede estar vacío");
-        }
-        if(dto.getCantidadBaseComensales()==null || dto.getCantidadBaseComensales()<=0 ){
-            throw new Exception("La cantidad de comensales debe ser mayor a 0");
-        }
-        if(dto.getPrecioBase()==null || dto.getPrecioBase()<=0 ){
-            throw new Exception("La cantidad de comensales debe ser mayor a 0");
-        }
-        if( dto.getFoto().equals(" ") ){
-            throw new Exception("No existe una foto");
-        }
-        if(!repository.existsMenuBy(dto.getId())){
-            throw new Exception("No existe un menu asociado al ID: "+dto.getId());
-        }
+    public void save(Menu menu) throws ExceptionService{
 
-        Menu menu = new Menu();
-
-        menu.setTipoEvento(dto.getTipoEvento());
-        menu.setComboMenu(dto.getComboMenu());
-        menu.setCantidadBaseComensales(dto.getCantidadBaseComensales());
-        menu.setPrecioBase(dto.getPrecioBase());
-        menu.setFoto(dto.getFoto());
-
+        if(repository.findMenuByNombre(menu.getNombre()).isPresent()){
+            throw new ExceptionService("Ya existe un menú con el mismo nombre");
+        }
+        menu.setEstado(true);
         repository.save(menu);
-    }
-    @Transactional
-    public void modificarMenu(Menu dto) throws Exception{
 
-        if(dto.getTipoEvento() ==null ){
-            throw new Exception("El tipo de evento no puede ser null");
-        }
-        if(dto.getComboMenu().trim()==null ){
-            throw new Exception("El combo de menu no puede estar vacío");
-        }
-        if(dto.getCantidadBaseComensales()==null || dto.getCantidadBaseComensales()<=0 ){
-            throw new Exception("La cantidad de comensales debe ser mayor a 0");
-        }
-        if(dto.getPrecioBase()==null || dto.getPrecioBase()<=0 ){
-            throw new Exception("La cantidad de comensales debe ser mayor a 0");
-        }
-        if( dto.getFoto().equals(" ") ){
-            throw new Exception("No existe una foto");
-        }
-        if(!repository.existsMenuBy(dto.getId())){
-            throw new Exception("No existe un menu asociado al ID: "+dto.getId());
-        }
-
-        Menu menu = repository.findById(dto.getId()).get();
-
-        menu.setTipoEvento(dto.getTipoEvento());
-        menu.setComboMenu(dto.getComboMenu());
-        menu.setPrecioBase(dto.getPrecioBase());
-        menu.setCantidadBaseComensales(dto.getCantidadBaseComensales());
-        menu.setFoto(dto.getFoto());
-
-        repository.save(menu);
-    }
-
-    @Transactional(readOnly=true)
-    public Menu obtenerMenuXId(Integer id){
-        Optional<Menu> optional = repository.findById(id);
-        return optional.orElse(null);
     }
 
     @Transactional
-    public void bajaMenu(Integer id) throws Exception{
-        if(!repository.existsMenuBy(id)){
-            throw new Exception("No existe un menu asociado al ID: "+id + " para la baja");
-        }
-        repository.deleteById(id);
-    }
+    public void update(Integer id,Menu menu) throws ExceptionService{
 
-    @Transactional
-    public void altaMenu(Integer id) throws Exception{
-        if(repository.existsMenuBy(id)){
-            throw new Exception("Ya existe un menu asociado al ID: "+id + " para la baja");
+        Optional<Menu> opMenu = repository.findById(id);
+
+        if(opMenu.isPresent() && opMenu.get().getEstado().equals(true)){
+
+            Menu menuNew = new Menu();
+
+            menuNew.setNombre(menu.getNombre());
+            menuNew.setTipoEvento(menu.getTipoEvento());
+            menuNew.setCantidadBaseComensales(menu.getCantidadBaseComensales());
+            menuNew.setPrecioBase(menu.getPrecioBase());
+            menuNew.setEstado(menu.getEstado());
+            menuNew.setListaCombos(menu.getListaCombos());
+            menuNew.setFoto(menu.getFoto());
+
+
+            repository.save(menuNew);
+        } else{
+            throw new ExceptionService("No existe el menu seleccionado");
         }
-        repository.darAltaMenu(id);
+
     }
 
     @Transactional(readOnly = true)
-    public List<Menu> obtenerListaMenus() throws Exception{
-        if (repository.findAll().isEmpty()){
-            throw new Exception("La lista de menus esta vacía");
-        }
+    public Menu findById(Integer id){
+        return repository.findById(id).orElse(null);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Menu> findAll(){
         return repository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public List<Menu> obtenerAltas() throws Exception{
-        if (repository.obtenerAltas().isEmpty()){
-            throw new Exception("La lista de menus de alta esta vacía");
+    public List<Menu> findAllByEstado() throws ExceptionService {
+
+        List<Menu> listaMenu = repository.findAllByEstado();
+
+        if (listaMenu.isEmpty()){
+            throw new ExceptionService("No existen menus en alta");
+
+        }else{
+            return listaMenu;
         }
-        return repository.obtenerAltas();
+
     }
 
     @Transactional
-    public List<Menu> obtenerMenuXComensales(Integer comensales) throws Exception{
-        if (comensales <= 0 ){
-            throw new Exception("La cantidad de comensales debe ser mayor a 0");
+    public void disable(Integer id){
+
+        Optional<Menu> opMenu = repository.findById(id);
+
+        if (opMenu.isPresent()){
+
+            Menu menu = opMenu.get();
+            menu.setEstado(false);
+            repository.save(menu);
         }
 
-        return repository.listaMenuXComensales(comensales);
-    }*/
+    }
+
+    @Transactional
+    public void enable(Integer id){
+
+        Optional<Menu> opMenu = repository.findById(id);
+
+        if (opMenu.isPresent()){
+
+            Menu menu = opMenu.get();
+            menu.setEstado(true);
+            repository.save(menu);
+        }
+
+    }
+
 }

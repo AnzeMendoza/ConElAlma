@@ -83,7 +83,7 @@ public class BebidaController {
 
             ex.printStackTrace();
         }
-        return new RedirectView("/cupones/todos");
+        return new RedirectView("/bebida/todos");
     }
 
     @PostMapping("/modificar")
@@ -128,11 +128,5 @@ public class BebidaController {
 
         return redirectView;
     }
-
-
-
-
-
-
-
+    
 }

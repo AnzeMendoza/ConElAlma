@@ -1,9 +1,7 @@
 package com.gylgroup.conelalma.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 import com.gylgroup.conelalma.enums.TipoEvento;
 
@@ -22,6 +20,12 @@ public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(length = 64)
+    @NotEmpty(message = "El nombre es obligatorio")
+    @Size(min = 2, max = 64, message = "Debe tener min 2 caracteres y menos de 64")
+    @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener letras.")
+    private String nombre;
 
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
