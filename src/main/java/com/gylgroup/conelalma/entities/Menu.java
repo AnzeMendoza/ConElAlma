@@ -1,15 +1,12 @@
 package com.gylgroup.conelalma.entities;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import com.gylgroup.conelalma.enums.TipoEvento;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
@@ -32,7 +29,7 @@ public class Menu {
 
     @NotNull(message = "Lista de combos debe ser asignado")
     @OneToMany
-    private List<Combos> listaCombos;
+    private List<Combo> listaCombos;
 
     @NotNull(message = "Debe asignarse cantidad de comensales.")
     @Min(value = 0, message = "tiene que ser mayor a 0")
@@ -40,9 +37,9 @@ public class Menu {
 
     @NotNull(message = "Debe asignarse el precio base.")
     @Min(value = 0, message = "tiene que ser mayor a 0")
-    private Integer precioMenu;
-
-    private String foto;
+    private Double precioMenu;
 
     private Boolean estado;
+
+    private String foto;
 }

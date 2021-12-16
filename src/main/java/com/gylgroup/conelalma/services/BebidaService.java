@@ -23,7 +23,6 @@ public class BebidaService {
         }
         bebida.setEstado(true);
         repository.save(bebida);
-
     }
 
     @Transactional
@@ -42,7 +41,6 @@ public class BebidaService {
         } else{
             throw new ExceptionService("No existe esta bebida");
         }
-
     }
 
     @Transactional(readOnly = true)
@@ -57,7 +55,6 @@ public class BebidaService {
 
     @Transactional(readOnly = true)
     public List<Bebida> findAllByEstado() throws ExceptionService{
-
         List<Bebida> listaBebida = repository.findAllByEstado();
 
         if (listaBebida.isEmpty()){
@@ -65,12 +62,10 @@ public class BebidaService {
         }else{
             return listaBebida;
         }
-
     }
 
     @Transactional
     public void disable(Integer id){
-
         Optional<Bebida> opBebida = repository.findById(id);
 
         if (opBebida.isPresent()){
@@ -79,21 +74,17 @@ public class BebidaService {
             bebida.setEstado(false);
             repository.save(bebida);
         }
-
     }
 
     @Transactional
     public void enable(Integer id){
-
         Optional<Bebida> opBebida = repository.findById(id);
 
         if (opBebida.isPresent()){
-
             Bebida bebida = opBebida.get();
             bebida.setEstado(true);
             repository.save(bebida);
         }
-
     }
 
 }

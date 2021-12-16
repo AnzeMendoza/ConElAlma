@@ -6,6 +6,7 @@ import com.gylgroup.conelalma.repositories.MenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -77,7 +78,6 @@ public class MenuService {
 
     @Transactional
     public void disable(Integer id){
-
         Optional<Menu> opMenu = repository.findById(id);
 
         if (opMenu.isPresent()){
@@ -86,7 +86,6 @@ public class MenuService {
             menu.setEstado(false);
             repository.save(menu);
         }
-
     }
 
     @Transactional
@@ -100,7 +99,6 @@ public class MenuService {
             menu.setEstado(true);
             repository.save(menu);
         }
-
     }
 
 }

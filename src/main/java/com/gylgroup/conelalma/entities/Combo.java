@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE combos SET estado = false WHERE id = ?")
-public class Combos {
+public class Combo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +26,11 @@ public class Combos {
     @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener letras.")
     private String nombre;
 
-    @NotNull
+    @NotNull(message = "La lista de bebidas debe ser asignada")
     @OneToMany
     private List<Bebida> listaBebidas;
 
-    @NotNull
+    @NotNull(message = "La lista de comidas debe ser asignada")
     @OneToMany
     private List<Comida> listaComida;
 

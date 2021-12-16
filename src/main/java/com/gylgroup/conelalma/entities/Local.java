@@ -9,7 +9,6 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
 public class Local {
@@ -44,4 +43,8 @@ public class Local {
     private String foto;
 
     private boolean estado;
+
+    public Local() {
+        estado = true;
+    }
 }

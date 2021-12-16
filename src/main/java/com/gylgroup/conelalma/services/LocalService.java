@@ -41,7 +41,12 @@ public class LocalService {
     
     @Transactional
     public List<Local> findAll(){
-        return localRepository.misLocales();
+        return localRepository.findAll();
+    }
+    
+    @Transactional
+    public List<Local> findAllAndEstado(){
+        return localRepository.findAllByActivo();
     }
     
     @Transactional
@@ -71,6 +76,17 @@ public class LocalService {
     
     @Transactional
     public void disable(Integer id) {
-        localRepository.deleteById(id);
+        changeStatus(id, false);
+    }
+    
+    @Transactional
+    public void enable(Integer id) {
+        changeStatus(id, true);
+    }
+
+    private void changeStatus(Integer id, boolean status) {
+        Local local = localRepository.getById(id);
+        local.setEstado(status);
+        localRepository.save(local);
     }
 }
