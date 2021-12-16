@@ -1,34 +1,32 @@
 package com.gylgroup.conelalma.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import com.gylgroup.conelalma.enums.TipoEvento;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
 public class Bebida {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
-    private TipoEvento tipoEvento;
+    @Column(length = 64)
+    @NotNull(message = "nombre no debe ser null")
+    @NotEmpty(message = "El nombre es obligatorio")
+    @Size(min = 2, max = 64, message = "Debe tener min 2 caracteres y menos de 64")
+    @Pattern(regexp = "[a-zA-Z0-9 ]{2,64}", message = "Debe contener letras y numeros solamente.")
+    private String nombre;
 
-    private String comboBebida;
-    private Integer cantidadBaseComensales;
-    private Double precioBase;
-    private String foto;
+    @NotNull(message = "El precio unitario tiene que estar.")
+    @Min(value = 0, message = "tiene que ser mayor a 0")
+    private Double precioUnitario;
 
+    private Boolean estado;
 }
+

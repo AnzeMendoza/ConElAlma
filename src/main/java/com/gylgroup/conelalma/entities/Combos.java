@@ -1,22 +1,21 @@
 package com.gylgroup.conelalma.entities;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import com.gylgroup.conelalma.enums.TipoEvento;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
-public class Menu {
+@SQLDelete(sql = "UPDATE combos SET estado = false WHERE id = ?")
+public class Combos {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -27,22 +26,21 @@ public class Menu {
     @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener letras.")
     private String nombre;
 
-    @Enumerated(EnumType.STRING)
-    private TipoEvento tipoEvento;
-
-    @NotNull(message = "Lista de combos debe ser asignado")
+    @NotNull
     @OneToMany
-    private List<Combos> listaCombos;
+    private List<Bebida> listaBebidas;
 
-    @NotNull(message = "Debe asignarse cantidad de comensales.")
+    @NotNull
+    @OneToMany
+    private List<Comida> listaComida;
+
+    @NotNull(message = "El precio combo es obligatorio.")
     @Min(value = 0, message = "tiene que ser mayor a 0")
-    private Integer cantidadBaseComensales;
-
-    @NotNull(message = "Debe asignarse el precio base.")
-    @Min(value = 0, message = "tiene que ser mayor a 0")
-    private Integer precioMenu;
-
-    private String foto;
+    private Double precioCombo;
 
     private Boolean estado;
+
+    //@NotNull(message = "Tiene que estar asignado")
+    //@NotEmpty(message = "Debe incluir el path de foto")
+    private String foto;
 }
