@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <a class="btn btn-success" th:href="@{/Locales/crear}">Crear Nuevo</a>
+        <a class="btn btn-success" th:href="@{/locales/crear}">Crear Nuevo</a>
         <table class="table"  >
             <thead>
                 <tr >
@@ -21,18 +21,46 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="local:${Locales}">
+                <tr th:each="local:${locales}">
                     <td th:text="${local.id}"></td>
                     <td th:text="${local.nombre}"></td>
                     <td th:text="${local.cantidadMaximaPersonas}"></td>
                     <td th:text="${local.direccion}"></td>
                     <td th:text="${local.precio}"></td>
                     <td>
-                        
-                        <a th:href="@{/Locales/eliminar/}+${local.id}" class="btn btn-danger">Eliminar</a>
-                        <a th:href="@{/Locales/editar/}+${local.id}" class="btn btn-warning">Editar</a>
+
+                        <a th:href="${local.estado} ? @{/locales/desactivar/__${local.id}__} : @{/locales/activar/__${local.id}__}"
+                           th:text="${local.estado} ? Desactivar : Activar">
+                        </a>
+                        <a th:href="@{/locales/editar/__${local.id}__}" class="btn btn-warning">Editar</a>
                     </td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="container">
+        <h1>Locales activos</h1>
+        <table class="table"  >
+            <thead>
+            <tr >
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>CAPACIDAD</th>
+                <th>UBICACION</th>
+                <th>PRECIO</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="local:${localesActivos}">
+                <td th:text="${local.id}"></td>
+                <td th:text="${local.nombre}"></td>
+                <td th:text="${local.cantidadMaximaPersonas}"></td>
+                <td th:text="${local.direccion}"></td>
+                <td th:text="${local.precio}"></td>
+            </tr>
             </tbody>
         </table>
     </div>

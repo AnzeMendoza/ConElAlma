@@ -1,39 +1,27 @@
 package com.gylgroup.conelalma.repositories;
 
 import com.gylgroup.conelalma.entities.Local;
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface LocalRepository extends JpaRepository<Local,Integer> {
-    @Query("SELECT l FROM Local l WHERE l.id =:id")
+    @Query(value = "SELECT * FROM local WHERE id =:id", nativeQuery = true)
     Local BuscarLocalPorId(@Param("id")Integer id);  
     
-    @Query("SELECT l FROM Local l WHERE l.precio <=: maximo")
+    @Query(value = "SELECT * FROM local WHERE precio <=: maximo", nativeQuery = true)
     List<Local> BuscarPorPrecioMaximo(@Param("maximo") Double maximo);
-    
-    @Query("SELECT l FROM Local l WHERE l.estado = 1")
-    List<Local> misLocales();
-    
-    @Query("SELECT l FROM Local l WHERE l.cantidadMaximaPersonas >=: maxima")
+
+    @Query(value = "SELECT * FROM local WHERE cantidadMaximaPersonas >=: maxima", nativeQuery = true)
     List<Local> BuscarPorCantidadPersonas(@Param("maxima") Integer maxima);
     
-    @Query("SELECT l FROM Local l WHERE l.direccion =: direccion")
+    @Query(value = "SELECT * FROM local WHERE direccion =: direccion", nativeQuery = true)
     List<Local> BuscarPorDireccion(@Param("direccion") String direccion);
     
-    @Query("SELECT l FROM Local l WHERE l.estado = 1")
-    List<Local> findAllAndEstado();
-    
-    @Modifying
-    @Query(value = "UPDATE Local SET estado = true WHERE id = ?1", nativeQuery = true)
-    void enable(Integer id);
-    
-    @Modifying
-    @Query(value = "UPDATE Local SET estado = false WHERE id = ?1", nativeQuery = true)
-    void disable(Integer id);
-    
+    @Query(value = "SELECT * FROM local WHERE estado = 1", nativeQuery = true)
+    List<Local> findAllByActivo();
 }

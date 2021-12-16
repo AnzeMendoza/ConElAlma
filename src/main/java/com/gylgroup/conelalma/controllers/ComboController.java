@@ -45,7 +45,7 @@ public class ComboController {
     
     @PostMapping("/guardar")
     public RedirectView guardar(@ModelAttribute Combos combo, RedirectAttributes attributes){
-        RedirectView rv = new RedirectView("/Locales");
+        RedirectView rv = new RedirectView("/locales");
         try{
             comboService.save(combo);
         }catch(Exception e){
