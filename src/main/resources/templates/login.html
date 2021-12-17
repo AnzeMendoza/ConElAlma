@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Login</title>
@@ -44,22 +44,7 @@
         <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
             <h1><a th:href="@{/}">ConElAlma</a></h1>
-
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
-                    <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
-                    <li><a class="nav-link scrollto" href="#menu">Platos</a></li>
-                    <li><a class="nav-link scrollto" href="#gallery">Locales</a></li>
-                    <li><a class="nav-link scrollto" href="#events">Eventos</a></li>
-                    <li><a class="nav-link scrollto" href="#testimonials">Comentarios</a></li>
-                    <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-            <a th:href="@{/login}" class="book-a-table-btn scrollto d-none d-lg-flex">Login</a>
-            <a th:href="@{/signup}" class="book-a-table-btn scrollto d-none d-lg-flex">Registrarse</a>
-            <a th:href="@{/admin}" class="book-a-table-btn scrollto d-none d-lg-flex">Administración</a>
+            <a th:href="@{/}" class="book-a-table-btn scrollto d-none d-lg-flex">Regresar</a>
         </div>
     </header><!-- Fin Header -->
 
