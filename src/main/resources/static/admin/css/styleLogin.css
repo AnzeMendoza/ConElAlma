@@ -4,7 +4,7 @@ body {
   /*src\main\resources\static\img\restHD.jpg*/
   background-image: url(../img/restHD.jpg);
   /*background-image: url(./img/restHD.jpg);*/
-  font-family: "Playfair Display", serif;
+  /*font-family: "Playfair Display", serif;*/
   background-size: cover;
 }
 #logo {

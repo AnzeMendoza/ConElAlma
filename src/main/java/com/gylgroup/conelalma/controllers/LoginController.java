@@ -23,6 +23,7 @@ public class LoginController {
 
         if (logout != null) {
             modelAndView.addObject("logout", "CERRRO SESIÓN EXITOSAMENTE!");
+            // modelAndView.setViewName("redirect:/");
         }
 
         if (principal != null) {
@@ -37,21 +38,6 @@ public class LoginController {
         ModelAndView mav = new ModelAndView("signup.html");
 
         mav.addObject("title", "Registrar usuario");
-        /*
-         * Map<String , ?> flashMap = RequestContextUtils.getInputFlashMap(request);
-         * 
-         * if (flashMap != null) {
-         * mav.addObject("exito", flashMap.get("exito"));
-         * mav.addObject("error", flashMap.get("error-name"));
-         * mav.addObject("usuario", flashMap.get("usuario"));
-         * }else{
-         * mav.addObject("usuario",new Usuario());
-         * }
-         * if (principal != null) {
-         * LOGGER.info("Principal -> {}", principal.getName());
-         * mav.setViewName("redirect:/home");
-         * }
-         */
 
         return mav;
     }
