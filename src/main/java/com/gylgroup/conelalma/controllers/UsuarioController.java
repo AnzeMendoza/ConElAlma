@@ -167,7 +167,7 @@ public class UsuarioController {
 
                 usuarioService.save(usuario, null, imagen);
                 attributes.addFlashAttribute("exito", "REGISTRO CON EXITO!");
-                mav.setViewName("redirect:/usuario/registrarse");
+                mav.setViewName("redirect:/");
             } catch (Exception e) {
 
                 attributes.addFlashAttribute("error", e.getMessage());

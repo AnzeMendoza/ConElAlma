@@ -14,7 +14,7 @@ public class PrincipalController {
 
     @GetMapping("/")
     public ModelAndView inicioPublic() {
-        ModelAndView mav = new ModelAndView("public/index.html");
+        ModelAndView mav = new ModelAndView("index.html");
         mav.addObject("comentarios",comentarioService.traerAltas());
         return mav;
     }

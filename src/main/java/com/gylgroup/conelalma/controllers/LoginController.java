@@ -15,7 +15,7 @@ public class LoginController {
     public ModelAndView validarLogin(@RequestParam(required = false) String error,
             @RequestParam(required = false) String logout, Principal principal) {
 
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView("login.html");
 
         if (error != null) {
             modelAndView.addObject("error", "EMAIL O CONTRASENIA INVÁLIDA!");
@@ -34,7 +34,7 @@ public class LoginController {
     @GetMapping("/signup")
     public ModelAndView signup(@RequestParam(required = false) String error, HttpServletRequest request,
             Principal principal) {
-        ModelAndView mav = new ModelAndView("./profile/signup.html");
+        ModelAndView mav = new ModelAndView("signup.html");
 
         mav.addObject("title", "Registrar usuario");
         /*
