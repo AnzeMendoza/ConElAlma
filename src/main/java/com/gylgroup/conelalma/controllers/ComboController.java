@@ -4,8 +4,11 @@ import com.gylgroup.conelalma.entities.Combo;
 import com.gylgroup.conelalma.services.BebidaService;
 import com.gylgroup.conelalma.services.ComboService;
 import com.gylgroup.conelalma.services.ComidaService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,21 +41,20 @@ public class ComboController {
         ModelAndView mav = new ModelAndView("combosFormulario.html");
         mav.addObject("combo",new Combo());
         mav.addObject("comidas", comidaService.findAllByEstado());
-//        mav.addObject("bebidas", bebidaService.findAll());
+        mav.addObject("bebidas", bebidaService.findAll());
         mav.addObject("title", "Crear Combo");
         mav.addObject("action","guardar");
         return mav;
     }
     
     @PostMapping("/guardar")
-    public RedirectView guardar(@ModelAttribute Combo combo, RedirectAttributes attributes){
-        RedirectView rv = new RedirectView("/locales");
-        try{
-            comboService.save(combo);
-        }catch(Exception e){
-            rv.setUrl("/combos/crear");
+    public String guardar(@Valid @ModelAttribute Combo combo, BindingResult result, Model model){
+        if (result.hasErrors()) {
+            model.addAttribute("action", "guardar");
+            return "localForm";
         }
-        return rv;
+            comboService.save(combo);    
+            return "redirect:/combos/";
     }
     
     @GetMapping("/editar/{id}")
@@ -68,10 +70,13 @@ public class ComboController {
     }
     
     @PostMapping("/modificar")
-    public RedirectView modificar(@ModelAttribute Combo combo, RedirectAttributes attributes){
-        RedirectView redirectView = new RedirectView("/Combos");
-        comboService.update(combo);
-        return redirectView;
+    public String modificar(@Valid @ModelAttribute Combo combo, BindingResult result, Model model){
+        if (result.hasErrors()) {
+            model.addAttribute("action", "modificar");
+            return "localForm";
+        }
+            comboService.save(combo);    
+            return "redirect:/combos/";
     }
     
     @GetMapping("/baja/{id}")
