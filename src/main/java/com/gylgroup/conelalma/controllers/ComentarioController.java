@@ -2,6 +2,8 @@ package com.gylgroup.conelalma.controllers;
 
 
 import com.gylgroup.conelalma.entities.Comentario;
+import com.gylgroup.conelalma.repositories.ReservaRepository;
+import com.gylgroup.conelalma.repositories.UsuarioRepository;
 import com.gylgroup.conelalma.services.ComentarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,24 +15,33 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/comentarios")
+@RequestMapping("/comentario")
 public class ComentarioController {
 
     @Autowired
     private ComentarioService comentarioService;
 
-    @GetMapping
-    public ModelAndView listaComentarios(){
-        ModelAndView mav = new ModelAndView("comentarios");
-        //traer comentarios solo en alta?
-        mav.addObject("comentarios",comentarioService.traerTodos());
-        return mav;
-    }
-    @GetMapping("/crear")
-    public ModelAndView save(){
-        ModelAndView mav = new ModelAndView("comentario-formulario");
+    @Autowired
+    private ReservaRepository reservaRepository;
 
-        mav.addObject("comentario",new Comentario());
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    /* @GetMapping
+     public ModelAndView listaComentarios(){
+         ModelAndView mav = new ModelAndView("comentarios");
+         //traer comentarios solo en alta?
+         mav.addObject("comentarios",comentarioService.traerTodos());
+         return mav;
+     }*/
+    @GetMapping
+    public ModelAndView save(){
+        ModelAndView mav = new ModelAndView("public/comentario-formulario");
+        Comentario comentario = new Comentario();
+        comentario.setUsuario(usuarioRepository.findById(2).orElse(null));
+        comentario.setReserva(reservaRepository.findById(1).orElse(null));
+        mav.addObject("comentario",comentario);
+        //mav.addObject("usuario", usuarioRepository.getById(2));
         mav.addObject("action","guardar");
         mav.addObject("title","Ingresar nuevo comentario");
 
@@ -39,54 +50,53 @@ public class ComentarioController {
 
     @GetMapping("/editar/{id}")
     public ModelAndView editarComentario(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("comentario-formulario");
-
+        ModelAndView mav = new ModelAndView("public/comentario-formulario");
         mav.addObject("comentario",comentarioService.findById(id));
-        mav.addObject("action","modifcar");
+        mav.addObject("action","modificar");
         mav.addObject("title","Editar comentario");
 
         return mav;
     }
 
     @PostMapping("/guardar")
-    public RedirectView persistirComentario(@ModelAttribute Comentario comentario, RedirectAttributes attributes){
-
+    public RedirectView persistirComentario(@ModelAttribute("comentario") Comentario comentario, RedirectAttributes attributes){
         try {
             comentarioService.save(comentario);
             attributes.addFlashAttribute("exito","Comentario registrado con exito.");
-            return new RedirectView("/comentarios");
+            return new RedirectView("/");
         } catch (Exception e) {
             attributes.addFlashAttribute("comentario",comentario);
             attributes.addFlashAttribute("error-name",e.getMessage());
-            return new RedirectView("/comentario/crear");
+            return new RedirectView("/comentario");
         }
     }
 
     @PostMapping("/modificar")
-    public RedirectView modifcarComentario(@ModelAttribute Comentario comentario,RedirectAttributes attributes){
-        RedirectView reMav = new RedirectView("/comentarios");
+    public RedirectView modifcarComentario(@ModelAttribute("comentario") Comentario comentario,RedirectAttributes attributes){
+        RedirectView reMav = new RedirectView();
 
         try {
             comentarioService.update(comentario);
             attributes.addFlashAttribute("exito", "Modificacion exitosa");
+            reMav.setUrl("/");
         } catch (Exception e) {
             attributes.addFlashAttribute("comentario",comentario);
             attributes.addFlashAttribute("error-name",e.getMessage());
-            reMav.setUrl("/comentarios/editar/"+comentario.getId());
+            reMav.setUrl("/comentario/editar/"+comentario.getId());
         }
         return reMav;
     }
 
     @PostMapping("/alta/{id}")
     public RedirectView enable(@PathVariable Integer id){
-        RedirectView reMav = new RedirectView("/comentarios");
+        RedirectView reMav = new RedirectView("/comentario");
         comentarioService.enable(id);
         return reMav;
     }
 
     @PostMapping("/baja/{id}")
     public RedirectView disable(@PathVariable Integer id){
-        RedirectView reMav = new RedirectView("/comentarios");
+        RedirectView reMav = new RedirectView("/comentario");
         comentarioService.disable(id);
         return reMav;
     }

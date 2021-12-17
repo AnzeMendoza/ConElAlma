@@ -1,4 +1,3 @@
-package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Cupon;
 import com.gylgroup.conelalma.services.CuponService;
@@ -41,9 +40,9 @@ public class CuponController {
 
     @PostMapping("/agregar")
     public String cuponSave(@Valid Cupon cupon,
-            BindingResult result,
-            Model model) {
-        if (result.hasErrors()) {
+                            BindingResult result,
+                            Model model) {
+        if(result.hasErrors()){
             model.addAttribute("action", "agregar");
             return "cupon-formulario";
         }
@@ -54,21 +53,21 @@ public class CuponController {
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable("id") Integer id) throws Exception {
         ModelAndView mav = new ModelAndView("cupon-formulario");
-        if (cuponService.existsById(id)) {
+        if(cuponService.existsById(id)){
             mav.addObject("cupon", cuponService.findById(id));
-            mav.addObject("action", "editar/" + id);
+            mav.addObject("action", "editar/"+id);
         }
         return mav;
     }
 
     @PostMapping("/editar/{id}")
     public String cuponUpdate(@PathVariable Integer id,
-            @Valid Cupon cupon,
-            BindingResult result,
-            Model model) {
+                              @Valid Cupon cupon,
+                              BindingResult result,
+                              Model model) {
         try {
-            if (result.hasErrors()) {
-                model.addAttribute("action", "editar/" + id);
+            if(result.hasErrors()){
+                model.addAttribute("action", "editar/"+id);
                 return "cupon-formulario";
             }
             cuponService.update(id, cupon);

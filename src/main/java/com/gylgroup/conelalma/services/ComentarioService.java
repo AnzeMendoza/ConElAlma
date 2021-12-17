@@ -4,6 +4,7 @@ package com.gylgroup.conelalma.services;
 import com.gylgroup.conelalma.entities.Comentario;
 import com.gylgroup.conelalma.repositories.ComentarioRepository;
 import com.gylgroup.conelalma.repositories.ReservaRepository;
+import com.gylgroup.conelalma.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,9 @@ public class ComentarioService {
 
     @Autowired
     private ComentarioRepository comentarioRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private ReservaRepository reservaRepository;
@@ -34,9 +38,11 @@ public class ComentarioService {
 
         comentario.setCalificacion(dto.getCalificacion());
         comentario.setDescripcion(dto.getDescripcion());
-        comentario.setUsuario(dto.getUsuario());
-        comentario.setReserva(dto.getReserva());
-        comentario.setEstado(dto.getEstado());
+ //       comentario.setUsuario(dto.getUsuario());
+ //       comentario.setReserva(dto.getReserva());
+        comentario.setUsuario(usuarioRepository.findById(dto.getUsuario().getId()).orElse(null));
+        comentario.setReserva(reservaRepository.findById(dto.getReserva().getId()).orElse(null));
+        comentario.setEstado(true);
 
         comentarioRepository.save(comentario);
     }
@@ -60,7 +66,6 @@ public class ComentarioService {
         comentario.setDescripcion(dto.getDescripcion());
         comentario.setReserva(dto.getReserva());//preguntar
         comentario.setEstado(dto.getEstado());
-
         comentarioRepository.save(comentario);
 
     }

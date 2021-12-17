@@ -31,7 +31,7 @@ public class LoginController {
 
     @GetMapping("/signup")
     public ModelAndView signup(@RequestParam(required = false) String error, HttpServletRequest request, Principal principal) {
-        ModelAndView mav = new ModelAndView("./profile/signup.html");
+        ModelAndView mav = new ModelAndView("signup.html");
 
         mav.addObject("title","Registrar usuario");
         /*Map<String , ?> flashMap = RequestContextUtils.getInputFlashMap(request);

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Formulario comentario</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link th:href="@{/public/img/logo0.png}" rel="icon">
+  <link th:href="@{/public/img/logo0.png}" rel="apple-touch-icon"> 
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/public/assets/vendor/animate.css/animate.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/aos/aos.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link th:href="@{/public/assets/css/style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+      <h1><a th:href="@{/}">ConElAlma</a></h1>
+     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
+          <li><a class="nav-link scrollto" href="#menu">Platos</a></li>
+          <li><a class="nav-link scrollto" href="#gallery">Locales</a></li>
+          <li><a class="nav-link scrollto" href="#events">Eventos</a></li>
+          <li><a class="nav-link scrollto" href="#testimonials">Comentarios</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+      <a th:href="@{/login}" class="book-a-table-btn scrollto d-none d-lg-flex">Login</a>
+      <a th:href="@{/signup}" class="book-a-table-btn scrollto d-none d-lg-flex">Registrarse</a>
+
+    </div>
+  </header><!-- Fin Header -->
+
+</br>
+</br>
+</br>
+
+  <main id="main">
+
+<!-- ======= Seccion de contacto ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+</br>
+    <div class="section-title">
+      <h2>Reseña de usuario</h2>
+    </div>
+  </div>
+
+  <div class="container" data-aos="fade-up">
+
+    <div class="row mt-5">
+
+
+      <div class="col-lg-8 mt-5 mt-lg-0">
+
+        <form modelAttribute="comentario" th:action="@{/comentario/__${action}__}" th:object="${comentario}"
+         method="post" role="form" class="email-form">
+          <input th:field="*{id}" th:name="id" type="hidden"/>
+          
+          <div class="row">
+            <input th:field="*{usuario.id}" hidden>
+
+            <div class="col-md-6 form-group" > 
+              <label for="name">Nombre</label>
+              <input type="text" name="name" class="form-control" id="name" readonly 
+              th:placeholder="${comentario.usuario.nombre}" th:field="*{usuario.nombre}">
+            </div>
+            
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <label for="last-name">Apellido</label>
+              <input type="text" class="form-control" name="text" id="last-name" readonly 
+              th:placeholder="${comentario.usuario.apellido}" th:field="*{usuario.apellido}">
+            </div>
+          </div>
+          
+          <div class="form-group mt-3">
+            <label for="qualification">Calificacion</label>
+            <select aria-label="Elegir rol" class="form-select" id="rol" required th:field="*{calificacion}">
+                <option selected value="">Elegir calificacion</option>
+                <option th:each="calificacion : ${T(com.gylgroup.conelalma.enums.Calificacion).values()}" th:text="${calificacion}"
+                        th:value="${calificacion}"></option>
+            </select>
+          </div>
+
+          <input th:field="*{reserva.id}" hidden>
+          <input th:field="*{estado}" hidden>
+
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" rows="6" placeholder="Reseña" th:field="*{descripcion}" required>
+                
+            </textarea>
+          </div>
+          <div class="text-center"><button type="submit"> Enviar reseña</button></div>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- ======= Fin Seccion de contacto ======= -->
+
+  </main><!-- End #main -->
+
+
+
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Con El Alma</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer><!-- Fin Footer -->
+
+<!-- Vendor JS Files -->
+<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+<script th:src="@{/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/public/assets/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
+<script th:src="@{/public/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+
+  
+<!-- Template Main JS File -->
+<script th:src="@{/public/assets/js/main.js}"></script>
+
+</body>
+
+</html>

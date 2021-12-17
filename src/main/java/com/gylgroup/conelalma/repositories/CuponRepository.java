@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CuponRepository extends JpaRepository<Cupon, Integer> {
+public interface CuponRepository extends JpaRepository<Cupon, Integer>{ 
     Cupon findByCodigo(@Param("codigo") String codigo);
 
     Cupon findByDescuento(@Param("id") Integer descuento);
 
-    List<Cupon> findAllByEstado(@Param("estado") Boolean estado);
+    List<Cupon>findAllByEstado(@Param("estado") Boolean estado);
 
     boolean existsById(int id);
 }
