@@ -34,27 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/",
                         "/admin/**", "/usuario/registrarse", "/usuario/guardar",
-                        "/css/**", "/img/**", "/js/*","index","/public/**")
-                .permitAll().
-                antMatchers("/**").
-                authenticated().and().
-                formLogin().
-                loginPage("/login").
-                loginProcessingUrl("/logincheck").
-                usernameParameter("email").
-                passwordParameter("contrasenia").
-                defaultSuccessUrl("/", true).
-                failureUrl("/login?error=true").
-                permitAll().
-                and().
-                logout().
-                logoutUrl("/logout").
-                logoutSuccessUrl("/login?logout=true").
-                permitAll()
-                .deleteCookies("JSESSIONIO").
-                and().
-                csrf().
-                disable();
+                        "/css/**", "/img/**", "/js/*", "index", "/public/**")
+                .permitAll().antMatchers("/**").authenticated().and().formLogin().loginPage("/login")
+                .loginProcessingUrl("/logincheck").usernameParameter("email").passwordParameter("contrasenia")
+                .defaultSuccessUrl("/", true).failureUrl("/login?error=true").permitAll().and().logout()
+                .logoutUrl("/logout").logoutSuccessUrl("/login?logout=true").permitAll()
+                .deleteCookies("JSESSIONIO").and().csrf().disable();
 
         // http.csrf().disable().authorizeRequests().anyRequest().permitAll();
     }

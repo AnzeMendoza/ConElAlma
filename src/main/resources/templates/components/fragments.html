@@ -1,168 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<!-- INICIO NAV NO SIRVE SOLO PARA LA LANDING PASAR D LARGO! -->
-<nav th:fragment="navbar" class="navbar navbar-expand-md  sticky-top">
-    <div class="container">
-        <a class="navbar-brand" th:href="@{/}">Inicio</a>
-        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
-            class="navbar-toggler" data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mb-2 mb-md-0 w-100">
-                <!--DROPDOWN USUARIOS-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-usuarios" role="button">
-                        Usuarios
-                    </a>
-                    <ul aria-labelledby="dropdown-usuarios" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/rol/todos}">Admin. Roles</a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item" th:href="@{/usuario/todos}">Admin. Usuarios</a>
-
-                        </li>
-
-                    </ul>
-                </li>
-                <!--DROPDOWN MENU-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-mascotas" role="button">
-                        Menu
-                    </a>
-                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item">Mostrar todos</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item">Crear menu</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <!--DROPDOWN PROYECTOS-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-mascotas" role="button">
-                        Bebidas
-                    </a>
-                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item">Mostrar todas</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item">Crear bebida</a>
-                        </li>
-                    </ul>
-                </li>
-                <!--DROPDOWN Local-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-mascotas" role="button">
-                        Locales
-                    </a>
-                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Mostrar Locales</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Crear Local</a>
-                        </li>
-                    </ul>
-                </li>
-                <!--DROPDOWN CUPONES-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-mascotas" role="button">
-                        Cupones
-                    </a>
-                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Motras todos</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Crear cupón</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <!--DROPDOWN Presupuesto-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-mascotas" role="button">
-                        Presupuesto
-                    </a>
-                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Mis presupuestos</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Crear mi presupuesto</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <!--DROPDOWN Reserva-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-mascotas" role="button">
-                        Reserva
-                    </a>
-                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Mis reserva</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Mostrar Reservas</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <!--DROPDOWN Comentario-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                        id="dropdown-mascotas" role="button">
-                        Comentario
-                    </a>
-                    <ul aria-labelledby="dropdown-mascotas" class="dropdown-menu dropdown-menu-custom">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Mostrar Comentarios</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/tickets}">Crear comentario</a>
-                        </li>
-                    </ul>
-                </li>
-                <!--DROPDOWN SALIR-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link" th:href="@{/usuario/registrarse}" id="dropdown-mascotas"
-                        role="button">
-                        Registro
-                    </a>
-
-                </li>
-
-                <!--DROPDOWN SESION-->
-                <li class="nav-item dropdown">
-                    <a aria-expanded="false" class="nav-link" th:href="@{/login}" id="dropdown-mascotas" role="button">
-                        Iniciar Sesión
-                    </a>
-
-                </li>
-
-            </ul>
-        </div>
-    </div>
-</nav>
-<!--  FIN NO SIRVE ESTO AUN -->
-
-
 
 <!-- ESTO SI SIRVE ES DEL TEMPLATE D ADMINISTRACION-->
 <!-- ======= Header ======= -->
@@ -298,12 +136,12 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
-                        <i class="bi bi-circle"></i><span>Mostrar todos</span>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Admin. cupones</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Crear cupón</span>
                     </a>
                 </li>
@@ -316,7 +154,7 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Admin. comentarios</span>
                     </a>
                 </li>
@@ -329,12 +167,12 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
-                        <i class="bi bi-circle"></i><span>Admin. todos</span>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Admin. presupuestos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Mi presupuesto</span>
                     </a>
                 </li>
@@ -344,16 +182,16 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Reserva</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-journal-text"></i><span>Reservas</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
-                        <i class="bi bi-circle"></i><span>Mostrar todas</span>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Admin. reservas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Mis reservas</span>
                     </a>
                 </li>
@@ -367,12 +205,12 @@
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Mostrar todos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Crear cupón</span>
                     </a>
                 </li>
@@ -382,21 +220,21 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Menues</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-journal-text"></i><span>Menús</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="forms-elements.html">
-                        <i class="bi bi-circle"></i><span>Admin. locales</span>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Admin. Combos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Admin. platos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="forms-layouts.html">
+                    <a href="#">
                         <i class="bi bi-circle"></i><span>Admin. bebidas</span>
                     </a>
                 </li>
@@ -404,11 +242,23 @@
             </ul>
         </li><!-- End Forms Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Locales</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="#">
+                        <i class="bi bi-circle"></i><span>Admin. locales</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
 
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
+            <a class="nav-link collapsed" href="#">
                 <i class="bi bi-person"></i>
                 <span>Perfil</span>
             </a>
@@ -416,7 +266,7 @@
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-contact.html">
+            <a class="nav-link collapsed" href="#">
                 <i class="bi bi-envelope"></i>
                 <span>Contacto</span>
             </a>
@@ -435,6 +285,7 @@
                 <span>Iniciar sesión</span>
             </a>
         </li><!-- End Login Page Nav -->
+
 </aside>
 <!-- ===== Fin Sidebar ===== -->
 

@@ -1,6 +1,9 @@
-/*Inicio login*/
+/*--Inicio style login y signup*/
+
 body {
+  /*src\main\resources\static\img\restHD.jpg*/
   background-image: url(../img/restHD.jpg);
+  /*background-image: url(./img/restHD.jpg);*/
   font-family: "Playfair Display", serif;
   background-size: cover;
 }
@@ -52,3 +55,4 @@ span {
 .btn-toolbar {
   margin-right: 30px;
 }
+/*Fin style login y signup*/
