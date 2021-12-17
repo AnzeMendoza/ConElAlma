@@ -49,22 +49,26 @@
     </header><!-- Fin Header -->
 
     <div class="container p-6">
-        <div th:if="${error}" class="container mt-4 text-center">
-            <div class="row col-md-4 mx-auto">
-                <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
+
+
+        <div>
+            <div th:if="${error}" class="container mt-4 text-center">
+                <div class="row col-md-4 mx-auto">
+                    <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
+                </div>
+            </div>
+
+            <div th:if="${logout}" class="container mt-4 text-center">
+                <div class="row col-md-4 mx-auto">
+                    <div th:text="${logout}" class="alert alert-success m-0 shadow"></div>
+                </div>
             </div>
         </div>
-
-        <div th:if="${logout}" class="container mt-4 text-center">
-            <div class="row col-md-4 mx-auto">
-                <div th:text="${logout}" class="alert alert-success m-0 shadow"></div>
-            </div>
-        </div>
-
 
         <div class="row justify-content-center pt-2 mt-5 mr-4">
             <div class="col-md-4 formulario">
                 <div class="card text-center shadow .input-lg">
+
                     <div class="form-group text-center">
                         <img th:src="@{/admin/img/logo0.png}" width="160" alt="Letras solo con el alma" id="logo">
                     </div>
