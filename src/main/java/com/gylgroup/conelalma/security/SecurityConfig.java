@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/",
-                        "/admin/**",
+                        "/admin/**", "/usuario/registrarse", "/usuario/guardar",
                         "/css/*", "/img/*", "/js/*")
                 .permitAll().antMatchers("/**").authenticated().and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/logincheck")
@@ -44,12 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONIO").and().csrf().disable();
 
         // http.csrf().disable().authorizeRequests().anyRequest().permitAll();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-
-        web.ignoring().antMatchers("/usuario/registrarse", "/usuario/guardar");
     }
 
 }

@@ -112,7 +112,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Listado</h5>
-
                             <div th:if="${roles.isEmpty()}">
                                 <h5>Todavía no hay roles cargados. <a th:href="@{/rol/todos}">Cargar rol.</a></h5>
                             </div>
@@ -134,17 +133,20 @@
                                             <td class="col-md-2 px-md-2" th:text="${rol.descripcion}"></td>
                                             <td class="col-md-2 px-md-2 d-flex justify-content-around w-100">
 
-                                                <a style="width: 100px;"
-                                                    th:class="${rol.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
+                                                <a style="width: 120px;"
+                                                    th:class="${rol.estado} ? 'btn btn-warning btn-sm bi bi-pencil' : 'btn btn-light btn-sm bi bi-pencil'"
                                                     th:href="${rol.estado} != false ? (@{/rol/editar/__${rol.id}__}) : '#' "
-                                                    th:disabled="${rol.estado} == false">Editar</a>
+                                                    th:disabled="${rol.estado} == false">
+                                                    Editar</a>
 
                                                 <form method="post"
                                                     th:action="${rol.estado} ? @{/rol/deshabilitar/__${rol.id}__} : @{/rol/habilitar/__${rol.id}__}">
-                                                    <button style="width: 100px;"
-                                                        th:class="${rol.estado} ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'"
+
+                                                    <button style="width: 120px;"
+                                                        th:class="${rol.estado} ? 'btn btn-danger btn-sm bi bi-power' : 'btn btn-primary btn-sm'"
                                                         type="submit"
-                                                        th:text="${rol.estado} ? 'Deshabilitar' : 'Habilitar'"></button>
+                                                        th:text="${rol.estado} ? 'Deshabilitar' : 'Habilitar'">
+                                                    </button>
                                                 </form>
                                             </td>
 
