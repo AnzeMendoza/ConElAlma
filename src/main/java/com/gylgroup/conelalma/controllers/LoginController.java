@@ -32,13 +32,4 @@ public class LoginController {
         return modelAndView;
     }
 
-    @GetMapping("/signup")
-    public ModelAndView signup(@RequestParam(required = false) String error, HttpServletRequest request,
-            Principal principal) {
-        ModelAndView mav = new ModelAndView("signup.html");
-
-        mav.addObject("title", "Registrar usuario");
-
-        return mav;
-    }
 }
