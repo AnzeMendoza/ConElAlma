@@ -26,7 +26,7 @@ public class RolController {
     @GetMapping("/todos")
     public ModelAndView obtenerRoles() {
 
-        ModelAndView mav = new ModelAndView("roles-formulario");
+        ModelAndView mav = new ModelAndView("/admin/roles-formulario");
         mav.addObject("roles", rolService.findAll());
         mav.addObject("rol", new Rol());
         mav.addObject("estado", false);
@@ -46,7 +46,7 @@ public class RolController {
             mav.addObject("rol", rol);
             mav.addObject("estado", true);
             mav.addObject("action", "guardar");
-            mav.setViewName("roles-formulario");
+            mav.setViewName("/admin/roles-formulario");
         } else {
 
             try {
@@ -66,7 +66,7 @@ public class RolController {
     @GetMapping("/editar/{id}")
     public ModelAndView formEditarRol(@PathVariable Integer id) {
 
-        ModelAndView mav = new ModelAndView("roles-formulario");
+        ModelAndView mav = new ModelAndView("/admin/roles-formulario");
         mav.addObject("roles", rolService.findAll());
         mav.addObject("rol", rolService.findById(id));
         mav.addObject("estado", true);
@@ -86,7 +86,7 @@ public class RolController {
             mav.addObject("rol", rol);
             mav.addObject("estado", true);
             mav.addObject("action", "modificar");
-            mav.setViewName("roles-formulario");
+            mav.setViewName("/admin/roles-formulario");
         } else {
 
             try {

@@ -25,13 +25,13 @@ public class Rol {
 
     @Column(length = 64)
     @NotEmpty(message = "El nombre es obligatorio!")
-    @Size(min = 3, max = 64, message = "Debe tener min 7 caracteres y menos de 64")
+    @Size(min = 4, max = 64, message = "Debe tener min 4 caracteres y menos de 64")
     @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener solo letras!")
     private String nombre;
 
     @Column(length = 64)
     @NotEmpty(message = "El nombre es obligatorio!")
-    @Size(min = 3, max = 64, message = "Debe tener min 7 caracteres y menos de 64")
+    @Size(min = 5, max = 64, message = "Debe tener min 5 caracteres y menos de 64")
     @Pattern(regexp = "[a-zA-Z ]{2,64}", message = "Debe contener solo letras!")
     private String descripcion;
 

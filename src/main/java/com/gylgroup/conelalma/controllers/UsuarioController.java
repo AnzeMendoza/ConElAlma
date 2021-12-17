@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class UsuarioController {
     @GetMapping("/todos")
     public ModelAndView obtenerUsuarios() {
 
-        ModelAndView mav = new ModelAndView("usuarios-formulario");
+        ModelAndView mav = new ModelAndView("/admin/usuarios-formulario");
         mav.addObject("usuarios", usuarioService.findAll());
         mav.addObject("usuario", new Usuario());
         mav.addObject("roles", rolService.findAll());
@@ -58,7 +59,7 @@ public class UsuarioController {
             mav.addObject("roles", rolService.findAll());
             mav.addObject("estado", true);
             mav.addObject("action", "guardarEmpleados");
-            mav.setViewName("usuarios-formulario");
+            mav.setViewName("/admin/usuarios-formulario");
         } else {
 
             try {
@@ -80,7 +81,7 @@ public class UsuarioController {
     @GetMapping("/editar/{id}")
     public ModelAndView formEditarUsuario(@PathVariable Integer id) {
 
-        ModelAndView mav = new ModelAndView("usuarios-formulario");
+        ModelAndView mav = new ModelAndView("/admin/usuarios-formulario");
         mav.addObject("usuarios", usuarioService.findAll());
         mav.addObject("usuario", usuarioService.finById(id));
         mav.addObject("roles", rolService.findAll());
@@ -104,11 +105,11 @@ public class UsuarioController {
             mav.addObject("roles", rolService.findAll());
             mav.addObject("estado", true);
             mav.addObject("action", "modificar");
-            mav.setViewName("usuarios-formulario");
+            mav.setViewName("/admin/usuarios-formulario");
         } else {
 
             try {
-                // System.err.println("div " + 5 / 0);
+
                 usuarioService.update(id, usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
                 mav.setViewName("redirect:/usuario/todos");
@@ -142,16 +143,16 @@ public class UsuarioController {
 
     /* registro unico del cliente */
     @GetMapping("/registrarse")
-    public ModelAndView formRegistroCliente() {
+    public ModelAndView formRegistroCliente(ModelAndView mav) {
 
-        ModelAndView mav = new ModelAndView("signup");
+        mav = new ModelAndView("signup");
         mav.addObject("usuario", new Usuario());
         return mav;
     }
 
     @PostMapping("/guardar")
     public ModelAndView guardarCliente(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
-            @Valid Usuario usuario,
+            @Valid @ModelAttribute Usuario usuario,
             BindingResult bindingResult,
             RedirectAttributes attributes) {
 
@@ -172,7 +173,9 @@ public class UsuarioController {
                 attributes.addFlashAttribute("error", e.getMessage());
                 mav.setViewName("redirect:/usuario/registrarse");
             }
+
         }
         return mav;
     }
+
 }

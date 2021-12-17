@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
@@ -44,8 +44,8 @@ public class ComidaController {
 
     @PostMapping("/guardar")
     public String guardar(@Valid @ModelAttribute Comida comida,
-                          BindingResult result,
-                          Model model) {
+            BindingResult result,
+            Model model) {
         if (result.hasErrors()) {
             model.addAttribute("action", "guardar");
             return "comidaForm";
@@ -67,8 +67,8 @@ public class ComidaController {
 
     @PostMapping("/modificar")
     public String modificar(@Valid @ModelAttribute Comida comida,
-                            BindingResult result,
-                            Model model) {
+            BindingResult result,
+            Model model) {
         if (result.hasErrors()) {
             model.addAttribute("action", "modificar");
             return "comidaForm";

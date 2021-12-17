@@ -22,14 +22,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @Getter
 @Setter
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -55,7 +54,7 @@ public class Usuario {
     private String email;
 
     @NotEmpty(message = "La contraseña no puede estar vacía")
-    @Size(min = 4, max = 6, message = "La longitud de la contraseña es de 4-6 dígitos")
+    @Size(min = 4, message = "La longitud de la contraseña debe ser al menos 4")
     private String contrasenia;
 
     @Column(nullable = true)

@@ -3,8 +3,6 @@ package com.gylgroup.conelalma.controllers;
 import com.gylgroup.conelalma.entities.Local;
 import com.gylgroup.conelalma.services.LocalService;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
@@ -46,8 +44,8 @@ public class LocalController {
 
     @PostMapping("/guardar")
     public String guardarLocal(@Valid @ModelAttribute Local local,
-                               BindingResult result,
-                               Model model) {
+            BindingResult result,
+            Model model) {
         if (result.hasErrors()) {
             model.addAttribute("action", "guardar");
             return "localForm";
@@ -69,9 +67,9 @@ public class LocalController {
 
     @PostMapping("/modificar")
     public String modificarLocal(@Valid @ModelAttribute Local local,
-                                 BindingResult result,
-                                 Model model) {
-        if(result.hasErrors()){
+            BindingResult result,
+            Model model) {
+        if (result.hasErrors()) {
             model.addAttribute("action", "modificar");
             return "localForm";
         }

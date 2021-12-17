@@ -1,21 +1,32 @@
 package com.gylgroup.conelalma.services;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import com.gylgroup.conelalma.controllers.FotoService;
+import javax.servlet.http.HttpSession;
+
 import com.gylgroup.conelalma.entities.Rol;
 import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.repositories.RolRepository;
 import com.gylgroup.conelalma.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -26,18 +37,25 @@ public class UsuarioService {
     @Autowired
     FotoService fotoService;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
+    private final String MENSAJE = "NO EXISTE NINGÚN USUARIO ASOCIADO CON EL EMAIL INDICADO!";
+
     @Transactional
     public void save(Usuario usuario, Rol rol, MultipartFile foto) throws ExceptionService {
 
         Optional<Usuario> opUsuario = usuarioRepository.findByEmail(usuario.getEmail());
-
         if (opUsuario.isPresent()) {
+
             throw new ExceptionService("YA EXISTE UN USUARIO CON EL EMAIL INDICADO!");
         }
 
         if (rol == null) {
+
             usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
             usuario.setEstado(true);
+            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
             if (!foto.isEmpty()) {
                 usuario.setFoto(fotoService.saveFile(foto));
             } else {
@@ -46,8 +64,10 @@ public class UsuarioService {
 
             usuarioRepository.save(usuario);
         } else {
+
             usuario.setRol(rol);
             usuario.setEstado(true);
+            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
             if (!foto.isEmpty()) {
                 usuario.setFoto(fotoService.saveFile(foto));
             } else {
@@ -56,6 +76,7 @@ public class UsuarioService {
 
             usuarioRepository.save(usuario);
         }
+
     }
 
     @Transactional
@@ -109,25 +130,46 @@ public class UsuarioService {
 
     @Transactional
     public void disable(Integer id) {
-        Optional<Usuario> opUsuario = usuarioRepository.findById(id);
 
+        Optional<Usuario> opUsuario = usuarioRepository.findById(id);
         if (opUsuario.isPresent()) {
 
             Usuario usuario = opUsuario.get();
             usuario.setEstado(false);
             usuarioRepository.save(usuario);
         }
+
     }
 
     @Transactional
     public void enable(Integer id) {
-        Optional<Usuario> opUsuario = usuarioRepository.findById(id);
 
+        Optional<Usuario> opUsuario = usuarioRepository.findById(id);
         if (opUsuario.isPresent()) {
 
             Usuario usuario = opUsuario.get();
             usuario.setEstado(true);
             usuarioRepository.save(usuario);
         }
+
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(MENSAJE, email)));
+
+        // GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" +
+        // usuario.getRol().getNombre());
+        GrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().getNombre());
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+                .currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true); // false
+        session.setAttribute("user", usuario);
+        System.err.println("NOMBRE DEL USER: " + usuario.getNombre());
+        System.err.println("INGRESA POR LOAD USER BY NAME !!!!!");
+        return new User(usuario.getEmail(), usuario.getContrasenia(), Collections.singleton(authority));
+    }
+
 }
