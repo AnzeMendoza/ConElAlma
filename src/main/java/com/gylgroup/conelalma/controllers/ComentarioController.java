@@ -1,6 +1,5 @@
 package com.gylgroup.conelalma.controllers;
 
-
 import com.gylgroup.conelalma.entities.Comentario;
 import com.gylgroup.conelalma.repositories.ReservaRepository;
 import com.gylgroup.conelalma.repositories.UsuarioRepository;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/comentario")

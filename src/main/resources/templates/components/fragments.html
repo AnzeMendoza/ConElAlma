@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <!-- INICIO NAV NO SIRVE SOLO PARA LA LANDING PASAR D LARGO! -->
 <nav th:fragment="navbar" class="navbar navbar-expand-md  sticky-top">
@@ -170,7 +170,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a th:href="@{/}" class="logo d-flex align-items-center">
-            <img th:src="@{/assets/img/logo.png}" alt="">
+            <img th:src="@{/admin/assets/img/logo.png}" alt="">
             <span class="d-none d-lg-block">ConelAlma</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -195,14 +195,22 @@
             <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img th:src="@{/assets/img/profile-img.jpg}" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    <img th:if="${session.user != null && !session.user.foto.isEmpty()}"
+                        th:src="@{/admin/uploads/__${session.user.foto}__}" alt="Profile" class="rounded-circle">
+
+                    <img th:if="${session.user != null && session.user.foto.isEmpty()}"
+                        th:src="@{/admin/uploads/no-disponible.png}" alt="Profile" class="rounded-circle">
+
+                    <span class="d-none d-md-block dropdown-toggle ps-2" th:if="${session.user != null}"
+                        th:text="${session.user.nombre}"> </span>
                 </a><!-- End Profile Iamge Icon -->
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>Kevin Anderson</h6>
-                        <span>Resp. Evento</span>
+                        <h6 th:if="${session.user != null}" th:text="${session.user.nombre}">
+                        </h6>
+                        <span th:if="${session.user != null}" th:text="${session.user.rol.descripcion}">
+                        </span>
                     </li>
                     <li>
                         <hr class="dropdown-divider">
@@ -221,7 +229,7 @@
                     <li>
                         <a class="dropdown-item d-flex align-items-center">
                             <i class=" bi bi-gear"></i>
-                            <span>Account Settings</span>
+                            <span>Configurar cuenta</span>
                         </a>
                     </li>
                     <li>
@@ -231,7 +239,7 @@
                     <li>
                         <a class="dropdown-item d-flex align-items-center">
                             <i class=" bi bi-question-circle"></i>
-                            <span>Need Help?</span>
+                            <span>Necesitas ayuda?</span>
                         </a>
                     </li>
                     <li>
@@ -239,7 +247,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <a class="dropdown-item d-flex align-items-center" th:href="@{/logout}">
                             <i class="bi bi-box-arrow-right"></i>
                             <span>Cerrar sesión</span>
                         </a>

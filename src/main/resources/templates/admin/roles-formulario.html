@@ -8,8 +8,8 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link th:href="@{/assets/img/favicon.png}" rel="icon">
-    <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+    <link th:href="@{/admin/assets/img/favicon.png}" rel="icon">
+    <link th:href="@{/admin/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -18,16 +18,16 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
-    <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
-    <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-    <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link th:href="@{/assets/css/style.css}" rel="stylesheet">
+    <link th:href="@{/admin/assets/css/style.css}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Con el Alma - Listado Roles</title>
 </head>
@@ -66,7 +66,7 @@
 
                             <form th:action="@{/rol/__${action}__}" th:object="${rol}" method="POST">
                                 <div class="form-group text-center">
-                                    <img th:src="@{/img/logo0.png}" width="180" alt="Letras solo con el alma">
+                                    <img th:src="@{/admin/img/logo0.png}" width="180" alt="Letras solo con el alma">
                                     <h4 class="text-secondary">Registro</h4>
                                 </div>
 
@@ -112,7 +112,6 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Listado</h5>
-
                             <div th:if="${roles.isEmpty()}">
                                 <h5>Todavía no hay roles cargados. <a th:href="@{/rol/todos}">Cargar rol.</a></h5>
                             </div>
@@ -134,17 +133,20 @@
                                             <td class="col-md-2 px-md-2" th:text="${rol.descripcion}"></td>
                                             <td class="col-md-2 px-md-2 d-flex justify-content-around w-100">
 
-                                                <a style="width: 100px;"
-                                                    th:class="${rol.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
+                                                <a style="width: 120px;"
+                                                    th:class="${rol.estado} ? 'btn btn-warning btn-sm bi bi-pencil' : 'btn btn-light btn-sm bi bi-pencil'"
                                                     th:href="${rol.estado} != false ? (@{/rol/editar/__${rol.id}__}) : '#' "
-                                                    th:disabled="${rol.estado} == false">Editar</a>
+                                                    th:disabled="${rol.estado} == false">
+                                                    Editar</a>
 
                                                 <form method="post"
                                                     th:action="${rol.estado} ? @{/rol/deshabilitar/__${rol.id}__} : @{/rol/habilitar/__${rol.id}__}">
-                                                    <button style="width: 100px;"
-                                                        th:class="${rol.estado} ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'"
+
+                                                    <button style="width: 120px;"
+                                                        th:class="${rol.estado} ? 'btn btn-danger btn-sm bi bi-power' : 'btn btn-primary btn-sm'"
                                                         type="submit"
-                                                        th:text="${rol.estado} ? 'Deshabilitar' : 'Habilitar'"></button>
+                                                        th:text="${rol.estado} ? 'Deshabilitar' : 'Habilitar'">
+                                                    </button>
                                                 </form>
                                             </td>
 
@@ -172,18 +174,18 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
-    <script th:src="@{/js/role.js}"></script>
+    <script th:src="@{/admin/js/role.js}"></script>
     <!-- Vendor JS Files -->
-    <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
-    <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
-    <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
-    <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
-    <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
-    <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+    <script th:src="@{/admin/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+    <script th:src="@{/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/admin/assets/vendor/chart.js/chart.min.js}"></script>
+    <script th:src="@{/admin/assets/vendor/echarts/echarts.min.js}"></script>
+    <script th:src="@{/admin/assets/vendor/quill/quill.min.js}"></script>
+    <script th:src="@{/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+    <script th:src="@{/admin/assets/vendor/tinymce/tinymce.min.js}"></script>
 
     <!-- Template Main JS File -->
-    <script th:src="@{/assets/js/main.js}"></script>
+    <script th:src="@{/admin/assets/js/main.js}"></script>
 </body>
 
 </html>

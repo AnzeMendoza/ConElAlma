@@ -1,0 +1,54 @@
+/*Inicio login*/
+body {
+  background-image: url(../img/restHD.jpg);
+  font-family: "Playfair Display", serif;
+  background-size: cover;
+}
+#logo {
+  margin-top: -88px;
+}
+
+a {
+  color: #d7d9db;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ee7a94;
+  text-decoration: none;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid #ee7a94;
+  color: #ee7a94;
+  border-radius: 30px;
+
+  margin-top: 150px;
+  letter-spacing: 1px;
+}
+.text-decoration-none {
+  margin-top: 10px;
+}
+
+.form-control:focus {
+  border-color: #ee7a94;
+  box-shadow: 0 0 0 rgba(238, 122, 148);
+  border-radius: 20px;
+}
+
+.btn-outline-light {
+  border-radius: 20px;
+  border: 1px solid #ee7a94;
+}
+.btn-outline-light:hover {
+  background: #ee7a94;
+  color: #d7d9db;
+  border-color: #ee7a94;
+}
+span {
+  color: #d7d9db;
+}
+.btn-toolbar {
+  margin-right: 30px;
+}

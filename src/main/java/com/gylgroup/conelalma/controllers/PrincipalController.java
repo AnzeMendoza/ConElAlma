@@ -20,8 +20,8 @@ public class PrincipalController {
     }
 
     @GetMapping("/admin")
-    public ModelAndView inicioHome() {
-        return new ModelAndView("admin");
+    public ModelAndView inicioAdmin() {
+        return new ModelAndView("admin/admin");
     }
 
 }

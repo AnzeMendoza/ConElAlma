@@ -2,8 +2,7 @@ package com.gylgroup.conelalma.entities;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ import javax.validation.constraints.*;
 import java.util.Date;
 
 @Entity
-//@EntityListeners(AuditingEntityListener.class)
+// @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 public class Cupon {
@@ -35,21 +34,22 @@ public class Cupon {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
     @NotNull(message = "Tiene que asignarse la fecha de creación")
-    //@CreatedDate
+    // @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date fechaCreacion;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyy-MM-dd")
     @NotNull(message = "Tiene que asignarse la fecha de modificación")
-    //@CreatedDate
+    // @CreatedDate
     @Column(nullable = false, updatable = false)
     private Date fechaModificacion;
 
     /*
-    @NotNull(message = "Debe asignarse un usuario")
-    @OneToOne
-    private Usuario usuario;
+     * @NotNull(message = "Debe asignarse un usuario")
+     * 
+     * @OneToOne
+     * private Usuario usuario;
      */
 
     public Cupon() {

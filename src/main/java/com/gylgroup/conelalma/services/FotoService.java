@@ -1,4 +1,4 @@
-package com.gylgroup.conelalma.controllers;
+package com.gylgroup.conelalma.services;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FotoService {
 
-    private String directory = ".//src//main//resources//static//uploads//";
+    private String directory = ".//src//main//resources//static//admin//uploads//";
 
     public String saveFile(MultipartFile archivo) throws ExceptionService {
 
