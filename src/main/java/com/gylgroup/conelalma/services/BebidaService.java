@@ -4,10 +4,11 @@ import com.gylgroup.conelalma.entities.Bebida;
 import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.repositories.BebidaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
 
 @Service
 public class BebidaService {
@@ -27,20 +28,17 @@ public class BebidaService {
 
     @Transactional
     public void update(Integer id,Bebida bebida) throws ExceptionService{
-
         Optional<Bebida> opBebida = repository.findById(id);
 
-        if(opBebida.isPresent() && opBebida.get().getEstado().equals(true)){
-
-            Bebida bebidaNew = new Bebida();
-            bebidaNew.setNombre(bebida.getNombre());
-            bebidaNew.setEstado(bebida.getEstado());
-            bebidaNew.setPrecioUnitario(bebida.getPrecioUnitario());
-
-            repository.save(bebidaNew);
-        } else{
+        if(!opBebida.isPresent()){
             throw new ExceptionService("No existe esta bebida");
         }
+
+        Bebida bebidaNew = opBebida.get();
+        bebidaNew.setNombre(bebida.getNombre());
+        bebidaNew.setEstado(bebida.getEstado());
+        bebidaNew.setPrecioUnitario(bebida.getPrecioUnitario());
+        repository.save(bebidaNew);
     }
 
     @Transactional(readOnly = true)
@@ -69,7 +67,6 @@ public class BebidaService {
         Optional<Bebida> opBebida = repository.findById(id);
 
         if (opBebida.isPresent()){
-
             Bebida bebida = opBebida.get();
             bebida.setEstado(false);
             repository.save(bebida);
@@ -79,7 +76,6 @@ public class BebidaService {
     @Transactional
     public void enable(Integer id){
         Optional<Bebida> opBebida = repository.findById(id);
-
         if (opBebida.isPresent()){
             Bebida bebida = opBebida.get();
             bebida.setEstado(true);
@@ -87,5 +83,9 @@ public class BebidaService {
         }
     }
 
+    @Transactional
+    public boolean existsById(Integer id){
+        return repository.existsById(id);
+    }
 }
 

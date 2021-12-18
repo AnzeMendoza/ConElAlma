@@ -1,4 +1,3 @@
-/*
 package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Comida;
@@ -93,4 +92,3 @@ public class ComidaController {
         return new RedirectView("/comidas/todos");
     }
 }
-*/
