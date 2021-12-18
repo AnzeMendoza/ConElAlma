@@ -51,30 +51,34 @@ public class UsuarioService implements UserDetailsService {
             throw new ExceptionService("YA EXISTE UN USUARIO CON EL EMAIL INDICADO!");
         }
 
-        if (rol == null) {
+        if(usuarioRepository.findAll().isEmpty()){//SI NO HAY USUARIOS EN LA BASE DE DATO SE ASIGNA ADMIN POR DEFECTO
+            usuario.setRol(rolRepository.findByNombre("ADMIN").get());
+        }else{
+            if (rol == null) {
 
-            usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
-            usuario.setEstado(true);
-            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
-            if (foto==null) {
-                usuario.setFoto("");
+                usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
+                usuario.setEstado(true);
+                usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+                if (foto==null) {
+                    usuario.setFoto("");
+                } else {
+                    usuario.setFoto(fotoService.saveFile(foto));
+                }
+
+                usuarioRepository.save(usuario);
             } else {
-                usuario.setFoto(fotoService.saveFile(foto));
+
+                usuario.setRol(rol);
+                usuario.setEstado(true);
+                usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+                if (foto==null) {
+                    usuario.setFoto("");
+                } else {
+                    usuario.setFoto(fotoService.saveFile(foto));
+                }
+
+                usuarioRepository.save(usuario);
             }
-
-            usuarioRepository.save(usuario);
-        } else {
-
-            usuario.setRol(rol);
-            usuario.setEstado(true);
-            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
-            if (foto==null) {
-                usuario.setFoto("");
-            } else {
-                usuario.setFoto(fotoService.saveFile(foto));
-            }
-
-            usuarioRepository.save(usuario);
         }
 
     }

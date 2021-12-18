@@ -33,7 +33,7 @@
 <body>
 
   <header id="header" class="fixed-top d-flex align-items-cente">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:if="${logueado}">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
       <h1><a th:href="@{/}">ConElAlma</a></h1>
      
@@ -45,7 +45,7 @@
             </b></li>
           <li>
             <i>
-              <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
+         <!--     <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b> -->
             </i>
           </li>
           <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
@@ -57,27 +57,6 @@
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
-    </div>
-
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:unless="${logueado}">
-
-      <h1><a th:href="@{/}">ConElAlma</a></h1>
-     
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
-          <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
-          <li><a class="nav-link scrollto" href="#menu">Platos</a></li>
-          <li><a class="nav-link scrollto" href="#gallery">Locales</a></li>
-          <li><a class="nav-link scrollto" href="#events">Eventos</a></li>
-          <li><a class="nav-link scrollto" href="#testimonials">Comentarios</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-      <a th:href="@{/login}" class="book-a-table-btn scrollto d-none d-lg-flex">Login</a>
-      <a th:href="@{/signup}" class="book-a-table-btn scrollto d-none d-lg-flex">Registrarse</a>
 
     </div>
 

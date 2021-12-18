@@ -112,14 +112,25 @@ public class UsuarioController {
             mav.addObject("estado", true);
             mav.addObject("action", "modificar");
             //ACA EL IF
-            mav.setViewName("/admin/usuarios-formulario");
+            if(usuario.getRol().getId()==1){
+                mav.setViewName("/public/user-formulario");
+            }else{
+                mav.setViewName("/admin/usuarios-formulario");
+            }
+
         } else {
 
             try {
 
                 usuarioService.update(id, usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
-                mav.setViewName("redirect:/usuario/todos");
+
+                if(usuario.getRol().getId()==1){
+                    mav.setViewName("redirect:/");
+                }else{
+                    mav.setViewName("redirect:/usuario/todos");
+                }
+
             } catch (Exception e) {
 
                 attributes.addFlashAttribute("error", e.getMessage());
