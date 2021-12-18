@@ -62,6 +62,36 @@
 
   </header><!-- Fin Header -->
 
+    <!-- ======= Opiniones de clientes ======= -->
+    <section id="testimonials" class="testimonials section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+        </br>
+      </br>
+      </br>
+      </br>
+          <h2>Mis reseñas</h2>
+        </div>
+
+        <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" th:each="comentario : ${comentarios}">
+              <div class="testimonial-item" th:with="idusuario=${comentario.id}">
+                <p th:text="${comentario.descripcion}"></p>
+                <a th:href="@{/comentario/editar/__${idusuario}__}"><img th:src="@{/public/img/testimonials-1.jpg}" class="testimonial-img" alt="" ></a>
+                <h3 th:text="|${comentario.usuario.nombre} ${comentario.usuario.apellido}|"></h3>
+                <h4 th:text="${comentario.calificacion}"></h4>
+                <h4 th:text="${comentario.reserva.fechaReserva}"></h4>
+              </div>
+            </div>
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section><!-- Fin de opiniones de clientes -->
+
 </br>
 </br>
 </br>

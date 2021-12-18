@@ -133,6 +133,7 @@ public class ComentarioController {
         if(session.getAttribute("user")!=null){
             Usuario user = (Usuario) session.getAttribute("user");
             mav.addObject("usuario",user);
+            mav.addObject("comentarios",comentarioService.findByUsuarioId(user.getId()));
             mav.addObject("logueado","true");
         }else{
             mav.addObject("logueado","false");
@@ -140,5 +141,7 @@ public class ComentarioController {
 
         return mav;
     }
+
+
 
 }

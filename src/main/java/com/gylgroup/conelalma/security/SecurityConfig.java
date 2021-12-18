@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/css/**", "/img/**", "/js/*", "index", "/public/**")
                 .permitAll().antMatchers("/**").authenticated().and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/logincheck").usernameParameter("email").passwordParameter("contrasenia")
-                .defaultSuccessUrl("/admin", true).failureUrl("/login?error=true").permitAll().and().logout()
+                .defaultSuccessUrl("/", true).failureUrl("/login?error=true").permitAll().and().logout()
                 .logoutUrl("/logout").logoutSuccessUrl("/login?logout=true").permitAll()
                 .deleteCookies("JSESSIONIO").and().csrf().disable();
 
