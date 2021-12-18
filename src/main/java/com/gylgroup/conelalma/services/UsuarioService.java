@@ -130,4 +130,9 @@ public class UsuarioService {
             usuarioRepository.save(usuario);
         }
     }
+
+    @Transactional
+    public List<Usuario> findAllByEstado(boolean estado){
+        return findAllByEstado(estado);
+    }
 }
