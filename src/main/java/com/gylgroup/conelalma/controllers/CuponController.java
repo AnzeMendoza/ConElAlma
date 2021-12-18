@@ -45,6 +45,8 @@ public class CuponController {
                             Model model) {
         if (result.hasErrors()) {
             model.addAttribute("action", "agregar");
+            model.addAttribute("cupones", cuponService.findAll());
+            model.addAttribute("cuponesActivos", cuponService.findAllAndEstado(true));
             model.addAttribute("estado", true);
             return "cupon-formulario";
         }
@@ -56,6 +58,7 @@ public class CuponController {
     public ModelAndView editar(@PathVariable("id") Integer id) throws Exception {
         ModelAndView mav = new ModelAndView("cupon-formulario");
         if (cuponService.existsById(id)) {
+            mav.addObject("cupones", cuponService.findAll());
             mav.addObject("cupon", cuponService.findById(id));
             mav.addObject("action", "editar/" + id);
             mav.addObject("estado", true);
@@ -70,6 +73,7 @@ public class CuponController {
                               Model model) {
         try {
             if (result.hasErrors()) {
+                model.addAttribute("cupones", cuponService.findAll());
                 model.addAttribute("action", "editar/" + id);
                 model.addAttribute("estado", true);
                 return "cupon-formulario";

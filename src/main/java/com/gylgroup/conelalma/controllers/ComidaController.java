@@ -2,21 +2,15 @@ package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Comida;
 import com.gylgroup.conelalma.services.ComidaService;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/comidas")
@@ -25,67 +19,76 @@ public class ComidaController {
     @Autowired
     private ComidaService comidaService;
 
-    @GetMapping("/")
+    @GetMapping("/todos")
     public ModelAndView misComidas() {
-        ModelAndView mav = new ModelAndView("comidaList.html");
+        ModelAndView mav = new ModelAndView("comida-formulario");
         mav.addObject("comidas", comidaService.findAll());
         mav.addObject("comidasActivas", comidaService.findAllByEstado());
-        return mav;
-    }
-
-    @GetMapping("/crear")
-    public ModelAndView crearComida() {
-        ModelAndView mav = new ModelAndView("comidaForm.html");
-        mav.addObject("title", "Crear Comida");
-        mav.addObject("action", "guardar");
         mav.addObject("comida", new Comida());
+        mav.addObject("estado", false);// por defecto debe ser false
+        mav.addObject("action", "agregar");
         return mav;
     }
 
-    @PostMapping("/guardar")
+    @GetMapping("/agregar")
+    public ModelAndView crearComida() {
+        ModelAndView mav = new ModelAndView("comida-formulario");
+        mav.addObject("comida", new Comida());
+        mav.addObject("title", "Crear comida");
+        mav.addObject("action", "agregar");
+        return mav;
+    }
+
+    @PostMapping("/agregar")
     public String guardar(@Valid @ModelAttribute Comida comida,
                           BindingResult result,
                           Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("action", "guardar");
-            return "comidaForm";
+            model.addAttribute("comidas", comidaService.findAll());
+            model.addAttribute("action", "agregar");
+            model.addAttribute("estado", true);
+            return "comida-formulario";
         }
         comidaService.save(comida);
-        return "redirect:/comidas/";
+        return "redirect:/comidas/todos";
     }
 
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Integer id) {
-        ModelAndView mav = new ModelAndView("comidaForm.html");
+        ModelAndView mav = new ModelAndView("comida-formulario");
         if (comidaService.existsById(id)) {
+            mav.addObject("comidas", comidaService.findAll());
             mav.addObject("comida", comidaService.findById(id));
-            mav.addObject("title", "Editar Comida");
-            mav.addObject("action", "modificar");
+            mav.addObject("action", "editar/"+id);
+            mav.addObject("estado", true);
         }
         return mav;
     }
 
-    @PostMapping("/modificar")
+    @PostMapping("/editar/{id}")
     public String modificar(@Valid @ModelAttribute Comida comida,
                             BindingResult result,
-                            Model model) {
+                            Model model,
+                            @PathVariable Integer id) {
         if (result.hasErrors()) {
-            model.addAttribute("action", "modificar");
-            return "comidaForm";
+            model.addAttribute("comidas", comidaService.findAll());
+            model.addAttribute("action", "editar/" + id);
+            model.addAttribute("estado", true);
+            return "comida-formulario";
         }
         comidaService.update(comida);
-        return "redirect:/comidas/";
+        return "redirect:/comidas/todos";
     }
 
-    @GetMapping("/desactivar/{id}")
+    @PostMapping("/desactivar/{id}")
     public RedirectView baja(@PathVariable Integer id) {
         comidaService.disable(id);
-        return new RedirectView("/comidas/");
+        return new RedirectView("/comidas/todos");
     }
 
-    @GetMapping("/activar/{id}")
+    @PostMapping("/activar/{id}")
     public RedirectView Alta(@PathVariable Integer id) {
         comidaService.enable(id);
-        return new RedirectView("/comidas/");
+        return new RedirectView("/comidas/todos");
     }
 }

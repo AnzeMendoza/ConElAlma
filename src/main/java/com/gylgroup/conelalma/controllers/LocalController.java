@@ -44,6 +44,8 @@ public class LocalController {
                                BindingResult result,
                                Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("locales", localService.findAll());
+            model.addAttribute("localesActivos", localService.findAllAndEstado());
             model.addAttribute("action", "agregar");
             model.addAttribute("estado", true);
             return "local-formulario";
@@ -56,6 +58,7 @@ public class LocalController {
     public ModelAndView editarLocal(@PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("local-formulario");
         if (localService.existsLocal(id)) {
+            mav.addObject("locales", localService.findAll());
             mav.addObject("local", localService.findById(id));
             mav.addObject("action", "editar/" + id);
             mav.addObject("estado", true);
@@ -69,6 +72,8 @@ public class LocalController {
                                  BindingResult result,
                                  Model model) {
         if(result.hasErrors()){
+            model.addAttribute("locales", localService.findAll());
+            model.addAttribute("localesActivos", localService.findAllAndEstado());
             model.addAttribute("action", "editar/" + id);
             model.addAttribute("estado", true);
             return "local-formulario";
