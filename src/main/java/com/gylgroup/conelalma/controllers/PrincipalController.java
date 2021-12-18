@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 @Controller
 public class PrincipalController {
@@ -23,10 +22,10 @@ public class PrincipalController {
             Usuario user = (Usuario) session.getAttribute("user");
             mav.addObject("logueado","true");
             mav.addObject("usuario",user);
-            mav.addObject("comentarios",comentarioService.traerAltas());
+            mav.addObject("comentarios",comentarioService.findAllEnable());
         }else{
             mav.addObject("logueado","false");//false por defecto
-            mav.addObject("comentarios",comentarioService.traerAltas());
+            mav.addObject("comentarios",comentarioService.findAllEnable());
         }
 
         return mav;

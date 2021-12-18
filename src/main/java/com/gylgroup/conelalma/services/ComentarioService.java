@@ -79,18 +79,18 @@ public class ComentarioService {
     }
 
     @Transactional
-    public List<Comentario> traerTodos(){
+    public List<Comentario> findAll(){
         return comentarioRepository.findAll();
     }
 
     @Transactional
-    public List<Comentario> traerAltas(){
+    public List<Comentario> findAllEnable(){
         return comentarioRepository.findAllEnable();
     }
 
 
     @Transactional
-    public List<Comentario> traerPorReserva(Comentario dto) throws Exception{
+    public List<Comentario> findByReserva(Comentario dto) throws Exception{
 
         if(!comentarioRepository.existsComentarioById(dto.getId())){
             throw new Exception("No existe un comentario asociado al ID: "+dto.getId());

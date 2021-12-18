@@ -36,7 +36,7 @@ public class ComentarioController {
      public ModelAndView listaComentarios(){
          ModelAndView mav = new ModelAndView("comentarios");
          //traer comentarios solo en alta?
-         mav.addObject("comentarios",comentarioService.traerTodos());
+         mav.addObject("comentarios",comentarioService.findAll());
          return mav;
      }*/
     @GetMapping
@@ -89,15 +89,32 @@ public class ComentarioController {
     }
 
     @PostMapping("/alta/{id}")
-    public RedirectView enable(@PathVariable Integer id){
-        RedirectView reMav = new RedirectView("/comentario");
+    public RedirectView enable(@PathVariable Integer id,HttpSession session){
+        RedirectView reMav = new RedirectView("");
+        Usuario user = (Usuario) session.getAttribute("user");
+
+        if(user.getRol().getId()==1){
+            reMav.setUrl("/");
+        }else{
+            reMav.setUrl("/admin");
+
+        }
+
         comentarioService.enable(id);
         return reMav;
     }
 
     @PostMapping("/baja/{id}")
-    public RedirectView disable(@PathVariable Integer id){
-        RedirectView reMav = new RedirectView("/comentario");
+    public RedirectView disable(@PathVariable Integer id,HttpSession session){
+        RedirectView reMav = new RedirectView("");
+        Usuario user = (Usuario) session.getAttribute("user");
+
+        if(user.getRol().getId()==1){
+            reMav.setUrl("/");
+        }else{
+            reMav.setUrl("/admin");
+
+        }
         comentarioService.disable(id);
         return reMav;
     }
@@ -143,6 +160,11 @@ public class ComentarioController {
         return mav;
     }
 
-
+    @GetMapping("/todos")
+    public ModelAndView listaComentarios() {
+        ModelAndView mav = new ModelAndView("admin/comentarios");
+        mav.addObject("comentarios", comentarioService.findAll());
+        return mav;
+    }
 
 }
