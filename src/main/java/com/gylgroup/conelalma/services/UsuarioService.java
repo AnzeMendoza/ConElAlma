@@ -90,11 +90,12 @@ public class UsuarioService implements UserDetailsService {
             upUsuario.setApellido(usuario.getApellido());
             upUsuario.setCelular(usuario.getCelular());
             upUsuario.setEmail(usuario.getEmail());
-            upUsuario.setContrasenia(usuario.getContrasenia());
+            upUsuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
             upUsuario.setEstado(true);
             upUsuario.setRol(rol);
-            if (!foto.isEmpty()) {
-                upUsuario.setFoto(fotoService.saveFile(foto));
+            if (foto==null) {
+               // upUsuario.setFoto(fotoService.saveFile(foto));
+                upUsuario.setFoto("");
             }
 
             usuarioRepository.save(upUsuario);

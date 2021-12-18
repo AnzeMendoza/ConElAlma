@@ -57,13 +57,7 @@ public class ComentarioService {
         if(!reservaRepository.existsReservaById(dto.getReserva().getId())){
             throw new Exception("No existe un comentario asociado a la reserva con ID : "+dto.getReserva().getId());
         }
-        //AGREGAR EXCEPCION
-       /* Comentario comentario = comentarioRepository.findById(dto.getId()).orElse(null);
-        comentario.setUsuario(dto.getUsuario());
-        comentario.setCalificacion(dto.getCalificacion());
-        comentario.setDescripcion(dto.getDescripcion());
-        comentario.setReserva(dto.getReserva());//preguntar
-        comentario.setEstado(dto.getEstado());*/
+
         comentarioRepository.update(dto.getCalificacion().name(),dto.getDescripcion(),dto.getEstado(),dto.getReserva().getId(),dto.getUsuario().getId(),dto.getId());
 
     }
