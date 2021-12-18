@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -29,21 +31,22 @@
   <!-- Template Main CSS File -->
   <link th:href="@{/assets/css/style.css}" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/style.css}">
-  <title>Con el Alma - Listado Roles</title>
+  <title>Con el Alma - Listado Cupones</title>
 </head>
 
 <body>
+
 <nav th:replace="components/fragments :: header"></nav>
 <nav th:replace="components/fragments :: sidebar"></nav>
-
 <!-- INICIO MAIN-->
 <main id="main" class="main">
-  <!-- === FORMULARIO USUARIO === -->
+  <!-- === FORMULARIO CUPONES === -->
   <div class="pagetitle">
-    <h1>Roles</h1>
+    <h1>Cupones</h1>
     <nav>
 
       <div>
+
         <div th:if="${error}" class="container mt-4 text-center">
           <div class="row col-md-4 mx-left">
             <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
@@ -57,54 +60,72 @@
         </div>
       </div>
 
-
       <div id="showHide" th:style="${estado == true}? 'display: block' : 'display: none'"
            class="row justify-content-center pt-2 mt-5 mr-1">
         <div class="col-md-5 formulario">
 
           <div class="card text-center shadow">
 
-            <form th:action="@{/rol/__${action}__}" th:object="${rol}" method="POST">
+            <form th:action="@{/locales/__${action}__}" th:object="${local}" method="POST"
+                  enctype="multipart/form-data">
+
               <div class="form-group text-center">
                 <img th:src="@{/img/logo0.png}" width="180" alt="Letras solo con el alma">
-                <h4 class="text-secondary">Registro</h4>
+                <h4 class="text-secondary">Registro de Local</h4>
               </div>
 
               <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
-                     th:if="${rol!=null}" />
+                     th:if="${local!=null}"/>
 
               <div class="form-group mx-sm-4 pt-2">
-                <input id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre"
-                       class="form-control" />
-
-                <div class="text-danger" style="text-align: left;" th:errors="*{nombre}"></div>
-
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" th:field="*{nombre}">
+                <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"
+                      class="text-danger" style="text-align: left;"></span>
               </div>
 
-              <div class="form-group mx-sm-4 pt-2">
-                <input id="nombre" type="text" th:field="*{descripcion}" placeholder="Descripción"
-                       class="form-control" />
-
-                <div class="text-danger" style="text-align: left;" th:errors="*{descripcion}"></div>
-
+              <div class="form-group mx-sm-4 pt-3">
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" th:field="*{direccion}">
+                <span th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"
+                      class="text-danger" style="text-align: left;"></span>
               </div>
 
-              <div class="form-group d-grid gap-2 pt-4">
-                <button type="submit" class="btn btn-outline-primary ingresar">Registrar</button>
+              <div class="form-group mx-sm-4 pt-3">
+                <label for="cantidadMaximaPersonas">Cantidad maxima de personas</label>
+                <input type="text" id="cantidadMaximaPersonas" th:field="*{cantidadMaximaPersonas}">
+                <span th:if="${#fields.hasErrors('cantidadMaximaPersonas')}" th:errors="*{cantidadMaximaPersonas}"
+                      class="text-danger" style="text-align: left;"></span>
               </div>
-            </form>
+
+              <div class="form-group mx-sm-4 pt-3">
+                <label for="precio">Precio</label>
+                <input type="text" id="precio" th:field="*{precio}">
+                <span th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"
+                      class="text-danger" style="text-align: left;"></span>
+              </div>
 
           </div>
+
+          <div class="form-group d-grid gap-2 pt-4">
+            <button type="submit" class="btn btn-outline-primary ingresar">Registrar local</button>
+          </div>
+
+          </form>
+
         </div>
       </div>
+
       <br>
       <button class="btn btn-primary" onclick="showAndHide()"><i
-              class="fas fa-bars"></i>Crear/Cancelar</button>
+              class="fas fa-bars"></i>Crear/Cancelar
+      </button>
 
     </nav>
   </div><!-- End Page Title -->
 
-  <!-- === TABLA ROLES TODOS === -->
+
+  <!-- === TABLA USUARIOS TODOS === -->
   <section class="section">
     <div class="row">
       <div class="col-lg-12">
@@ -113,66 +134,67 @@
           <div class="card-body">
             <h5 class="card-title">Listado</h5>
 
-            <div th:if="${roles.isEmpty()}">
-              <h5>Todavía no hay roles cargados. <a th:href="@{/rol/todos}">Cargar rol.</a></h5>
+            <div th:if="${locales.isEmpty()}">
+              <h5>Todavía no hay locales cargados. <a th:href="@{/locales/todos}">Cargar local.</a></h5>
             </div>
-            <div class="table-responsive" th:unless="${roles.isEmpty()}">
+            <div class="table-responsive" th:unless="${locales.isEmpty()}">
               <table class="table table-hover table-sm">
                 <thead class="">
                 <tr>
-
                   <th class="col-md-3 px-md-2" scope="col">Nombre</th>
-                  <th class="col-md-3 px-md-2" scope="col">Descripción</th>
+                  <th class="col-md-3 px-md-2" scope="col">dirección</th>
+                  <th class="col-md-3 px-md-2" scope="col">cantidad maxima de personas</th>
+                  <th class="col-md-3 px-md-2" scope="col">precio</th>
+                  <!--                  <th class="col-md-3 px-md-2" scope="col">foto</th>-->
                   <th class="col-md-3 px-md-2 text-center" scope="col">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="rol : ${roles}">
-                  <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${rol.id}"
+                <tr th:each="local : ${locales}">
+                  <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${local.id}"
                       hidden></th>
-                  <td class="col-md-2 px-md-2" th:text="${rol.nombre}"></td>
-                  <td class="col-md-2 px-md-2" th:text="${rol.descripcion}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${local.nombre}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${local.direccion}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${local.cantidadMaximaPersonas}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${local.precio}"></td>
+                  <!--                  <td class="col-md-2 px-md-2" th:text="${local.cantidadMaximaPersonas}"></td>-->
                   <td class="col-md-2 px-md-2 d-flex justify-content-around w-100">
-
                     <a style="width: 100px;"
-                       th:class="${rol.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
-                       th:href="${rol.estado} != false ? (@{/rol/editar/__${rol.id}__}) : '#' "
-                       th:disabled="${rol.estado} == false">Editar</a>
+                       th:class="${local.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
+                       th:href="${local.estado != false} ? (@{/locales/editar/__${local.id}__}) : '#' "
+                       th:disabled="${local.estado} == false">Editar</a>
 
                     <form method="post"
-                          th:action="${rol.estado} ? @{/rol/deshabilitar/__${rol.id}__} : @{/rol/habilitar/__${rol.id}__}">
+                          th:action="${local.estado} ? @{/locales/desactivar/__${local.id}__} : @{/locales/activar/__${local.id}__}">
                       <button style="width: 100px;"
-                              th:class="${rol.estado} ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'"
+                              th:class="${local.estado} ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'"
                               type="submit"
-                              th:text="${rol.estado} ? 'Deshabilitar' : 'Habilitar'"></button>
+                              th:text="${local.estado} ? 'Deshabilitar' : 'Habilitar'"></button>
                     </form>
-                  </td>
 
+                  </td>
                 </tr>
                 </tbody>
               </table>
             </div>
-
-
-
           </div>
         </div>
-
       </div>
     </div>
-
   </section>
   <!-- === FIN TABLA USUARIOS TODOS === -->
 
 </main><!-- End #main -->
 
-
 <br><br>
+
 <footer th:replace="components/fragments :: footer"></footer>
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
 
-<script th:src="@{/js/role.js}"></script>
+<script th:src="@{/js/user.js}"></script>
+
 <!-- Vendor JS Files -->
 <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
 <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -184,6 +206,7 @@
 
 <!-- Template Main JS File -->
 <script th:src="@{/assets/js/main.js}"></script>
+
 </body>
 
 </html>

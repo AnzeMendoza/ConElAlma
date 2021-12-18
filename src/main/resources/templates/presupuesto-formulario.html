@@ -29,7 +29,7 @@
   <!-- Template Main CSS File -->
   <link th:href="@{/assets/css/style.css}" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/style.css}">
-  <title>Con el Alma - Listado Roles</title>
+  <title>Con el Alma - Listado Presupuesto</title>
 </head>
 
 <body>
@@ -42,7 +42,6 @@
   <div class="pagetitle">
     <h1>Roles</h1>
     <nav>
-
       <div>
         <div th:if="${error}" class="container mt-4 text-center">
           <div class="row col-md-4 mx-left">
@@ -56,37 +55,36 @@
           </div>
         </div>
       </div>
-
-
       <div id="showHide" th:style="${estado == true}? 'display: block' : 'display: none'"
            class="row justify-content-center pt-2 mt-5 mr-1">
         <div class="col-md-5 formulario">
 
           <div class="card text-center shadow">
 
-            <form th:action="@{/rol/__${action}__}" th:object="${rol}" method="POST">
-              <div class="form-group text-center">
-                <img th:src="@{/img/logo0.png}" width="180" alt="Letras solo con el alma">
-                <h4 class="text-secondary">Registro</h4>
-              </div>
+            <form th:action="@{/presupuesto/agregar/0}" th:object="${presupuesto}" method="POST">
+              <!--              <div class="form-group text-center">
+                              <img th:src="@{/img/logo0.png}" width="180" alt="Letras solo con el alma">
+                              <h4 class="text-secondary">Registro</h4>
+                            </div>
 
-              <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
-                     th:if="${rol!=null}" />
-
+                            <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
+                                   th:if="${rol!=null}" />-->
               <div class="form-group mx-sm-4 pt-2">
-                <input id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre"
-                       class="form-control" />
-
-                <div class="text-danger" style="text-align: left;" th:errors="*{nombre}"></div>
-
+                <input id="cantidadComensales" type="number" th:field="*{cantidadComensales}" placeholder="Cantidad de comensales"
+                       class="form-control"/>
+                <div class="text-danger" style="text-align: left;" th:errors="*{cantidadComensales}"></div>
               </div>
 
               <div class="form-group mx-sm-4 pt-2">
-                <input id="nombre" type="text" th:field="*{descripcion}" placeholder="Descripción"
-                       class="form-control" />
+                <input id="precioFinal" type="number" th:field="*{precioFinal}" placeholder="Precio final"
+                       class="form-control"/>
+                <div class="text-danger" style="text-align: left;" th:errors="*{precioFinal}"></div>
+              </div>
 
-                <div class="text-danger" style="text-align: left;" th:errors="*{descripcion}"></div>
-
+              <div class="form-group mx-sm-4 pt-2">
+                <input id="fechaEventoSolicitada" type="datetime-local" th:field="*{fechaEventoSolicitada}" placeholder="Precio final"
+                       class="form-control"/>
+                <div class="text-danger" style="text-align: left;" th:errors="*{fechaEventoSolicitada}"></div>
               </div>
 
               <div class="form-group d-grid gap-2 pt-4">
@@ -99,12 +97,13 @@
       </div>
       <br>
       <button class="btn btn-primary" onclick="showAndHide()"><i
-              class="fas fa-bars"></i>Crear/Cancelar</button>
+              class="fas fa-bars"></i>Crear/Cancelar
+      </button>
 
     </nav>
   </div><!-- End Page Title -->
 
-  <!-- === TABLA ROLES TODOS === -->
+  <!-- === TABLA PRESUPUESTOS TODOS === -->
   <section class="section">
     <div class="row">
       <div class="col-lg-12">
@@ -113,38 +112,39 @@
           <div class="card-body">
             <h5 class="card-title">Listado</h5>
 
-            <div th:if="${roles.isEmpty()}">
-              <h5>Todavía no hay roles cargados. <a th:href="@{/rol/todos}">Cargar rol.</a></h5>
+            <div th:if="${presupuestos.isEmpty()}">
+              <h5>Todavía no hay presupuestos cargados. <a th:href="@{/presupuesto/todos}">Cargar presupuesto.</a></h5>
             </div>
-            <div class="table-responsive" th:unless="${roles.isEmpty()}">
+
+            <div class="table-responsive" th:unless="${presupuestos.isEmpty()}">
               <table class="table table-hover table-sm">
                 <thead class="">
                 <tr>
-
-                  <th class="col-md-3 px-md-2" scope="col">Nombre</th>
-                  <th class="col-md-3 px-md-2" scope="col">Descripción</th>
-                  <th class="col-md-3 px-md-2 text-center" scope="col">Acciones</th>
+                  <th class="col-md-3 px-md-2" scope="col">Cantidad de Comensales:</th>
+                  <th class="col-md-3 px-md-2" scope="col">Precio final</th>
+                  <th class="col-md-3 px-md-2 text-center" scope="col">Fecha de evento:</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="rol : ${roles}">
-                  <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${rol.id}"
+                <tr th:each="presupuesto : ${presupuestos}">
+                  <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${presupuesto.id}"
                       hidden></th>
-                  <td class="col-md-2 px-md-2" th:text="${rol.nombre}"></td>
-                  <td class="col-md-2 px-md-2" th:text="${rol.descripcion}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${presupuesto.cantidadComensales}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${presupuesto.precioFinal}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${presupuesto.fechaEventoSolicitada}"></td>
                   <td class="col-md-2 px-md-2 d-flex justify-content-around w-100">
 
                     <a style="width: 100px;"
-                       th:class="${rol.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
-                       th:href="${rol.estado} != false ? (@{/rol/editar/__${rol.id}__}) : '#' "
-                       th:disabled="${rol.estado} == false">Editar</a>
+                       th:class="${presupuesto.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
+                       th:href="${presupuesto.estado} != false ? (@{/presupuesto/agregar/__${presupuesto.id}__}) : '#' "
+                       th:disabled="${presupuesto.estado} == false">Editar</a>
 
                     <form method="post"
-                          th:action="${rol.estado} ? @{/rol/deshabilitar/__${rol.id}__} : @{/rol/habilitar/__${rol.id}__}">
+                          th:action="${presupuesto.estado} ? @{/presupuesto/desactivar/__${presupuesto.id}__} : @{/presupuesto/activar/__${presupuesto.id}__}">
                       <button style="width: 100px;"
-                              th:class="${rol.estado} ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'"
+                              th:class="${presupuesto.estado} ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'"
                               type="submit"
-                              th:text="${rol.estado} ? 'Deshabilitar' : 'Habilitar'"></button>
+                              th:text="${presupuesto.estado} ? 'Deshabilitar' : 'Habilitar'"></button>
                     </form>
                   </td>
 
@@ -152,7 +152,6 @@
                 </tbody>
               </table>
             </div>
-
 
 
           </div>
