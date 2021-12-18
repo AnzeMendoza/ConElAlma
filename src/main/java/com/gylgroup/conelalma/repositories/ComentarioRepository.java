@@ -20,6 +20,10 @@ public interface ComentarioRepository extends JpaRepository<Comentario,Integer> 
     @Query(value = "UPDATE comentario SET estado = false WHERE id = ?1", nativeQuery = true)
     void disable(Integer id);
 
+    @Modifying
+    @Query(value = "UPDATE comentario SET calificacion=?1, descripcion= ?2, estado=?3, reserva_id=?4,usuario_id=?5  WHERE id = ?6", nativeQuery = true)
+    void update(String calificacion,String descripcion,Boolean estado,Integer reserva_id,Integer usuario_id,Integer id);
+
     @Query(value = "SELECT * FROM comentario WHERE estado=true", nativeQuery = true)
     List<Comentario> findAllEnable();
 

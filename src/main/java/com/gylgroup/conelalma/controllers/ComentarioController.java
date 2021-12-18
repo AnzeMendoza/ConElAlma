@@ -83,6 +83,7 @@ public class ComentarioController {
             attributes.addFlashAttribute("comentario",comentario);
             attributes.addFlashAttribute("error-name",e.getMessage());
             reMav.setUrl("/comentario/editar/"+comentario.getId());
+            System.err.println(e.getMessage());
         }
         return reMav;
     }

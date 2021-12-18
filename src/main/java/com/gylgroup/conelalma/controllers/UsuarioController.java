@@ -105,6 +105,7 @@ public class UsuarioController {
             mav.addObject("roles", rolService.findAll());
             mav.addObject("estado", true);
             mav.addObject("action", "modificar");
+            //ACA EL IF
             mav.setViewName("/admin/usuarios-formulario");
         } else {
 
