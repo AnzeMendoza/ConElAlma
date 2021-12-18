@@ -24,7 +24,7 @@ public interface ComentarioRepository extends JpaRepository<Comentario,Integer> 
     List<Comentario> findAllEnable();
 
     @Query(value = "SELECT * FROM comentario WHERE usuario_id = ?1 ",nativeQuery = true)
-    List<Comentario> findByUsuario(Integer usuario_id);
+    List<Comentario> findByUsuarioId(Integer usuario_id);
 
     @Query(value = "SELECT * FROM comentario WHERE reserva_id = ?1 ",nativeQuery = true)
     List<Comentario> findByReserva(Integer reserva_id);

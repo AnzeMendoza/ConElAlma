@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Mis Comentarios</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link th:href="@{/public/img/logo0.png}" rel="icon">
+  <link th:href="@{/public/img/logo0.png}" rel="apple-touch-icon"> 
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/public/assets/vendor/animate.css/animate.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/aos/aos.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link th:href="@{/public/assets/css/style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+      <h1><a th:href="@{/}">ConElAlma</a></h1>
+     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li>
+            <b> 
+              <a class="nav-link scrollto active" >Usuario:</a>
+            </b></li>
+          <li>
+            <i>
+              <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
+            </i>
+          </li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Mis reservas</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario}">Agregar comentario</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Presupuesto</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Editar perfil</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/logout}">Cerrar sesion</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+
+  </header><!-- Fin Header -->
+
+</br>
+</br>
+</br>
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Con El Alma</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer><!-- Fin Footer -->
+
+<!-- Vendor JS Files -->
+<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+<script th:src="@{/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/public/assets/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
+<script th:src="@{/public/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+
+  
+<!-- Template Main JS File -->
+<script th:src="@{/public/assets/js/main.js}"></script>
+
+</body>
+
+</html>

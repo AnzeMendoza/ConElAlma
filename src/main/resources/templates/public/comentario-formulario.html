@@ -32,9 +32,35 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-cente">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:if="${logueado}">
+
+      <h1><a th:href="@{/}">ConElAlma</a></h1>
+     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li>
+            <b> 
+              <a class="nav-link scrollto active" >Usuario:</a>
+            </b></li>
+          <li>
+            <i>
+              <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
+            </i>
+          </li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Mis reservas</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario}">Agregar comentario</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Presupuesto</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Editar perfil</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/logout}">Cerrar sesion</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:unless="${logueado}">
 
       <h1><a th:href="@{/}">ConElAlma</a></h1>
      
@@ -54,6 +80,7 @@
       <a th:href="@{/signup}" class="book-a-table-btn scrollto d-none d-lg-flex">Registrarse</a>
 
     </div>
+
   </header><!-- Fin Header -->
 
 </br>
@@ -62,6 +89,11 @@
 
   <main id="main">
 
+    <div th:if="${error}" class="container mt-4 text-center">
+      <div class="row col-md-4 mx-auto">
+          <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
+      </div>
+  </div>
 <!-- ======= Seccion de contacto ======= -->
 <section id="contact" class="contact">
   <div class="container" data-aos="fade-up">

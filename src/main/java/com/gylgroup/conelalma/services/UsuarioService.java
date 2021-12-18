@@ -46,7 +46,6 @@ public class UsuarioService implements UserDetailsService {
     public void save(Usuario usuario, Rol rol, MultipartFile foto) throws ExceptionService {
 
         Optional<Usuario> opUsuario = usuarioRepository.findByEmail(usuario.getEmail());
-        String pass = encoder.encode(usuario.getContrasenia());
         if (opUsuario.isPresent()) {
 
             throw new ExceptionService("YA EXISTE UN USUARIO CON EL EMAIL INDICADO!");
@@ -56,11 +55,11 @@ public class UsuarioService implements UserDetailsService {
 
             usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
             usuario.setEstado(true);
-            usuario.setContrasenia(pass);
-            if (!foto.isEmpty()) {
-                usuario.setFoto(fotoService.saveFile(foto));
-            } else {
+            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+            if (foto==null) {
                 usuario.setFoto("");
+            } else {
+                usuario.setFoto(fotoService.saveFile(foto));
             }
 
             usuarioRepository.save(usuario);
@@ -68,11 +67,11 @@ public class UsuarioService implements UserDetailsService {
 
             usuario.setRol(rol);
             usuario.setEstado(true);
-            usuario.setContrasenia(pass);
-            if (!foto.isEmpty()) {
-                usuario.setFoto(fotoService.saveFile(foto));
-            } else {
+            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+            if (foto==null) {
                 usuario.setFoto("");
+            } else {
+                usuario.setFoto(fotoService.saveFile(foto));
             }
 
             usuarioRepository.save(usuario);

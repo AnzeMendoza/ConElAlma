@@ -38,8 +38,6 @@ public class ComentarioService {
 
         comentario.setCalificacion(dto.getCalificacion());
         comentario.setDescripcion(dto.getDescripcion());
- //       comentario.setUsuario(dto.getUsuario());
- //       comentario.setReserva(dto.getReserva());
         comentario.setUsuario(usuarioRepository.findById(dto.getUsuario().getId()).orElse(null));
         comentario.setReserva(reservaRepository.findById(dto.getReserva().getId()).orElse(null));
         comentario.setEstado(true);
@@ -113,8 +111,8 @@ public class ComentarioService {
 
     /*-----------VALIDAR QUE EXISTAN USUARIO POR ID----------------*/
     @Transactional
-    public List<Comentario> findByUsuario(Comentario dto){
-        return comentarioRepository.findByUsuario(dto.getUsuario().getId());
+    public List<Comentario> findByUsuarioId(Integer idUsuario){
+        return comentarioRepository.findByUsuarioId(idUsuario);
     }
 
 
