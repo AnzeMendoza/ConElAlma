@@ -24,6 +24,8 @@ public class BebidaController {
     public ModelAndView obtenerBebidas(){
 
         ModelAndView mav = new ModelAndView("bebidas-formulario");
+        mav.addObject("estado", false);
+        mav.addObject("bebida", new Bebida());
         mav.addObject("bebidas", service.findAll());
 
         return mav;
