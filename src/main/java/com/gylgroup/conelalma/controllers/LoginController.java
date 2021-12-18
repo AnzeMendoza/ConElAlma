@@ -22,7 +22,6 @@ public class LoginController {
 
         if (logout != null) {
             modelAndView.addObject("logout", "CERRRO SESIÓN EXITOSAMENTE!");
-            // modelAndView.setViewName("redirect:/");
         }
 
         if (principal != null) {
