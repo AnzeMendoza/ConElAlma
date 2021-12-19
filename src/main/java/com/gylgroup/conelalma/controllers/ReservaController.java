@@ -2,6 +2,7 @@ package com.gylgroup.conelalma.controllers;
 
 
 import com.gylgroup.conelalma.entities.Reserva;
+import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/reservas")
@@ -18,10 +21,19 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @GetMapping
-    public ModelAndView listaReservas(){
-        ModelAndView mav = new ModelAndView("lista_reservas");
-        mav.addObject("listaRerservas",reservaService.findAll());
+    public ModelAndView listaReservas(HttpSession session){
+        ModelAndView mav = new ModelAndView("public/reservas");
+
+        if(session.getAttribute("user")!=null){
+            Usuario user = (Usuario) session.getAttribute("user");
+            mav.addObject("reservas",reservaService.findAll());
+            mav.addObject("usuario",user);
+            mav.addObject("logueado","true");
+        }else{
+            mav.addObject("logueado","false");
+        }
         return mav;
+
     }
 
     @GetMapping("crear")

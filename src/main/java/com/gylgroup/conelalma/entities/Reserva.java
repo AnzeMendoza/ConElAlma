@@ -30,7 +30,7 @@ public class Reserva {
     @ManyToOne
     private PresupuestoLive presupuestoLive;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaReserva;
 

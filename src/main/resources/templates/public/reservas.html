@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Mis Reservas</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link th:href="@{/public/img/logo0.png}" rel="icon">
+  <link th:href="@{/public/img/logo0.png}" rel="apple-touch-icon"> 
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/public/assets/vendor/animate.css/animate.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/aos/aos.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+  <link th:href="@{/public/assets/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+  
+  <!-- Template Main CSS File -->
+  <link th:href="@{/public/assets/css/style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <header id="header" class="fixed-top d-flex align-items-cente">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+      <h1><a th:href="@{/}">ConElAlma</a></h1>
+     
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li>
+            <b> 
+              <a class="nav-link scrollto active" >Usuario:</a>
+            </b></li>
+          <li>
+            <i>
+              <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
+            </i>
+          </li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Mis reservas</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario}">Agregar comentario</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Presupuesto</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Editar perfil</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/logout}">Cerrar sesion</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+
+  </header><!-- Fin Header -->
+
+  <main id="main">
+
+        <div th:if="${error}" class="container mt-4 text-center">
+            <div class="row col-md-4 mx-auto">
+                <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
+            </div>
+        </div>
+    
+        <div th:if="${logout}" class="container mt-4 text-center">
+            <div class="row col-md-4 mx-auto">
+                <div th:text="${logout}" class="alert alert-success m-0 shadow"></div>
+            </div>
+        </div>
+    
+        <div th:if="${exito}" class="container mt-4 text-center">
+            <div class="row col-md-4 mx-auto">
+                <div th:text="${exito}" class="alert alert-success m-0 shadow"></div>
+            </div>
+        </div>
+    
+        <div class="container mt-5 main section-title">
+          </br></br></br></br></br>
+          <h2>Lista de Rerservas</h2>
+          <hr class="mb-5"/>
+          <div th:if="${reservas.isEmpty()}">
+              <h5>No existen autores cargados en la base de datos.</h5>
+          </div>
+          <div class="table-responsive" th:unless="${reservas.isEmpty()}">
+              <!--table table-striped table-hover table-bordered-->
+              <table class="table table-dark table-striped table-bordered">
+                  
+                  <thead class="table-secondary text-left table-bordered">
+                      <tr>
+                          <th class="col-md-2 px-md-2" scope="col">Fecha</th>
+                          <th class="col-md-2 px-md-2" scope="col">Estado de Pago</th>
+                          <th class="col-md-2 px-md-2" scope="col">Tipo de Pago</th>
+                          <th class="col-md-2 px-md-2" scope="col">Estado</th>
+                          <th class="col-md-3 px-md-2" scope="col">Acciones</th>
+                          <!--HAY QUE AGREGAR UN ATRIBUTO PARA RELACIONAR A LA RESERVA CON UN USUARIO-->
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                      <tr th:each="reserva : ${reservas}">
+                          <td class="col-md-2 px-md-2" th:text="${#dates.format(reserva.fechaReserva, 'yyyy-MM-dd')}"></td>
+                          <td class="col-md-2 px-md-2" th:text="${reserva.pagoEfectuado}? Pago : Impago"></td>
+                          <td class="col-md-2 px-md-2" th:text="${reserva.tipoDePago.name()}"></td>
+                          <td class="col-md-2 px-md-2" th:text="${reserva.estado == true}? Activa : Cancelada"></td>
+                          <td class="col-md-3 px-md-2">
+                            <span th:if="${reserva.estado == true}">
+                              <form method="post" th:action="@{/reservas/baja/__${reserva.id}__}">
+                                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Cancelar Reserva
+                                  </button>
+                                  <!-- Modal -->
+                                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="staticBackdropLabel"  style="color: black;">Cancelar Rerserva</h5>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <p>¿Esta seguro que desea cancelar la reserva? Una vez cancelada, no puede deshacerse</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Si</button>
+                                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!-- Fin Modal -->
+                              </form>
+                            </span>
+                            <span th:unless="${reserva.estado == true}">
+                              <form method="post" th:action="@{/reservas/alta/__${reserva.id}__}">
+                                  <button class="btn btn-success btn-sm" type="submit">Habilitar</button>
+                              </form>
+                            </span>
+                          </td>
+                      </tr>
+                  </tbody>
+
+  
+              </table>
+  
+          </div>
+      </div> 
+     
+    </main>
+
+</br>
+</br>
+</br>
+
+<!-- ======= Footer ======= -->
+<footer id="footer">
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Con El Alma</span></strong>. All Rights Reserved
+    </div>
+  </div>
+</footer><!-- Fin Footer -->
+
+<!-- Vendor JS Files -->
+<script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
+<script th:src="@{/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/public/assets/vendor/glightbox/js/glightbox.min.js}"></script>
+<script th:src="@{/public/assets/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
+<script th:src="@{/public/assets/vendor/swiper/swiper-bundle.min.js}"></script>
+
+  
+<!-- Template Main JS File -->
+<script th:src="@{/public/assets/js/main.js}"></script>
+
+</body>
+
+</html>
