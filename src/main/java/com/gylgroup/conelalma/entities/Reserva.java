@@ -26,7 +26,6 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @ManyToOne
     private PresupuestoLive presupuestoLive;
 

@@ -177,4 +177,8 @@ public class UsuarioService implements UserDetailsService {
         return new User(usuario.getEmail(), usuario.getContrasenia(), Collections.singleton(authority));
     }
 
+    @Transactional
+    public List<Usuario> findAllByEstado(boolean estado){
+        return findAllByEstado(estado);
+    }
 }
