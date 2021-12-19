@@ -14,15 +14,9 @@ import java.util.List;
 @Getter
 @Setter
 public class PresupuestoLive {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-/*
-    @Enumerated(EnumType.STRING)
-    private TipoEvento tipoEvento;
-*/
 
     @NotNull(message = "Menu debe ser asignado")
     @OneToOne

@@ -36,8 +36,9 @@ public class Local {
     @Min(value = 0, message = "Debe ser mayor a 0")
     private Double precio;
 
-    // @NotNull(message = "Tiene que estar asignado")
-    // @NotEmpty(message = "Debe incluir el path de foto")
+    //Todo ver los de las imagenes
+    //@NotNull(message = "Tiene que estar asignado")
+    //@NotEmpty(message = "Debe incluir el path de foto")
     private String foto;
 
     private boolean estado;

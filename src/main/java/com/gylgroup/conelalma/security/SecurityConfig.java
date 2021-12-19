@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/",
                         "/admin/**", "/usuario/registrarse", "/usuario/guardar",
                         "/css/**", "/img/**", "/js/*", "index", "/public/**")
-                .permitAll().antMatchers("/**").authenticated().and().formLogin().loginPage("/login")
+                .permitAll().antMatchers("/**").permitAll().and().formLogin().loginPage("/login")
                 .loginProcessingUrl("/logincheck").usernameParameter("email").passwordParameter("contrasenia")
                 .defaultSuccessUrl("/admin", true).failureUrl("/login?error=true").permitAll().and().logout()
                 .logoutUrl("/logout").logoutSuccessUrl("/login?logout=true").permitAll()

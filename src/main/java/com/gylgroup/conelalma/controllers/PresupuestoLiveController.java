@@ -1,6 +1,7 @@
 package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.PresupuestoLive;
+import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,17 +32,18 @@ public class PresupuestoLiveController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @GetMapping("/")
+    @GetMapping("/todos")
     public ModelAndView listar() {
-        ModelAndView mav = new ModelAndView("presupuestoListar");
-        mav.addObject("titulo", "Listado de todos los presupuestos");
+        ModelAndView mav = new ModelAndView("presupuesto-formulario");
+        mav.addObject("presupuesto", new PresupuestoLive());
         mav.addObject("presupuestos", presupuestoLiveService.findAll());
         mav.addObject("presupuestosActivos", presupuestoLiveService.findByEstadoTrue());
         return mav;
     }
 
-    @GetMapping("/agregar/{id}")
-    public String prestamoFormulario(Model model, @PathVariable("id") int id) throws Exception {
+/*    @GetMapping("/agregar/{id}")
+    public String prestamoFormulario(Model model,
+                                     @PathVariable("id") int id) throws Exception {
         sendDataEntities(model);
         if (id == 0) {
             model.addAttribute("presupuesto", new PresupuestoLive());
@@ -49,7 +51,7 @@ public class PresupuestoLiveController {
             model.addAttribute("presupuesto", presupuestoLiveService.findById(id));
         }
         return "presupuestoFormulario";
-    }
+    }*/
 
     @PostMapping("/agregar/{id}")
     public String prestamoAlta(Model model,
@@ -58,7 +60,7 @@ public class PresupuestoLiveController {
                                @PathVariable("id") int id) throws Exception {
         if (result.hasErrors()) {
             sendDataEntities(model);
-            return "presupuestoFormulario";
+            return "presupuesto-formulario";
         }
 
         if (id == 0) {
@@ -66,7 +68,7 @@ public class PresupuestoLiveController {
         } else {
             presupuestoLiveService.update(presupuesto, id);
         }
-        return "redirect:/presupuesto/";
+        return "redirect:/presupuesto/todos";
     }
 
     @GetMapping("/activar/{id}")
@@ -89,13 +91,12 @@ public class PresupuestoLiveController {
         return new RedirectView("/presupuesto/");
     }
 
-    private void sendDataEntities(Model model) {
-        model.addAttribute("titulo", "Formulario de presupuesto");
+    private void sendDataEntities(Model model) throws ExceptionService {
 //        model.addAttribute("tiposDeEventos", new ArrayList<>(EnumSet.allOf(TipoEvento.class)));
-//        model.addAttribute("menues", menuService.findAll());
-        model.addAttribute("locales", localService.findAll());
-        model.addAttribute("cupones", cuponService.findAll());
-        model.addAttribute("usuarios",  usuarioService.findAll());
+/*        model.addAttribute("menues", menuService.findAllByEstado());
+        model.addAttribute("locales", localService.findAllAndEstado());
+        model.addAttribute("cupones", cuponService.findAllAndEstado(true));
+        model.addAttribute("usuarios",  usuarioService.findAllByEstado(true));*/
     }
 }
 

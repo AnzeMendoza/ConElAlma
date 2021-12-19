@@ -1,7 +1,6 @@
 package com.gylgroup.conelalma.services;
 
 import com.gylgroup.conelalma.entities.Cupon;
-
 import com.gylgroup.conelalma.repositories.CuponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
