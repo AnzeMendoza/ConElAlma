@@ -49,10 +49,10 @@
             </i>
           </li>
           <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
-          <li><a class="nav-link scrollto " th:href="@{#}">Mis reservas</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/reservas}">Mis reservas</a></li>
           <li><a class="nav-link scrollto " th:href="@{/comentario}">Agregar comentario</a></li>
           <li><a class="nav-link scrollto " th:href="@{#}">Presupuesto</a></li>
-          <li><a class="nav-link scrollto " th:href="@{#}">Editar perfil</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/usuario/misdatos}">Editar perfil</a></li>
           <li><a class="nav-link scrollto " th:href="@{/logout}">Cerrar sesion</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -138,8 +138,8 @@
                               </form>
                             </span>
                             <span th:unless="${reserva.estado == true}">
-                              <form method="post" th:action="@{/reservas/alta/__${reserva.id}__}">
-                                  <button class="btn btn-success btn-sm" type="submit">Habilitar</button>
+                              <form >
+                                  <h5>Reserva cancelada</h5>
                               </form>
                             </span>
                           </td>
