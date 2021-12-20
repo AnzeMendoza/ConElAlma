@@ -2,399 +2,240 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link th:href="@{/admin/assets/img/favicon.png}" rel="icon">
-    <link th:href="@{/admin/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+  <!-- Favicons -->
+  <link th:href="@{/admin/assets/img/favicon.png}" rel="icon">
+  <link th:href="@{/admin/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link th:href="@{/admin/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-    <link th:href="@{/admin/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-    <link th:href="@{/admin/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
-    <link th:href="@{/admin/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
-    <link th:href="@{/admin/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-    <link th:href="@{/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/admin/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
-    <link th:href="@{/admin/assets/css/style.css}" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/admin/css/style.css}">
-    <title>Con el Alma - Listado Usuarios</title>
+  <!-- Template Main CSS File -->
+  <link th:href="@{/admin/assets/css/style.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/admin/css/style.css}">
+  <title>Con el Alma - Listado Usuarios</title>
 </head>
 
 <body>
 
-<nav th:replace="components/fragments :: header"></nav>
-<nav th:replace="components/fragments :: sidebar"></nav>
-<!-- INICIO MAIN-->
-<main id="main" class="main">
-  <!-- === FORMULARIO USUARIO === -->
-  <div class="pagetitle">
-    <h1>Usuarios</h1>
-    <nav>
+  <nav th:replace="components/fragments :: header"></nav>
+  <nav th:replace="components/fragments :: sidebar"></nav>
+  <!-- INICIO MAIN-->
+  <main id="main" class="main">
+    <!-- === FORMULARIO USUARIO === -->
+    <div class="pagetitle">
+      <h1>Usuarios</h1>
+      <nav>
 
-      <div>
+        <div>
 
-        <div th:if="${error}" class="container mt-4 text-center">
-          <div class="row col-md-4 mx-left">
-            <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
-          </div>
-        </div>
-
-        <div th:if="${exito}" class="container mt-4 text-center">
-          <div class="row col-md-4 mx-left">
-            <div th:text="${exito}" class="alert alert-success m-0 shadow"></div>
-          </div>
-        </div>
-      </div>
-
-      <div id="showHide" th:style="${estado == true}? 'display: block' : 'display: none'"
-           class="row justify-content-center pt-2 mt-5 mr-1">
-        <div class="col-md-5 formulario">
-
-          <div class="card text-center shadow">
-
-            <form th:action="@{/usuario/__${action}__}" th:object="${usuario}" method="POST"
-                  enctype="multipart/form-data">
-              <div class="form-group text-center">
-                <img th:src="@{/img/logo0.png}" width="180" alt="Letras solo con el alma">
-                <h4 class="text-secondary">Registro</h4>
-              </div>
-
-              <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
-                     th:if="${usuario!=null}" />
-
-              <div class="form-group mx-sm-4 pt-2">
-                <input id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre"
-                       class="form-control" />
-
-                <div class="text-danger" style="text-align: left;" th:errors="*{nombre}"></div>
-
-              </div>
-
-              <div class="form-group mx-sm-4 pt-3">
-                <input id="apellido" type="text" th:field="*{apellido}" placeholder="Apellido"
-                       class="form-control" />
-                <div class="text-danger" style="text-align: left;" th:errors="*{apellido}">
-                </div>
-
-                <div id="showHide" th:style="${estado == true}? 'display: block' : 'display: none'"
-                    class="row justify-content-center pt-2 mt-5 mr-1">
-                    <div class="col-md-5 formulario">
-
-                        <div class="card text-center shadow">
-
-                            <form th:action="@{/usuario/__${action}__}" th:object="${usuario}" method="POST"
-                                enctype="multipart/form-data">
-                                <div class="form-group text-center">
-                                    <img th:src="@{/admin/img/logo0.png}" width="180" alt="Letras solo con el alma">
-                                    <h4 class="text-secondary">Registro</h4>
-                                </div>
-
-                                <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
-                                    th:if="${usuario!=null}" />
-
-                                <div class="form-group mx-sm-4 pt-2">
-                                    <input id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre"
-                                        class="form-control" />
-
-                                    <div class="text-danger" style="text-align: left;" th:errors="*{nombre}"></div>
-
-                                </div>
-
-                                <div class="form-group mx-sm-4 pt-3">
-                                    <input id="apellido" type="text" th:field="*{apellido}" placeholder="Apellido"
-                                        class="form-control" />
-                                    <div class="text-danger" style="text-align: left;" th:errors="*{apellido}">
-                                    </div>
-
-                                </div>
-                                <div class="form-group mx-sm-4 pt-3">
-                                    <input id="celular" type="text" th:field="*{celular}"
-                                        placeholder="Numero de celular" class="form-control" />
-                                </div>
-                                <div class="form-group mx-sm-4 pt-3">
-                                    <input id="correo" type="email" th:field="*{email}" placeholder="Ingrese su correo"
-                                        class="form-control" />
-                                    <div class="text-danger" style="text-align: left;" th:errors="*{email}"></div>
-                                </div>
-
-                                <div class="form-group mx-sm-4 pt-3">
-                                    <input th:readonly="${action == 'modificar'}" id="contraseña"
-                                        th:field="*{contrasenia}" placeholder="Ingrese su contraseña"
-                                        class="form-control" />
-                                    <div class="text-danger" style="text-align: left;" th:errors="*{contrasenia}">
-                                    </div>
-                                </div>
-
-                                <div class="form-group mx-sm-4 pt-3">
-                                    <select aria-label="Elegir Rol" class="form-select" id="rol" th:field="*{rol}">
-                                        <option selected value="">Seleccionar Rol</option>
-                                        <option th:each="rol : ${roles}" th:if="${rol.estado == true}"
-                                            th:text="${rol.descripcion}" th:value="${rol.id}">
-                                        </option>
-                                    </select>
-
-                                </div>
-
-                                <div class="form-group  pt-3">
-                                    <label for=" foto">Cargar foto</label><br>
-
-                                    <input type="file" name="imagen" accept="image/*">
-                                </div>
-
-                                <div class="form-group d-grid gap-2 pt-4">
-                                    <button type="submit" class="btn btn-outline-primary ingresar">Registrar</button>
-                                </div>
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <button class="btn btn-primary" onclick="showAndHide()"><i
-                        class="fas fa-bars"></i>Crear/Cancelar</button>
-
-            </nav>
-        </div><!-- End Page Title -->
-
-        <!-- === TABLA USUARIOS TODOS === -->
-        <section class="section">
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Listado</h5>
-
-
-                            <div th:if="${usuarios.isEmpty()}">
-                                <h5>Todavía no hay usuarios cargados. <a th:href="@{/usuario/todos}">Cargar
-                                        usuario.</a>
-                                </h5>
-                            </div>
-                            <div class="table-responsive" th:unless="${usuarios.isEmpty()}">
-                                <table class="table table-hover table-sm">
-                                    <thead class="">
-                                        <tr>
-                                            <th class="col-md-3 px-md-2 text-center" style="width: 5%;" scope="col">
-                                                Foto
-                                            </th>
-
-                                            <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Nombre</th>
-                                            <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Apellido
-                                            </th>
-                                            <th class="col-md-2 px-md-2" style="width: 15%;" scope="col">Email</th>
-                                            <th class="col-md-2 px-md-2" scope="col">Rol</th>
-                                            <th class="col-md-3 px-md-2 text-center" style="width: 100%;" scope="col">
-                                                Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr th:each="usuario : ${usuarios}">
-                                            <div th:if="*{usuario.estado == true}">
-                                                <th class="col-md-2 px-md-2 text-center" scope="row"
-                                                    th:text="${usuario.id}" hidden>
-                                                </th>
-                                                <td class="col-md-2 px-md-2 text-center" scope="row">
-
-                                                    <img th:if="${!usuario.foto.isEmpty()}"
-                                                        th:src="@{/admin/uploads/__${usuario.foto}__}"
-                                                        style="max-height: 45px; border-radius: 100%; padding: 1%;">
-
-                                                    <img th:if="${usuario.foto.isEmpty()}"
-                                                        th:src="@{/admin/uploads/no-disponible.png}" alt=""
-                                                        style="max-height: 45px; border-radius: 100%;">
-
-                                                </td>
-                                                <td class="col-md-2 px-md-2" style="padding: 1%;"
-                                                    th:text="${usuario.nombre}"></td>
-                                                <td class="col-md-2 px-md-2" style="padding: 1%;"
-                                                    th:text="${usuario.apellido}">
-                                                </td>
-                                                <td class="col-md-2 px-md-2" style="padding: 1%;"
-                                                    th:text="${usuario.email}"></td>
-                                                <td class="col-md-2 px-md-2" style="padding: 1%;"
-                                                    th:text="${usuario.rol.nombre}">
-                                                </td>
-
-                                                <td class="col-md-2 px-md-2 d-flex justify-content-around w-100"
-                                                    style="padding: 5%;">
-                                                    <a class="btn btn-warning btn-sm"
-                                                        th:href="@{/usuario/editar/__${usuario.id}__}">Editar</a>
-
-                                                    <form method="post"
-                                                        th:action="@{/usuario/eliminar/__${usuario.id}__}">
-                                                        <button th:class="'btn btn-danger btn-sm'" type="submit"
-                                                            th:text="'Eliminar'"></button>
-                                                    </form>
-
-                                                </td>
-                                            </div>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-              <div class="form-group mx-sm-4 pt-3">
-             <!--   <select aria-label="Elegir Rol" class="form-select" id="rol" th:field="*{rol}">
-                  <option selected value="">Seleccionar Rol</option>
-                  <option th:each="rol : ${roles}" th:text="${rol.descripcion}"
-                          th:value="${rol.id}">
-                  </option>
-                </select> -->
-
-              </div>
-
-              <div class="form-group  pt-3">
-                <label for=" foto">Cargar foto</label><br>
-
-                <input type="file" name="imagen" accept="image/*">
-              </div>
-
-              <div class="form-group d-grid gap-2 pt-4">
-                <button type="submit" class="btn btn-outline-primary ingresar">Registrar</button>
-              </div>
-            </form>
-
-          </div>
-        </div>
-      </div>
-      <br>
-      <button class="btn btn-primary" onclick="showAndHide()"><i
-              class="fas fa-bars"></i>Crear/Cancelar</button>
-
-    </nav>
-  </div><!-- End Page Title -->
-
-  <!-- === TABLA USUARIOS TODOS === -->
-  <section class="section">
-    <div class="row">
-      <div class="col-lg-12">
-
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Listado</h5>
-
-
-            <div th:if="${usuarios.isEmpty()}">
-              <h5>Todavía no hay usuarios cargados. <a th:href="@{/usuario/todos}">Cargar
-                usuario.</a>
-              </h5>
+          <div th:if="${error}" class="container mt-4 text-center">
+            <div class="row col-md-4 mx-left">
+              <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
             </div>
-            <div class="table-responsive" th:unless="${usuarios.isEmpty()}">
-              <table class="table table-hover table-sm">
-                <thead class="">
-                <tr>
-                  <th class="col-md-3 px-md-2 text-center" style="width: 5%;" scope="col">
-                    Foto
-                  </th>
+          </div>
 
-                  <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Nombre</th>
-                  <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Apellido
-                  </th>
-                  <th class="col-md-2 px-md-2" style="width: 15%;" scope="col">Email</th>
-                  <th class="col-md-2 px-md-2" scope="col">Rol</th>
-                  <th class="col-md-3 px-md-2 text-center" style="width: 100%;" scope="col">
-                    Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="usuario : ${usuarios}">
-                  <div th:if="*{usuario.estado == true}">
-                    <th class="col-md-2 px-md-2 text-center" scope="row"
-                        th:text="${usuario.id}" hidden>
-                    </th>
-                    <td class="col-md-2 px-md-2 text-center" scope="row">
+          <div th:if="${exito}" class="container mt-4 text-center">
+            <div class="row col-md-4 mx-left">
+              <div th:text="${exito}" class="alert alert-success m-0 shadow"></div>
+            </div>
+          </div>
+        </div>
 
-                      <img th:if="${!usuario.foto.isEmpty()}"
-                           th:src="@{/uploads/__${usuario.foto}__}"
-                           style="max-height: 45px; border-radius: 100%; padding: 1%;">
+        <div id="showHide" th:style="${estado == true}? 'display: block' : 'display: none'"
+          class="row justify-content-center pt-2 mt-5 mr-1">
+          <div class="col-md-5 formulario">
 
-                      <img th:if="${usuario.foto.isEmpty()}"
-                           src="/uploads/no-disponible.png" alt=""
-                           style="max-height: 45px; border-radius: 100%;">
+            <div class="card text-center shadow">
 
-                    </td>
-                    <td class="col-md-2 px-md-2" style="padding: 1%;"
-                        th:text="${usuario.nombre}"></td>
-                    <td class="col-md-2 px-md-2" style="padding: 1%;"
-                        th:text="${usuario.apellido}">
-                    </td>
-                    <td class="col-md-2 px-md-2" style="padding: 1%;"
-                        th:text="${usuario.email}"></td>
-                    <td class="col-md-2 px-md-2" style="padding: 1%;"
-                        th:text="${usuario.rol.nombre}">
-                    </td>
+              <form th:action="@{/usuario/__${action}__}" th:object="${usuario}" method="POST"
+                enctype="multipart/form-data">
+                <div class="form-group text-center">
+                  <img th:src="@{/admin/img/logo0.png}" width="180" alt="Letras solo con el alma">
+                  <h4 class="text-secondary">Registro</h4>
+                </div>
 
-                    <td class="col-md-2 px-md-2 d-flex justify-content-around w-100"
-                        style="padding: 5%;">
-                      <a class="btn btn-warning btn-sm"
-                         th:href="@{/usuario/editar/__${usuario.id}__}">Editar</a>
+                <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
+                  th:if="${usuario!=null}" />
 
-                      <form method="post"
-                            th:action="@{/usuario/eliminar/__${usuario.id}__}">
-                        <button th:class="'btn btn-danger btn-sm'" type="submit"
-                                th:text="'Eliminar'"></button>
-                      </form>
+                <div class="form-group mx-sm-4 pt-2">
+                  <input id="nombre" type="text" th:field="*{nombre}" placeholder="Nombre" class="form-control" />
 
-                    </td>
+                  <div class="text-danger" style="text-align: left;" th:errors="*{nombre}"></div>
+
+                </div>
+
+                <div class="form-group mx-sm-4 pt-3">
+                  <input id="apellido" type="text" th:field="*{apellido}" placeholder="Apellido" class="form-control" />
+                  <div class="text-danger" style="text-align: left;" th:errors="*{apellido}">
                   </div>
 
-                </tr>
-                </tbody>
-              </table>
+                </div>
+                <div class="form-group mx-sm-4 pt-3">
+                  <input id="celular" type="text" th:field="*{celular}" placeholder="Numero de celular"
+                    class="form-control" />
+                </div>
+                <div class="form-group mx-sm-4 pt-3">
+                  <input id="correo" type="email" th:field="*{email}" placeholder="Ingrese su correo"
+                    class="form-control" />
+                  <div class="text-danger" style="text-align: left;" th:errors="*{email}"></div>
+                </div>
+
+                <div class="form-group mx-sm-4 pt-3">
+                  <input th:readonly="${action == 'modificar'}" id="contraseña" th:field="*{contrasenia}"
+                    placeholder="Ingrese su contraseña" class="form-control" />
+                  <div class="text-danger" style="text-align: left;" th:errors="*{contrasenia}">
+                  </div>
+                </div>
+
+                <div class="form-group mx-sm-4 pt-3">
+                  <select aria-label="Elegir Rol" class="form-select" id="rol" th:field="*{rol}">
+                    <option selected value="">Seleccionar Rol</option>
+                    <option th:each="rol : ${roles}" th:if="${rol.estado == true}" th:text="${rol.descripcion}"
+                      th:value="${rol.id}">
+                    </option>
+                  </select>
+
+                </div>
+
+                <div class="form-group  pt-3">
+                  <label for=" foto">Cargar foto</label><br>
+
+                  <input type="file" name="imagen" accept="image/*">
+                </div>
+
+                <div class="form-group d-grid gap-2 pt-4">
+                  <button type="submit" class="btn btn-outline-primary ingresar">Registrar</button>
+                </div>
+              </form>
+
             </div>
-
-
           </div>
         </div>
+        <br>
+        <button class="btn btn-primary" onclick="showAndHide()"><i class="fas fa-bars"></i>Crear/Cancelar</button>
 
+      </nav>
+    </div><!-- End Page Title -->
+
+    <!-- === TABLA USUARIOS TODOS === -->
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Listado</h5>
+
+
+              <div th:if="${usuarios.isEmpty()}">
+                <h5>Todavía no hay usuarios cargados. <a th:href="@{/usuario/todos}">Cargar
+                    usuario.</a>
+                </h5>
+              </div>
+              <div class="table-responsive" th:unless="${usuarios.isEmpty()}">
+                <table class="table table-hover table-sm">
+                  <thead class="">
+                    <tr>
+                      <th class="col-md-3 px-md-2 text-center" style="width: 5%;" scope="col">
+                        Foto
+                      </th>
+
+                      <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Nombre</th>
+                      <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Apellido
+                      </th>
+                      <th class="col-md-2 px-md-2" style="width: 15%;" scope="col">Email</th>
+                      <th class="col-md-2 px-md-2" scope="col">Rol</th>
+                      <th class="col-md-3 px-md-2 text-center" style="width: 100%;" scope="col">
+                        Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                      <div th:if="*{usuario.estado == true}">
+                        <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${usuario.id}" hidden>
+                        </th>
+                        <td class="col-md-2 px-md-2 text-center" scope="row">
+
+                          <img th:if="${!usuario.foto.isEmpty()}" th:src="@{/admin/uploads/__${usuario.foto}__}"
+                            style="max-height: 45px; border-radius: 100%; padding: 1%;">
+
+                          <img th:if="${usuario.foto.isEmpty()}" th:src="@{/admin/uploads/no-disponible.png}" alt=""
+                            style="max-height: 45px; border-radius: 100%;">
+
+                        </td>
+                        <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${usuario.nombre}"></td>
+                        <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${usuario.apellido}">
+                        </td>
+                        <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${usuario.email}"></td>
+                        <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${usuario.rol.nombre}">
+                        </td>
+
+                        <td class="col-md-2 px-md-2 d-flex justify-content-around w-100" style="padding: 5%;">
+                          <a class="btn btn-warning btn-sm" th:href="@{/usuario/editar/__${usuario.id}__}">Editar</a>
+
+                          <form method="post" th:action="@{/usuario/eliminar/__${usuario.id}__}">
+                            <button th:class="'btn btn-danger btn-sm'" type="submit" th:text="'Eliminar'"></button>
+                          </form>
+
+                        </td>
+                      </div>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
 
-  </section>
-  <!-- === FIN TABLA USUARIOS TODOS === -->
+    </section>
+    <!-- === FIN TABLA USUARIOS TODOS === -->
 
-</main><!-- End #main -->
+  </main><!-- End #main -->
 
-<br><br>
+  <br><br>
 
-<footer th:replace="components/fragments :: footer"></footer>
+  <footer th:replace="components/fragments :: footer"></footer>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
-    <script th:src="@{/admin/js/user.js}"></script>
+  <script th:src="@{/admin/js/user.js}"></script>
 
-    <!-- Vendor JS Files -->
-    <script th:src="@{/admin/assets/vendor/apexcharts/apexcharts.min.js}"></script>
-    <script th:src="@{/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/admin/assets/vendor/chart.js/chart.min.js}"></script>
-    <script th:src="@{/admin/assets/vendor/echarts/echarts.min.js}"></script>
-    <script th:src="@{/admin/assets/vendor/quill/quill.min.js}"></script>
-    <script th:src="@{/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>
-    <script th:src="@{/admin/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <!-- Vendor JS Files -->
+  <script th:src="@{/admin/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/admin/assets/vendor/chart.js/chart.min.js}"></script>
+  <script th:src="@{/admin/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/admin/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/admin/assets/vendor/tinymce/tinymce.min.js}"></script>
 
-    <!-- Template Main JS File -->
-    <script th:src="@{/admin/assets/js/main.js}"></script>
+  <!-- Template Main JS File -->
+  <script th:src="@{/admin/assets/js/main.js}"></script>
 
 </body>
 
