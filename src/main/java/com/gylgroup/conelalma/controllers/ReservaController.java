@@ -22,7 +22,7 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @GetMapping
-        @PreAuthorize("hasAnyRole('CLIENTE')")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     public ModelAndView listaReservas(HttpSession session){
         ModelAndView mav = new ModelAndView("public/reservas");
 
