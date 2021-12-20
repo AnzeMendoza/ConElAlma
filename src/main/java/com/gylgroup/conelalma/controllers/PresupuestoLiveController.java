@@ -1,5 +1,6 @@
 package com.gylgroup.conelalma.controllers;
 
+import com.gylgroup.conelalma.entities.Bebida;
 import com.gylgroup.conelalma.entities.PresupuestoLive;
 import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.services.*;
@@ -33,73 +34,88 @@ public class PresupuestoLiveController {
     private UsuarioService usuarioService;
 
     @GetMapping("/todos")
-    public ModelAndView listar() {
-        ModelAndView mav = new ModelAndView("presupuesto-formulario");
-        mav.addObject("presupuesto", new PresupuestoLive());
-        mav.addObject("presupuestos", presupuestoLiveService.findAll());
-        mav.addObject("presupuestosActivos", presupuestoLiveService.findByEstadoTrue());
-        return mav;
+    public String listar(Model model) {
+        sendDataEntities(model);
+        model.addAttribute("presupuesto", new PresupuestoLive());
+        model.addAttribute("estado", false);
+        model.addAttribute("presupuestos", presupuestoLiveService.findAll());
+        model.addAttribute("action", "agregar");
+        return "admin/presupuesto-formulario";
     }
 
-/*    @GetMapping("/agregar/{id}")
-    public String prestamoFormulario(Model model,
-                                     @PathVariable("id") int id) throws Exception {
-        sendDataEntities(model);
-        if (id == 0) {
-            model.addAttribute("presupuesto", new PresupuestoLive());
-        } else {
-            model.addAttribute("presupuesto", presupuestoLiveService.findById(id));
-        }
-        return "presupuestoFormulario";
-    }*/
-
-    @PostMapping("/agregar/{id}")
-    public String prestamoAlta(Model model,
-                               @Valid @ModelAttribute("presupuesto") PresupuestoLive presupuesto,
+    @PostMapping("/agregar")
+    public String prestamoAlta(@Valid @ModelAttribute("presupuesto") PresupuestoLive presupuesto,
                                BindingResult result,
-                               @PathVariable("id") int id) throws Exception {
+                               Model model) throws Exception {
         if (result.hasErrors()) {
             sendDataEntities(model);
-            return "presupuesto-formulario";
+            model.addAttribute("action", "agregar");
+            model.addAttribute("estado", true);
+            model.addAttribute("presupuestos", presupuestoLiveService.findAll());
+            model.addAttribute("presupuesto", presupuesto);
+            return "admin/presupuesto-formulario";
         }
+        presupuestoLiveService.save(presupuesto);
+        return "redirect:/presupuesto/todos";
+    }
 
-        if (id == 0) {
-            presupuestoLiveService.save(presupuesto);
-        } else {
-            presupuestoLiveService.update(presupuesto, id);
+    @GetMapping("/editar/{id}")
+    public String editar(Model model, @PathVariable("id") Integer id) throws Exception {
+        if (presupuestoLiveService.existsById(id)) {
+            sendDataEntities(model);
+            model.addAttribute("presupuestos", presupuestoLiveService.findAll());
+            model.addAttribute("presupuesto", presupuestoLiveService.findById(id));
+            model.addAttribute("action", "editar/" + id);
+            model.addAttribute("estado", true);
+        }
+        return "admin/presupuesto-formulario";
+    }
+
+    @PostMapping("/editar/{id}")
+    public String editarpresupuesto(@PathVariable Integer id,
+                                    @Valid PresupuestoLive presupuestoLive,
+                                    BindingResult result,
+                                    Model model) {
+        try {
+            if (result.hasErrors()) {
+                sendDataEntities(model);
+                model.addAttribute("action", "editar/" + id);
+                model.addAttribute("presupuesto", presupuestoLiveService.findById(id));
+                model.addAttribute("presupuestos", presupuestoLiveService.findAll());
+                model.addAttribute("estado", true);
+                return "admin/presupuesto-formulario";
+            }
+            presupuestoLiveService.update(id, presupuestoLive);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
         return "redirect:/presupuesto/todos";
     }
 
-    @GetMapping("/activar/{id}")
+    @PostMapping("/activar/{id}")
     public RedirectView activar(@PathVariable("id") int id) {
         try {
             presupuestoLiveService.enable(id);
         } catch (Exception e) {
-
+            e.getMessage();
         }
-        return new RedirectView("/presupuesto/");
+        return new RedirectView("/presupuesto/todos");
     }
 
-    @GetMapping("/desactivar/{id}")
+    @PostMapping("/desactivar/{id}")
     public RedirectView desactivar(@PathVariable("id") int id) {
         try {
             presupuestoLiveService.disable(id);
         } catch (Exception e) {
-
+            e.getMessage();
         }
-        return new RedirectView("/presupuesto/");
+        return new RedirectView("/presupuesto/todos");
     }
 
-    private void sendDataEntities(Model model) throws ExceptionService {
-//        model.addAttribute("tiposDeEventos", new ArrayList<>(EnumSet.allOf(TipoEvento.class)));
-/*        model.addAttribute("menues", menuService.findAllByEstado());
-        model.addAttribute("locales", localService.findAllAndEstado());
+    private void sendDataEntities(Model model)  {
+        model.addAttribute("menues", menuService.findAllByEstado(true));
+        model.addAttribute("locales", localService.findByEstado(true));
         model.addAttribute("cupones", cuponService.findAllAndEstado(true));
-        model.addAttribute("usuarios",  usuarioService.findAllByEstado(true));*/
+        model.addAttribute("usuarios", usuarioService.findAllByEstado(true));
     }
 }
-
-
-
-

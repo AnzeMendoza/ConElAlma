@@ -40,8 +40,8 @@ public class CuponService {
     }
 
     @Transactional
-    public List<Cupon> findAllAndEstado(boolean b) {
-        return (List<Cupon>) cuponRepository.findAllByEstado(Boolean.TRUE);
+    public List<Cupon> findAllAndEstado(boolean estado) {
+        return (List<Cupon>) cuponRepository.findAllByEstado(estado);
     }
 
     @Transactional

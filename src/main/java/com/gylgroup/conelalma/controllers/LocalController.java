@@ -24,7 +24,7 @@ public class LocalController {
     public ModelAndView locales() {
         ModelAndView mav = new ModelAndView("admin/local-formulario");
         mav.addObject("locales", localService.findAll());
-        mav.addObject("localesActivos", localService.findAllAndEstado());
+        mav.addObject("localesActivos", localService.findByEstado(true));
         mav.addObject("local", new Local());
         mav.addObject("estado", false);// por defecto debe ser false
         mav.addObject("action", "agregar");
@@ -46,7 +46,6 @@ public class LocalController {
             Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
         if (result.hasErrors()) {
             model.addAttribute("locales", localService.findAll());
-            model.addAttribute("localesActivos", localService.findAllAndEstado());
             model.addAttribute("action", "agregar");
             model.addAttribute("estado", true);
             return "admin/local-formulario";
@@ -81,7 +80,7 @@ public class LocalController {
             Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
         if (result.hasErrors()) {
             model.addAttribute("locales", localService.findAll());
-            model.addAttribute("localesActivos", localService.findAllAndEstado());
+
             model.addAttribute("action", "editar/" + id);
             model.addAttribute("estado", true);
             return "admin/local-formulario";
