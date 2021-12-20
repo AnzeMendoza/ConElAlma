@@ -84,13 +84,15 @@
             <h3>Nuestros combos</h3>
             <form th:action="@{/menu/crear}" method="GET" >
              <div class="list-group list-group-item-dark">
-                <a href="#" class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
+                <a class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
                   <div class="d-flex w-100 justify-content-between">
 
-                    <ul class="list-group list-group-item-dark" th:each=" combo: ${combos}" modelAttribute="combo"  th:value="${combo.id}">
+                    <ul class="list-group list-group-item-dark" th:each=" combo: ${combos}">
+                      
                       <br>
-                        <button type="submit" class="book-a-table-btn" style="color: black; text-align: center;">Elegir combo</button>
-                    </br>
+                        <button type="submit" class="book-a-table-btn" style="color: black; text-align: center;" th:value="${combo.id}"  name="comboid">Elegir combo</button>
+                      </br>
+                        
                         <li class="list-group-item" th:text="${combo.nombre}"></li>
                         <li class="list-group-item">Platos</li>
                         <table class="table-responsive table table-dark table-striped table-bordered"> 
@@ -110,7 +112,7 @@
                              <td class="col-md-2 px-md-2">ACA VA LA FOTO</td>
                            </tbody>
                         </table>
-                        <input hidden th:value="*{combo.id}" th:field="*{combo.id}" th:name="*{comboid}">
+                        
                     </ul>  
                     
                 </a>

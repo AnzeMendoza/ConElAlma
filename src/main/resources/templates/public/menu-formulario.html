@@ -93,18 +93,18 @@
         <form modelAttribute="menu" th:action="@{/}" th:object="${menu}"
          method="GET" role="form" class="email-form">
          
-          <input th:field="*{id}" th:name="id" type="hidden"/>
+          <input th:field="*{id}"  type="hidden"/>
 
           <div class="row">
             <label for="name">Nombre de Combo</label>
             <div class="col-md-6 form-group input-group" > 
-              <form th:action="@{/combos}" >
-                  <input type="text" name="name" class="form-control" id="name" readonly    
+              <form th:action="@{/combos/}" >
+                  <input type="text"  class="form-control"  readonly    
                   th:placeholder="${menu.listaCombos[(0)].nombre}">
                   <span class="input-group-btn">
-                    <button id="combo" class="btn btn-success" type="submit"> 
+                    <a id="combo" class="btn btn-success" th:href="@{/combos/}"> 
                       Elegir combo<span class="fa fa-eye-slash icon"></span>
-                    </button>
+                    </a>
                   </span>
               </form>
             </div>
@@ -138,6 +138,9 @@
           </div>
           <div class="text-center"><button type="submit"> Enviar reseña</button></div>
           -->
+          <button id="combo" class="btn btn-success" type="submit"> 
+            Aceptar Menu<span class="fa fa-eye-slash icon"></span>
+          </button>
         </form>
 
       </div>
