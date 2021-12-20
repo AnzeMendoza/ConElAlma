@@ -4,9 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
 public class Local {
@@ -36,14 +38,8 @@ public class Local {
     @Min(value = 0, message = "Debe ser mayor a 0")
     private Double precio;
 
-    //Todo ver los de las imagenes
-    //@NotNull(message = "Tiene que estar asignado")
-    //@NotEmpty(message = "Debe incluir el path de foto")
     private String foto;
 
     private boolean estado;
 
-    public Local() {
-        estado = true;
-    }
 }

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RolService {
 
     @Autowired
-    RolRepository rolRepository;
+    private RolRepository rolRepository;
 
     @Transactional(readOnly = true)
     public List<Rol> findAll() {
