@@ -59,7 +59,7 @@ public class ComidaController {
         if (comidaService.existsById(id)) {
             mav.addObject("comidas", comidaService.findAll());
             mav.addObject("comida", comidaService.findById(id));
-            mav.addObject("action", "editar/"+id);
+            mav.addObject("action", "editar/" + id);
             mav.addObject("estado", true);
         }
         return mav;
@@ -67,9 +67,9 @@ public class ComidaController {
 
     @PostMapping("/editar/{id}")
     public String modificar(@Valid @ModelAttribute Comida comida,
-                            BindingResult result,
-                            Model model,
-                            @PathVariable Integer id) {
+            BindingResult result,
+            Model model,
+            @PathVariable Integer id) {
         if (result.hasErrors()) {
             model.addAttribute("comidas", comidaService.findAll());
             model.addAttribute("action", "editar/" + id);
