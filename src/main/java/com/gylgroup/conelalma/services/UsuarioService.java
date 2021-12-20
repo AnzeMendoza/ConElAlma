@@ -52,7 +52,17 @@ public class UsuarioService implements UserDetailsService {
         }
 
         if (usuarioRepository.findAll().isEmpty()) {// SI NO HAY USUARIOS EN LA BASE DE DATO SE ASIGNA ADMIN POR DEFECTO
+
             usuario.setRol(rolRepository.findByNombre("ADMIN").get());
+            usuario.setEstado(true);
+            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+            if (!foto.isEmpty()) {
+                usuario.setFoto(fotoService.saveFile(foto));
+            } else {
+                usuario.setFoto("");
+            }
+            usuarioRepository.save(usuario);
+
         } else {
             if (rol == null) {
 
