@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComboRepository extends JpaRepository<Combo,Integer> {
-    @Query(value = "SELECT * FROM combos WHERE estado = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM combo WHERE estado = 1", nativeQuery = true)
     List<Combo> findAllByEstado();
 }

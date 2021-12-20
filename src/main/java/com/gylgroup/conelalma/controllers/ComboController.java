@@ -1,6 +1,7 @@
 package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Combo;
+import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.services.BebidaService;
 import com.gylgroup.conelalma.services.ComboService;
 import com.gylgroup.conelalma.services.ComidaService;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
+import java.util.List;
+
 @Controller
 @RequestMapping("/combos")
 public class ComboController {
@@ -27,9 +31,12 @@ public class ComboController {
     private ComidaService comidaService;
     
     @GetMapping("/")
-    public ModelAndView listarTodos(){
-        ModelAndView mav = new ModelAndView("combosListar");
+    public ModelAndView listarTodos(HttpSession session){
+        ModelAndView mav = new ModelAndView("public/combos");
+        Usuario user = (Usuario) session.getAttribute("user");
+        List list = comboService.findAllAndEstado();
         mav.addObject("combos", comboService.findAllAndEstado());
+        mav.addObject("usuario",user);
         return mav;
     }
     

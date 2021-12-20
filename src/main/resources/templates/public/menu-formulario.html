@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Lista de Combos</title>
+  <title>Formulario Menu</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  
+
   <!-- Favicons -->
   <link th:href="@{/public/img/logo0.png}" rel="icon">
   <link th:href="@{/public/img/logo0.png}" rel="apple-touch-icon"> 
@@ -45,7 +45,7 @@
             </b></li>
           <li>
             <i>
-              <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
+         <!--     <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b> -->
             </i>
           </li>
           <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
@@ -68,60 +68,85 @@
 
   <main id="main">
 
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
+    <div th:if="${error}" class="container mt-4 text-center">
+      <div class="row col-md-4 mx-auto">
+          <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
+      </div>
+  </div>
+<!-- ======= Seccion de contacto ======= -->
+<section id="contact" class="contact">
 
-        <div class="row">
-          <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-            <!--
-            <div class="about-img">
-              <img th:src="@{/img/COMBO-TERNERA-XXL.jpg}" alt="">
+  <div class="container" data-aos="fade-up">
+</br>
+    <div class="section-title">
+      <h2>Formulario Menu</h2>
+    </div>
+  </div>
+
+  <div class="container" data-aos="fade-up">
+
+    <div class="row mt-5">
+
+
+      <div class="col-lg-8 mt-5 mt-lg-0">
+
+        <form modelAttribute="menu" th:action="@{/}" th:object="${menu}"
+         method="GET" role="form" class="email-form">
+         
+          <input th:field="*{id}" th:name="id" type="hidden"/>
+
+          <div class="row">
+            <label for="name">Nombre de Combo</label>
+            <div class="col-md-6 form-group input-group" > 
+              <form th:action="@{/combos}" >
+                  <input type="text" name="name" class="form-control" id="name" readonly    
+                  th:placeholder="${menu.listaCombos[(0)].nombre}">
+                  <span class="input-group-btn">
+                    <button id="combo" class="btn btn-success" type="submit"> 
+                      Elegir combo<span class="fa fa-eye-slash icon"></span>
+                    </button>
+                  </span>
+              </form>
             </div>
-            -->
           </div>
-          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3>Nuestros combos</h3>
-            <form th:action="@{/menu/crear}" method="GET" >
-             <div class="list-group list-group-item-dark">
-                <a href="#" class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
-                  <div class="d-flex w-100 justify-content-between">
+          <div class="row">
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <label for="last-name">Cantidad de comensales</label>
+              <input type="number" class="form-control" name="text" id="last-name"  
+              th:placeholder="${menu.cantidadBaseComensales}" th:field="*{cantidadBaseComensales}">
+              
+            </div>
+          </div>
+          <div class="row">
+          <div class="form-group mt-3">
+            <label for="qualification">Calificacion</label>
+            <select aria-label="Elegir rol" class="form-select" id="rol" required th:field="*{tipoEvento}">
+                <option selected value="">Tipo de Evento</option>
+                <option th:each="evento : ${T(com.gylgroup.conelalma.enums.TipoEvento).values()}" th:text="${evento}"
+                        th:value="${evento}"></option>
+            </select>
+          </div>
+          </div>    
+<!--
+          <input th:field="*{reserva.id}" hidden>
+          <input th:field="*{estado}" hidden>
 
-                    <ul class="list-group list-group-item-dark" th:each=" combo: ${combos}" modelAttribute="combo"  th:value="${combo.id}">
-                      <br>
-                        <button type="submit" class="book-a-table-btn" style="color: black; text-align: center;">Elegir combo</button>
-                    </br>
-                        <li class="list-group-item" th:text="${combo.nombre}"></li>
-                        <li class="list-group-item">Platos</li>
-                        <table class="table-responsive table table-dark table-striped table-bordered"> 
-                          <tbody th:each=" comida: ${combo.listaComida}">
-                            <td class="col-md-2 px-md-2" th:text="${comida.nombre}"></td>
-                            <td class="col-md-2 px-md-2" th:text="${comida.precioUnitario}"></td>
-                            <td class="col-md-2 px-md-2">ACA VA LA FOTO</td>
-                            
-                          </tbody> 
-                          
-                        </table>
-                        <li class="list-group-item">Bebidas</li>
-                        <table class="table-responsive table table-dark table-striped table-bordered"> 
-                           <tbody th:each=" bebida: ${combo.listaBebidas}">
-                            <td class="col-md-2 px-md-2" th:text="${bebida.nombre}"></td>
-                            <td class="col-md-2 px-md-2" th:text="${bebida.precioUnitario}"></td>
-                             <td class="col-md-2 px-md-2">ACA VA LA FOTO</td>
-                           </tbody>
-                        </table>
-                        <input hidden th:value="*{combo.id}" th:field="*{combo.id}" th:name="*{comboid}">
-                    </ul>  
-                    
-                </a>
+          <div class="form-group mt-3">
+            <textarea class="form-control" name="message" rows="6" placeholder="Reseña" th:field="*{descripcion}" required>
                 
-              </div>
-            </form>
-
-
-
+            </textarea>
           </div>
-    </section><!-- End About Section -->
+          <div class="text-center"><button type="submit"> Enviar reseña</button></div>
+          -->
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section><!-- ======= Fin Seccion de contacto ======= -->
 
   </main><!-- End #main -->
 
