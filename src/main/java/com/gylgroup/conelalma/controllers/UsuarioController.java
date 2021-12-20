@@ -24,8 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-//import java.util.Map;
-
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
@@ -98,7 +96,7 @@ public class UsuarioController {
     public ModelAndView modificarUsuario(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
             @RequestParam Integer id, @Valid Usuario usuario, BindingResult bindingResult,
             @RequestParam Rol rol,
-            RedirectAttributes attributes, HttpSession session) {
+            RedirectAttributes attributes) {
 
         ModelAndView mav = new ModelAndView();
 
@@ -109,50 +107,18 @@ public class UsuarioController {
             mav.addObject("roles", rolService.findAll());
             mav.addObject("estado", true);
             mav.addObject("action", "modificar");
-            // ACA EL IF
-            if (session.getAttribute("user") != null) {
-
-                Usuario user = (Usuario) session.getAttribute("user");
-                if (user.getNombre().equals("CLIENTE")) {
-                    mav.setViewName("/public/user-formulario");
-                } else {
-                    mav.setViewName("/admin/usuarios-formulario");
-                }
-
-            }
-
+            mav.setViewName("/admin/usuarios-formulario");
         } else {
 
             try {
 
                 usuarioService.update(id, usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
-
-                if (session.getAttribute("user") != null) {
-
-                    Usuario user = (Usuario) session.getAttribute("user");
-                    if (user.getNombre().equals("CLIENTE")) {
-                        mav.setViewName("redirect:/");
-                    } else {
-                        mav.setViewName("redirect:/usuario/todos");
-                    }
-
-                }
-
+                mav.setViewName("redirect:/usuario/todos");
             } catch (Exception e) {
 
                 attributes.addFlashAttribute("error", e.getMessage());
-                if (session.getAttribute("user") != null) {
-
-                    Usuario user = (Usuario) session.getAttribute("user");
-                    if (user.getNombre().equals("CLIENTE")) {
-                        mav.setViewName("redirect:/");
-                    } else {
-                        mav.setViewName("redirect:/usuario/todos");
-                    }
-
-                }
-
+                mav.setViewName("redirect:/usuario/todos");
             }
 
         }
@@ -217,7 +183,7 @@ public class UsuarioController {
     @GetMapping("/misdatos")
     public ModelAndView editarMisDatos(HttpSession session, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("public/user-formulario");
-        // Map<String,?> map = RequestContextUtils.getInputFlashMap(request);
+
         if (session.getAttribute("user") != null) {
             Usuario user = (Usuario) session.getAttribute("user");
             mav.addObject("usuario", user);
