@@ -94,7 +94,7 @@ public class UsuarioService implements UserDetailsService {
             upUsuario.setApellido(usuario.getApellido());
             upUsuario.setCelular(usuario.getCelular());
             upUsuario.setEmail(usuario.getEmail());
-            upUsuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+            upUsuario.setContrasenia(usuario.getContrasenia());
             upUsuario.setEstado(true);
             upUsuario.setRol(rol);
             if (!foto.isEmpty()) {
