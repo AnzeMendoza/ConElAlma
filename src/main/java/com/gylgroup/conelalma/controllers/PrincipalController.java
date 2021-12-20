@@ -17,15 +17,25 @@ public class PrincipalController {
 
     @GetMapping("/")
     public ModelAndView inicioPublic(HttpSession session) {
-        ModelAndView mav = new ModelAndView("index.html");
+        ModelAndView mav = new ModelAndView("index");
+        Usuario user = (Usuario) session.getAttribute("user");
+
         if(session.getAttribute("user")!=null){
-            Usuario user = (Usuario) session.getAttribute("user");
-            mav.addObject("logueado","true");
-            mav.addObject("usuario",user);
-            mav.addObject("comentarios",comentarioService.findAllEnable());
+            //Agregar if para redirigira para panel admin o public
+            if(user.getRol().getId()==1){
+                mav.addObject("logueado","true");
+                mav.addObject("usuario",user);
+                mav.addObject("comentarios",comentarioService.findAllEnable());
+            }else{
+                mav.setViewName("redirect:/admin");
+                mav.addObject("logueado","true");
+                mav.addObject("usuario",user);
+                mav.addObject("comentarios",comentarioService.findAllEnable());
+            }
         }else{
             mav.addObject("logueado","false");//false por defecto
             mav.addObject("comentarios",comentarioService.findAllEnable());
+           // mav.setViewName("redirect:/");
         }
 
         return mav;
