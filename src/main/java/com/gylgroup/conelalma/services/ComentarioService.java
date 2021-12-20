@@ -54,7 +54,7 @@ public class ComentarioService {
             throw new Exception("No existe un comentario asociado al ID: "+dto.getId());
         }
 
-        if(!reservaRepository.existsReservaById(dto.getReserva().getId())){
+        if(!reservaRepository.existsById(dto.getReserva().getId())){
             throw new Exception("No existe un comentario asociado a la reserva con ID : "+dto.getReserva().getId());
         }
         //AGREGAR EXCEPCION
@@ -65,7 +65,6 @@ public class ComentarioService {
         comentario.setReserva(dto.getReserva());//preguntar
         comentario.setEstado(dto.getEstado());
         comentarioRepository.save(comentario);
-
     }
 
     @Transactional
@@ -102,7 +101,7 @@ public class ComentarioService {
             throw new Exception("No existe un comentario asociado al ID: "+dto.getId());
         }
 
-        if(!reservaRepository.existsReservaById(dto.getReserva().getId())){
+        if(!reservaRepository.existsById(dto.getReserva().getId())){
             throw new Exception("No existe un comentario asociado a la reserva con ID : "+dto.getReserva().getId());
         }
 
