@@ -128,7 +128,6 @@ public class RolController {
 
         ModelAndView mav = new ModelAndView();
         try {
-
             rolService.enable(id);
             attributes.addFlashAttribute("exito", "ROL HABILITADO CON EXITO!");
             mav.setViewName("redirect:/rol/todos");
@@ -137,8 +136,6 @@ public class RolController {
             attributes.addFlashAttribute("error", e.getMessage());
             mav.setViewName("redirect:/rol/todos");
         }
-
         return mav;
     }
-
 }

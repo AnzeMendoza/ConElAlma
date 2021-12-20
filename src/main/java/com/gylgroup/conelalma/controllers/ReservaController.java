@@ -1,15 +1,15 @@
 package com.gylgroup.conelalma.controllers;
 
-
 import com.gylgroup.conelalma.entities.Reserva;
-import com.gylgroup.conelalma.entities.Usuario;
+import com.gylgroup.conelalma.enums.TipoDePago;
 import com.gylgroup.conelalma.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
@@ -34,6 +34,7 @@ public class ReservaController {
         }else{
             mav.addObject("logueado","false");
         }
+
         return mav;
 
     }
@@ -75,16 +76,14 @@ public class ReservaController {
     @PreAuthorize("hasAnyRole('CLIENTE')")
     public RedirectView modifcarReserva(@ModelAttribute Reserva reserva,RedirectAttributes attributes){
         RedirectView reMav = new RedirectView("/reservas");
-        try {
-            reservaService.update(reserva);
-            attributes.addFlashAttribute("exito", "Modificacion Exitosa");
-        } catch (Exception e) {
-            attributes.addFlashAttribute("reserva",reservaService.findById(reserva.getId()));
-            attributes.addFlashAttribute("error-name",e.getMessage());
-            reMav.setUrl("/reservas/editar/"+reserva.getId());
-        }
 
-        return reMav;
+        try {
+            reservaService.update(id, reserva);
+            model.addAttribute("estado", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/reservas/todos";
     }
 
     @PostMapping("/baja/{id}")
@@ -124,5 +123,4 @@ public class ReservaController {
         mav.addObject("reservas",reservaService.findAll());
         return mav;
     }
-
 }

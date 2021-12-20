@@ -1,27 +1,19 @@
 package com.gylgroup.conelalma.entities;
 
-
-import java.util.Date;
-
-import javax.persistence.*;
-
 import com.gylgroup.conelalma.enums.TipoDePago;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 @Entity
-@NoArgsConstructor
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE reserva SET estado = false WHERE id = ?")
 public class Reserva {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,6 +22,7 @@ public class Reserva {
     private PresupuestoLive presupuestoLive;
 
     @Temporal(TemporalType.DATE)
+    @NotNull(message = "la fecha de reserva tiene que ser asignada")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaReserva;
 
@@ -39,4 +32,9 @@ public class Reserva {
     private TipoDePago tipoDePago;
 
     private Boolean pagoEfectuado;
+
+    public Reserva() {
+        estado = true;
+        pagoEfectuado = false;
+    }
 }
