@@ -11,7 +11,6 @@ import com.gylgroup.conelalma.services.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Map;
+//import java.util.Map;
 
 @Controller
 @RequestMapping("/usuario")
@@ -100,7 +98,7 @@ public class UsuarioController {
     public ModelAndView modificarUsuario(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
             @RequestParam Integer id, @Valid Usuario usuario, BindingResult bindingResult,
             @RequestParam Rol rol,
-            RedirectAttributes attributes) {
+            RedirectAttributes attributes, HttpSession session) {
 
         ModelAndView mav = new ModelAndView();
 
@@ -111,11 +109,16 @@ public class UsuarioController {
             mav.addObject("roles", rolService.findAll());
             mav.addObject("estado", true);
             mav.addObject("action", "modificar");
-            //ACA EL IF
-            if(usuario.getRol().getId()==1){
-                mav.setViewName("/public/user-formulario");
-            }else{
-                mav.setViewName("/admin/usuarios-formulario");
+            // ACA EL IF
+            if (session.getAttribute("user") != null) {
+
+                Usuario user = (Usuario) session.getAttribute("user");
+                if (user.getNombre().equals("CLIENTE")) {
+                    mav.setViewName("/public/user-formulario");
+                } else {
+                    mav.setViewName("/admin/usuarios-formulario");
+                }
+
             }
 
         } else {
@@ -125,16 +128,31 @@ public class UsuarioController {
                 usuarioService.update(id, usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
 
-                if(usuario.getRol().getId()==1){
-                    mav.setViewName("redirect:/");
-                }else{
-                    mav.setViewName("redirect:/usuario/todos");
+                if (session.getAttribute("user") != null) {
+
+                    Usuario user = (Usuario) session.getAttribute("user");
+                    if (user.getNombre().equals("CLIENTE")) {
+                        mav.setViewName("redirect:/");
+                    } else {
+                        mav.setViewName("redirect:/usuario/todos");
+                    }
+
                 }
 
             } catch (Exception e) {
 
                 attributes.addFlashAttribute("error", e.getMessage());
-                mav.setViewName("redirect:/usuario/todos");
+                if (session.getAttribute("user") != null) {
+
+                    Usuario user = (Usuario) session.getAttribute("user");
+                    if (user.getNombre().equals("CLIENTE")) {
+                        mav.setViewName("redirect:/");
+                    } else {
+                        mav.setViewName("redirect:/usuario/todos");
+                    }
+
+                }
+
             }
 
         }
@@ -197,16 +215,16 @@ public class UsuarioController {
     }
 
     @GetMapping("/misdatos")
-    public ModelAndView editarMisDatos(HttpSession session, HttpServletRequest request){
+    public ModelAndView editarMisDatos(HttpSession session, HttpServletRequest request) {
         ModelAndView mav = new ModelAndView("public/user-formulario");
-        Map<String,?> map = RequestContextUtils.getInputFlashMap(request);
-        if(session.getAttribute("user")!=null){
+        // Map<String,?> map = RequestContextUtils.getInputFlashMap(request);
+        if (session.getAttribute("user") != null) {
             Usuario user = (Usuario) session.getAttribute("user");
-            mav.addObject("usuario",user);
-            mav.addObject("action","modificar");
-            mav.addObject("logueado","true");
-        }else{
-            mav.addObject("logueado","false");
+            mav.addObject("usuario", user);
+            mav.addObject("action", "modificar");
+            mav.addObject("logueado", "true");
+        } else {
+            mav.addObject("logueado", "false");
         }
         return mav;
     }
