@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -42,16 +43,23 @@ public class LocalController {
     @PostMapping("/agregar")
     public String guardarLocal(@Valid @ModelAttribute Local local,
             BindingResult result,
-            Model model) {
+            Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
         if (result.hasErrors()) {
             model.addAttribute("locales", localService.findAll());
             model.addAttribute("localesActivos", localService.findAllAndEstado());
             model.addAttribute("action", "agregar");
             model.addAttribute("estado", true);
             return "admin/local-formulario";
+        } else {
+            try {
+                localService.save(local, imagen);
+                model.addAttribute("exito", "REGISTRO EXITOSO!");
+                return "redirect:/locales/todos";
+            } catch (Exception e) {
+                model.addAttribute("error", e.getMessage());
+                return "redirect:/locales/todos";
+            }
         }
-        localService.save(local);
-        return "redirect:/locales/todos";
     }
 
     @GetMapping("/editar/{id}")
@@ -68,18 +76,26 @@ public class LocalController {
 
     @PostMapping("/editar/{id}")
     public String modificarLocal(@PathVariable Integer id,
-                                 @Valid @ModelAttribute Local local,
-                                 BindingResult result,
-                                 Model model) {
-        if(result.hasErrors()){
+            @Valid @ModelAttribute Local local,
+            BindingResult result,
+            Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+        if (result.hasErrors()) {
             model.addAttribute("locales", localService.findAll());
             model.addAttribute("localesActivos", localService.findAllAndEstado());
             model.addAttribute("action", "editar/" + id);
             model.addAttribute("estado", true);
             return "admin/local-formulario";
+        } else {
+            try {
+                localService.update(local, imagen);
+                model.addAttribute("exito", "ACTUALIZACIÓN EXITOSA!");
+                return "redirect:/locales/todos";
+            } catch (Exception e) {
+                model.addAttribute("error", e.getMessage());
+                return "redirect:/locales/todos";
+            }
         }
-        localService.update(local);
-        return "redirect:/locales/todos";
+
     }
 
     @PostMapping("/desactivar/{id}")

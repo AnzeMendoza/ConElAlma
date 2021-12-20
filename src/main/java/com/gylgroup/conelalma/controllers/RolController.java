@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class RolController {
 
     @Autowired
-    RolService rolService;
+    private RolService rolService;
 
     @GetMapping("/todos")
     public ModelAndView obtenerRoles() {

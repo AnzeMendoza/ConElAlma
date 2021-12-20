@@ -1,5 +1,7 @@
 package com.gylgroup.conelalma.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.gylgroup.conelalma.entities.Rol;
@@ -8,6 +10,7 @@ import com.gylgroup.conelalma.services.RolService;
 import com.gylgroup.conelalma.services.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 
@@ -27,12 +30,13 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UsuarioController {
 
     @Autowired
-    UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     @Autowired
-    RolService rolService;
+    private RolService rolService;
 
     @GetMapping("/todos")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView obtenerUsuarios() {
 
         ModelAndView mav = new ModelAndView("/admin/usuarios-formulario");
@@ -174,6 +178,21 @@ public class UsuarioController {
                 mav.setViewName("redirect:/usuario/registrarse");
             }
 
+        }
+        return mav;
+    }
+
+    @GetMapping("/misdatos")
+    public ModelAndView editarMisDatos(HttpSession session, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("public/user-formulario");
+
+        if (session.getAttribute("user") != null) {
+            Usuario user = (Usuario) session.getAttribute("user");
+            mav.addObject("usuario", user);
+            mav.addObject("action", "modificar");
+            mav.addObject("logueado", "true");
+        } else {
+            mav.addObject("logueado", "false");
         }
         return mav;
     }

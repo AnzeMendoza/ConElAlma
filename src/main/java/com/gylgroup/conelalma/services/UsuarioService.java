@@ -29,13 +29,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class UsuarioService implements UserDetailsService {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    RolRepository rolRepository;
+    private RolRepository rolRepository;
 
     @Autowired
-    FotoService fotoService;
+    private FotoService fotoService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -51,30 +51,44 @@ public class UsuarioService implements UserDetailsService {
             throw new ExceptionService("YA EXISTE UN USUARIO CON EL EMAIL INDICADO!");
         }
 
-        if (rol == null) {
+        if (usuarioRepository.findAll().isEmpty()) {// SI NO HAY USUARIOS EN LA BASE DE DATO SE ASIGNA ADMIN POR DEFECTO
 
-            usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
+            usuario.setRol(rolRepository.findByNombre("ADMIN").get());
             usuario.setEstado(true);
             usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
-            if (foto==null) {
-                usuario.setFoto("");
-            } else {
+            if (!foto.isEmpty()) {
                 usuario.setFoto(fotoService.saveFile(foto));
+            } else {
+                usuario.setFoto("");
             }
-
             usuarioRepository.save(usuario);
+
         } else {
+            if (rol == null) {
 
-            usuario.setRol(rol);
-            usuario.setEstado(true);
-            usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
-            if (foto==null) {
-                usuario.setFoto("");
+                usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
+                usuario.setEstado(true);
+                usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+                if (!foto.isEmpty()) {
+                    usuario.setFoto(fotoService.saveFile(foto));
+                } else {
+                    usuario.setFoto("");
+                }
+
+                usuarioRepository.save(usuario);
             } else {
-                usuario.setFoto(fotoService.saveFile(foto));
-            }
 
-            usuarioRepository.save(usuario);
+                usuario.setRol(rol);
+                usuario.setEstado(true);
+                usuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+                if (!foto.isEmpty()) {
+                    usuario.setFoto(fotoService.saveFile(foto));
+                } else {
+                    usuario.setFoto("");
+                }
+
+                usuarioRepository.save(usuario);
+            }
         }
 
     }
@@ -160,20 +174,17 @@ public class UsuarioService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(MENSAJE, email)));
 
-        // GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" +
-        // usuario.getRol().getNombre());
-        GrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().getNombre());
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+usuario.getRol().getNombre());
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
                 .currentRequestAttributes();
-        HttpSession session = attributes.getRequest().getSession(true); // false
+        HttpSession session = attributes.getRequest().getSession(true);
         session.setAttribute("user", usuario);
-        System.err.println("NOMBRE DEL USER: " + usuario.getNombre());
-        System.err.println("INGRESA POR LOAD USER BY NAME !!!!!");
+
         return new User(usuario.getEmail(), usuario.getContrasenia(), Collections.singleton(authority));
     }
 
     @Transactional
-    public List<Usuario> findAllByEstado(boolean estado){
+    public List<Usuario> findAllByEstado(boolean estado) {
         return findAllByEstado(estado);
     }
 }

@@ -21,7 +21,7 @@ public class Reserva {
     @ManyToOne
     private PresupuestoLive presupuestoLive;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @NotNull(message = "la fecha de reserva tiene que ser asignada")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fechaReserva;

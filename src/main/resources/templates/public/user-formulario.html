@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Formulario comentario</title>
+  <title>Formulario usuario</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -33,7 +33,7 @@
 <body>
 
   <header id="header" class="fixed-top d-flex align-items-cente">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:if="${logueado}">
 
       <h1><a th:href="@{/}">ConElAlma</a></h1>
      
@@ -45,7 +45,7 @@
             </b></li>
           <li>
             <i>
-         <!--     <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b> -->
+              <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
             </i>
           </li>
           <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
@@ -58,6 +58,27 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
+    </div>
+
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:unless="${logueado}">
+
+      <h1><a th:href="@{/}">ConElAlma</a></h1>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
+          <li><a class="nav-link scrollto" href="#menu">Platos</a></li>
+          <li><a class="nav-link scrollto" href="#gallery">Locales</a></li>
+          <li><a class="nav-link scrollto" href="#events">Eventos</a></li>
+          <li><a class="nav-link scrollto" href="#testimonials">Comentarios</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+      <a th:href="@{/login}" class="book-a-table-btn scrollto d-none d-lg-flex">Login</a>
+      <a th:href="@{/usuario/registrarse}" class="book-a-table-btn scrollto d-none d-lg-flex">Registrarse</a>
+      <a th:href="@{/admin}" class="book-a-table-btn scrollto d-none d-lg-flex">Administración</a>
     </div>
 
   </header><!-- Fin Header -->
@@ -78,7 +99,7 @@
   <div class="container" data-aos="fade-up">
 </br>
     <div class="section-title">
-      <h2>Reseña de usuario</h2>
+      <h2>Datos de usuario</h2>
     </div>
   </div>
 
@@ -89,51 +110,58 @@
 
       <div class="col-lg-8 mt-5 mt-lg-0">
 
-        <form modelAttribute="comentario" th:action="@{/comentario/__${action}__}" th:object="${comentario}"
+        <form modelAttribute="usuario" th:action="@{/usuario/__${action}__}" th:object="${usuario}"
          method="post" role="form" class="email-form">
           <input th:field="*{id}" th:name="id" type="hidden"/>
-          
+ 
           <div class="row">
-            <input th:field="*{usuario.id}" hidden>
+            <input th:field="*{id}" hidden>
 
             <div class="col-md-6 form-group" > 
               <label for="name">Nombre</label>
-              <input type="text" name="name" class="form-control" id="name" readonly 
-              th:placeholder="${comentario.usuario.nombre}" th:field="*{usuario.nombre}">
+              <input type="text" name="name" class="form-control" id="name"  
+              th:placeholder="${nombre}" th:field="*{nombre}">
             </div>
             
             <div class="col-md-6 form-group mt-3 mt-md-0">
               <label for="last-name">Apellido</label>
-              <input type="text" class="form-control" name="text" id="last-name" readonly 
-              th:placeholder="${comentario.usuario.apellido}" th:field="*{usuario.apellido}">
+              <input type="text" class="form-control" name="text" id="last-name"  
+              th:placeholder="${apellido}" th:field="*{apellido}">
             </div>
+
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <label for="last-name">Telefono</label>
+              <input type="text" class="form-control" name="celular" id="tel"  
+              th:placeholder="${celular}" th:field="*{celular}">
+            </div>  
+
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <label for="last-name">Correo</label>
+              <input type="text" class="form-control" name="email" id="email"  
+              th:placeholder="${email}" th:field="*{email}">
+            </div>
+
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <label for="last-name">Contraseña</label>
+              <input type="text" class="form-control" name="contrasenia" id="contrasenia"  
+              th:placeholder="${contrasenia}" th:field="*{contrasenia}" >
+            </div>
+
           </div>
+          <input th:field="*{estado}" hidden name="estado"> 
+          <input th:field="*{id}" hidden name="id"> 
+          <input th:field="*{rol}" hidden name="rol">
+          <input th:field="*{fechaCreacion}" hidden name="fechaCreacion"> 
+          </br>
+          <div class="text-center"><button type="submit"> Confirmar cambios</button></div>
           
-          <div class="form-group mt-3">
-            <label for="qualification">Calificacion</label>
-            <select aria-label="Elegir rol" class="form-select" id="rol" required th:field="*{calificacion}">
-                <option selected value="">Elegir calificacion</option>
-                <option th:each="calificacion : ${T(com.gylgroup.conelalma.enums.Calificacion).values()}" th:text="${calificacion}"
-                        th:value="${calificacion}"></option>
-            </select>
-          </div>
-
-          <input th:field="*{reserva.id}" hidden>
-          <input th:field="*{estado}" hidden>
-
-          <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="6" placeholder="Reseña" th:field="*{descripcion}" required>
-                
-            </textarea>
-          </div>
-          <div class="text-center"><button type="submit"> Enviar reseña</button></div>
         </form>
 
       </div>
 
     </div>
 
-  </div>
+  </div> 
 </section><!-- ======= Fin Seccion de contacto ======= -->
 
   </main><!-- End #main -->

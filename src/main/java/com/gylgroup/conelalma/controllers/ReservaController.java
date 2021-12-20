@@ -4,6 +4,7 @@ import com.gylgroup.conelalma.entities.Reserva;
 import com.gylgroup.conelalma.enums.TipoDePago;
 import com.gylgroup.conelalma.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.EnumSet;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/reservas")
@@ -22,64 +21,62 @@ public class ReservaController {
     @Autowired
     private ReservaService reservaService;
 
-    @GetMapping("/todos")
-    public ModelAndView listarReservas() {
-        ModelAndView mav = new ModelAndView("admin/reserva-formulario");
-        mav.addObject("reservas", reservaService.findAll());
-        mav.addObject("reserva", new Reserva());
-        mav.addObject("tiposDePagos", new ArrayList<>(EnumSet.allOf(TipoDePago.class)));
-        mav.addObject("estado", false);
-        mav.addObject("action", "agregar");
-        return mav;
-    }
+    @GetMapping
+        @PreAuthorize("hasAnyRole('CLIENTE')")
+    public ModelAndView listaReservas(HttpSession session){
+        ModelAndView mav = new ModelAndView("public/reservas");
 
-    @GetMapping("/agregar")
-    public ModelAndView reservaCreate() {
-        ModelAndView mav = new ModelAndView("admin/reserva-formulario");
-        mav.addObject("reserva", new Reserva());
-        mav.addObject("action", "agregar");
-        return mav;
-    }
-
-    @PostMapping("/agregar")
-    public String persistirReserva(@Valid Reserva reserva,
-                                   BindingResult result,
-                                   Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("action", "agregar");
-            model.addAttribute("reservas", reservaService.findAll());
-            model.addAttribute("tiposDePagos", new ArrayList<>(EnumSet.allOf(TipoDePago.class)));
-            model.addAttribute("estado", true);
-            return "admin/reserva-formulario";
+        if(session.getAttribute("user")!=null){
+            Usuario user = (Usuario) session.getAttribute("user");
+            mav.addObject("reservas",reservaService.findAll());
+            mav.addObject("usuario",user);
+            mav.addObject("logueado","true");
+        }else{
+            mav.addObject("logueado","false");
         }
-        reservaService.save(reserva);
-        return "redirect:/reservas/todos";
+
+        return mav;
+
+    }
+
+    @GetMapping("crear")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
+    public ModelAndView save(){
+        ModelAndView mav = new ModelAndView("reserva-formulario");
+
+        mav.addObject("reserva",new Reserva());
+        mav.addObject("action","guardar");
+        mav.addObject("title","Registrar nueva reserva");
+
+        return mav;
     }
 
     @GetMapping("/editar/{id}")
-    public ModelAndView editar(@PathVariable("id") Integer id) throws Exception {
-        ModelAndView mav = new ModelAndView("admin/reserva-formulario");
-        if (reservaService.existsById(id)) {
-            mav.addObject("reservas", reservaService.findAll());
-            mav.addObject("reserva", reservaService.findById(id));
-            mav.addObject("tiposDePagos", new ArrayList<>(EnumSet.allOf(TipoDePago.class)));
-            mav.addObject("action", "editar/" + id);
-            mav.addObject("estado", true);
-        }
+    @PreAuthorize("hasAnyRole('CLIENTE')")
+    public ModelAndView editarReserva(@PathVariable Integer id){
+        ModelAndView mav = new ModelAndView("reserva-formulario");
+
+        mav.addObject("reserva",reservaService.findById(id));
+        mav.addObject("action","modificar");
+        mav.addObject("title","Modifcar reserva");
+
         return mav;
+
     }
 
-    @PostMapping("/editar/{id}")
-    public String reservaUpdate(@PathVariable Integer id,
-                                @Valid @ModelAttribute Reserva reserva,
-                                BindingResult result,
-                                Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("reservas", reservaService.findAll());
-            model.addAttribute("action", "editar/" + id);
-            model.addAttribute("estado", true);
-            return "admin/reserva-formulario";
-        }
+    @PostMapping("/guardar")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
+    public RedirectView persistirReserva(@ModelAttribute Reserva reserva){
+        RedirectView reMav = new RedirectView("/reservas");
+        reservaService.save(reserva);
+        return reMav;
+    }
+
+    @PostMapping("/modifcar")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
+    public RedirectView modifcarReserva(@ModelAttribute Reserva reserva,RedirectAttributes attributes){
+        RedirectView reMav = new RedirectView("/reservas");
+
         try {
             reservaService.update(id, reserva);
             model.addAttribute("estado", true);
@@ -89,23 +86,41 @@ public class ReservaController {
         return "redirect:/reservas/todos";
     }
 
-    @PostMapping("/activar/{id}")
-    public RedirectView bajaRerserva(@PathVariable Integer id) {
-        try {
-            reservaService.enable(id);
-        } catch (Exception e) {
-            e.printStackTrace();
+    @PostMapping("/baja/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
+    public RedirectView bajaRerserva(@PathVariable Integer id, HttpSession session){
+        RedirectView reMav = new RedirectView("/reservas");
+        Usuario user = (Usuario) session.getAttribute("user");
+        reservaService.disable(id);
+        if(user.getRol().getNombre().equals("CLIENTE")){
+            reMav.setUrl("/");
+        }else{
+            reMav.setUrl("/reservas/todos");
+
         }
-        return new RedirectView("/reservas/todos");
+        return reMav;
     }
 
-    @PostMapping("/desactivar/{id}")
-    public RedirectView habilitarRerserva(@PathVariable Integer id) {
-        try {
-            reservaService.disable(id);
-        } catch (Exception e) {
-            e.printStackTrace();
+    @PostMapping("/alta/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
+    public RedirectView habilitarRerserva(@PathVariable Integer id,HttpSession session){
+        RedirectView reMav = new RedirectView("/reservas");
+        Usuario user = (Usuario) session.getAttribute("user");
+        reservaService.enable(id);
+        if(user.getRol().getNombre().equals("CLIENTE")){
+            reMav.setUrl("/");
+        }else{
+            reMav.setUrl("/reservas/todos");
+
         }
-        return new RedirectView("/reservas/todos");
+        return reMav;
+    }
+
+    @GetMapping("/todos")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ModelAndView reservasAdmin(){
+        ModelAndView mav = new ModelAndView("admin/reservas");
+        mav.addObject("reservas",reservaService.findAll());
+        return mav;
     }
 }
