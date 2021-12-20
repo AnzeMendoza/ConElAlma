@@ -29,13 +29,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class UsuarioService implements UserDetailsService {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
-    RolRepository rolRepository;
+    private RolRepository rolRepository;
 
     @Autowired
-    FotoService fotoService;
+    private FotoService fotoService;
 
     @Autowired
     private BCryptPasswordEncoder encoder;

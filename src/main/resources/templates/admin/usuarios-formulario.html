@@ -173,7 +173,8 @@
                       <div th:if="*{usuario.estado == true}">
                         <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${usuario.id}" hidden>
                         </th>
-                        <td class="col-md-2 px-md-2 text-center" scope="row">
+
+                        <td th:if="${usuario.foto != null}" class="col-md-2 px-md-2 text-center" scope="row">
 
                           <img th:if="${!usuario.foto.isEmpty()}" th:src="@{/admin/uploads/__${usuario.foto}__}"
                             style="max-height: 45px; border-radius: 100%; padding: 1%;">
@@ -182,6 +183,10 @@
                             style="max-height: 45px; border-radius: 100%;">
 
                         </td>
+                        <td th:if="${usuario.foto == null}">
+                          <p> </p>
+                        </td>
+
                         <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${usuario.nombre}"></td>
                         <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${usuario.apellido}">
                         </td>
