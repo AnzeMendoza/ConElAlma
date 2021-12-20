@@ -42,13 +42,10 @@ public class LocalService {
             local.setNombre(miLocal.getNombre());
             local.setCantidadMaximaPersonas(miLocal.getCantidadMaximaPersonas());
             local.setDireccion(miLocal.getDireccion());
-            local.setFoto(miLocal.getFoto());
             local.setPrecio(miLocal.getPrecio());
             local.setEstado(true);
             if (!foto.isEmpty()) {
                 local.setFoto(fotoService.saveFile(foto));
-            } else {
-                local.setFoto("");
             }
             localRepository.save(local);
         }

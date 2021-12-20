@@ -109,8 +109,6 @@ public class UsuarioService implements UserDetailsService {
             upUsuario.setRol(rol);
             if (!foto.isEmpty()) {
                 upUsuario.setFoto(fotoService.saveFile(foto));
-            } else {
-                upUsuario.setFoto("");
             }
 
             usuarioRepository.save(upUsuario);
