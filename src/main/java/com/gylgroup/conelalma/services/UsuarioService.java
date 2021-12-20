@@ -174,7 +174,7 @@ public class UsuarioService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(MENSAJE, email)));
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().getNombre());
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+usuario.getRol().getNombre());
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
                 .currentRequestAttributes();
         HttpSession session = attributes.getRequest().getSession(true);

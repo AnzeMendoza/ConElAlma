@@ -10,6 +10,7 @@ import com.gylgroup.conelalma.services.RolService;
 import com.gylgroup.conelalma.services.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 
@@ -35,6 +36,7 @@ public class UsuarioController {
     RolService rolService;
 
     @GetMapping("/todos")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView obtenerUsuarios() {
 
         ModelAndView mav = new ModelAndView("/admin/usuarios-formulario");

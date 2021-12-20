@@ -40,6 +40,7 @@ public class ComentarioController {
          return mav;
      }*/
     @GetMapping
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     public ModelAndView save(HttpSession session, HttpServletRequest request){//AGREGAR FLASHMAP para exito/error en html
         ModelAndView mav = new ModelAndView("public/comentario-formulario");
         Comentario comentario = new Comentario();
@@ -49,6 +50,7 @@ public class ComentarioController {
     }
 
     @GetMapping("/editar/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     public ModelAndView editarComentario(@PathVariable Integer id){
         ModelAndView mav = new ModelAndView("public/comentario-formulario");
         mav.addObject("comentario",comentarioService.findById(id));
@@ -59,6 +61,7 @@ public class ComentarioController {
     }
 
     @PostMapping("/guardar")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     public RedirectView persistirComentario(@ModelAttribute("comentario") Comentario comentario, RedirectAttributes attributes){
         try {
             comentarioService.save(comentario);
@@ -72,6 +75,7 @@ public class ComentarioController {
     }
 
     @PostMapping("/modificar")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     public RedirectView modifcarComentario(@ModelAttribute("comentario") Comentario comentario,RedirectAttributes attributes){
         RedirectView reMav = new RedirectView();
 
@@ -89,6 +93,7 @@ public class ComentarioController {
     }
 
     @PostMapping("/alta/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
     public RedirectView enable(@PathVariable Integer id,HttpSession session){
         RedirectView reMav = new RedirectView("");
         Usuario user = (Usuario) session.getAttribute("user");
@@ -96,7 +101,7 @@ public class ComentarioController {
         if(user.getRol().getId()==1){
             reMav.setUrl("/");
         }else{
-            reMav.setUrl("/admin");
+            reMav.setUrl("/comentario/todos");
 
         }
 
@@ -105,6 +110,7 @@ public class ComentarioController {
     }
 
     @PostMapping("/baja/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public RedirectView disable(@PathVariable Integer id,HttpSession session){
         RedirectView reMav = new RedirectView("");
         Usuario user = (Usuario) session.getAttribute("user");
@@ -112,7 +118,7 @@ public class ComentarioController {
         if(user.getRol().getId()==1){
             reMav.setUrl("/");
         }else{
-            reMav.setUrl("/admin");
+            reMav.setUrl("/comentario/todos");
 
         }
         comentarioService.disable(id);
@@ -145,6 +151,7 @@ public class ComentarioController {
     }
 
     @GetMapping("/miscomentarios")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     public ModelAndView misComentarios(HttpSession session, HttpServletRequest request){
         ModelAndView mav = new ModelAndView("public/comentario");
         Map<String,?> map = RequestContextUtils.getInputFlashMap(request);
@@ -161,6 +168,7 @@ public class ComentarioController {
     }
 
     @GetMapping("/todos")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ModelAndView listaComentarios() {
         ModelAndView mav = new ModelAndView("admin/comentarios");
         mav.addObject("comentarios", comentarioService.findAll());
