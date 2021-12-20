@@ -29,10 +29,10 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UsuarioController {
 
     @Autowired
-    UsuarioService usuarioService;
+    private UsuarioService usuarioService;
 
     @Autowired
-    RolService rolService;
+    private RolService rolService;
 
     @GetMapping("/todos")
     public ModelAndView obtenerUsuarios() {

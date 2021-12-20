@@ -31,7 +31,7 @@
   <!-- Template Main CSS File -->
   <link th:href="@{/admin/assets/css/style.css}" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/style.css}">
-  <title>Con el Alma - Listado Cupones</title>
+  <title>Con el Alma - Listado Locales</title>
 </head>
 
 <body>
@@ -43,7 +43,7 @@
 
     <!-- === FORMULARIO CUPONES === -->
     <div class="pagetitle">
-      <h1>Cupones</h1>
+      <h1>Locales</h1>
       <nav>
 
         <div>
@@ -108,6 +108,12 @@
                     class="text-danger"></div>
                 </div>
 
+                <div class="form-group  pt-3">
+                  <label for=" foto">Cargar foto</label><br>
+
+                  <input type="file" name="imagen" accept="image/*">
+                </div>
+
                 <div class="form-group d-grid gap-2 pt-4">
                   <button type="submit" class="btn btn-outline-primary ingresar">Registrar local</button>
                 </div>
@@ -126,7 +132,7 @@
     </div><!-- End Page Title -->
 
 
-    <!-- === TABLA USUARIOS TODOS === -->
+    <!-- === TABLA localS TODOS === -->
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -142,24 +148,42 @@
                 <table class="table table-hover table-sm">
                   <thead class="">
                     <tr>
+                      <th class="col-md-3 px-md-2 text-center" scope="col">
+                        Foto
+                      </th>
                       <th class="col-md-3 px-md-2" scope="col">Nombre</th>
-                      <th class="col-md-3 px-md-2" scope="col">dirección</th>
-                      <th class="col-md-3 px-md-2" scope="col">cantidad maxima de personas</th>
-                      <th class="col-md-3 px-md-2" scope="col">precio</th>
-                      <!--                  <th class="col-md-3 px-md-2" scope="col">foto</th>-->
-                      <th class="col-md-3 px-md-2 text-center" scope="col">Acciones</th>
+                      <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Dirección</th>
+                      <th class="col-md-3 px-md-2" scope="col">Cant. maxima de personas</th>
+                      <th class="col-md-3 px-md-2" style="width: 5%;" scope="col">Precio</th>
+
+                      <th class="col-md-3 px-md-2 text-center" style="width: 100%;" scope="col">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr th:each="local : ${locales}">
                       <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${local.id}" hidden></th>
-                      <td class="col-md-2 px-md-2" th:text="${local.nombre}"></td>
-                      <td class="col-md-2 px-md-2" th:text="${local.direccion}"></td>
-                      <td class="col-md-2 px-md-2" th:text="${local.cantidadMaximaPersonas}"></td>
-                      <td class="col-md-2 px-md-2" th:text="${local.precio}"></td>
-                      <!--                  <td class="col-md-2 px-md-2" th:text="${local.cantidadMaximaPersonas}"></td>-->
-                      <td class="col-md-2 px-md-2 d-flex justify-content-around w-100">
-                        <a style="width: 100px;"
+
+                      <td th:if="${local.foto != null}" class="col-md-2 px-md-2 text-center" scope="row">
+
+                        <img th:if="${!local.foto.isEmpty()}" th:src="@{/admin/uploads/__${local.foto}__}"
+                          style="max-height: 45px; border-radius: 10%; padding: 1%;">
+
+                        <img th:if="${local.foto.isEmpty()}" th:src="@{/admin/uploads/no-disponible.png}" alt=""
+                          style="max-height: 45px; border-radius: 10%;">
+
+                      </td>
+                      <td th:if="${local.foto == null}">
+                        <p> </p>
+                      </td>
+
+                      <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${local.nombre}"></td>
+                      <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${local.direccion}"></td>
+                      <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${local.cantidadMaximaPersonas}"></td>
+                      <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${local.precio}"></td>
+
+
+                      <td class="col-md-2 px-md-2 d-flex justify-content-around w-100" style="padding: 6%;">
+                        <a style="width: 100px;margin-right: 5%;"
                           th:class="${local.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
                           th:href="${local.estado != false} ? (@{/locales/editar/__${local.id}__}) : '#' "
                           th:disabled="${local.estado} == false">Editar</a>
@@ -181,7 +205,7 @@
         </div>
       </div>
     </section>
-    <!-- === FIN TABLA USUARIOS TODOS === -->
+    <!-- === FIN TABLA localS TODOS === -->
 
   </main><!-- End #main -->
 
@@ -191,7 +215,7 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>
 
-  <script th:src="@{/admin/js/role.js}"></script>
+  <script th:src="@{/admin/js/local.js}"></script>
   <!-- Vendor JS Files -->
   <script th:src="@{/admin/assets/vendor/apexcharts/apexcharts.min.js}"></script>
   <script th:src="@{/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
