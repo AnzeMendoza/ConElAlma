@@ -115,6 +115,7 @@ public class PresupuestoLiveController {
         if(user.getRol().getNombre().equals("CLIENTE")){
             mav.setViewName("public/presupuesto-formulario");
             mav.addObject("usuario",user);
+            mav.addObject("menu",menu);
 
         }
         return mav;
