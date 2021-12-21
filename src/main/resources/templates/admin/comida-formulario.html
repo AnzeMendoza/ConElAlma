@@ -131,17 +131,34 @@
                 <table class="table table-hover table-sm">
                   <thead class="">
                     <tr>
-                      <th class="col-md-3 px-md-2" scope="col">Nombre</th>
-                      <th class="col-md-3 px-md-2" scope="col">precio unitario</th>
+                      <th class="col-md-3 px-md-2 text-center" scope="col">
+                        Foto
+                      </th>
+                      <th class="col-md-3 px-md-2" style="width: 15%;" scope="col">Nombre</th>
+                      <th class="col-md-3 px-md-2" style="width: 5%;" scope="col">Precio unitario</th>
                       <th class="col-md-3 px-md-2 text-center" scope="col">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr th:each="comida : ${comidas}">
                       <th class="col-md-2 px-md-2 text-center" scope="row" th:text="${comida.id}" hidden></th>
-                      <td class="col-md-2 px-md-2" th:text="${comida.nombre}"></td>
-                      <td class="col-md-2 px-md-2" th:text="${comida.precioUnitario}"></td>
-                      <td class="col-md-2 px-md-2 d-flex justify-content-around w-100">
+
+                      <td th:if="${comida.foto != null}" class="col-md-2 px-md-2 text-center" scope="row">
+
+                        <img th:if="${!comida.foto.isEmpty()}" th:src="@{/admin/uploads/__${comida.foto}__}"
+                          style="max-height: 50px; border-radius: 10%; padding: 1%;">
+
+                        <img th:if="${comida.foto.isEmpty()}" th:src="@{/admin/uploads/no-disponible.png}" alt=""
+                          style="max-height: 50px; border-radius: 10%;">
+
+                      </td>
+                      <td th:if="${comida.foto == null}">
+                        <p> </p>
+                      </td>
+
+                      <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${comida.nombre}"></td>
+                      <td class="col-md-2 px-md-2" style="padding: 1%;" th:text="${comida.precioUnitario}"></td>
+                      <td class="col-md-2 px-md-2 d-flex justify-content-around w-100" style="padding: 5%;">
 
                         <a style="width: 100px;"
                           th:class="${comida.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"

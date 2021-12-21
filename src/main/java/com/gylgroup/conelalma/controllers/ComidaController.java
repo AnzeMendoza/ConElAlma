@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
@@ -42,15 +44,24 @@ public class ComidaController {
     @PostMapping("/agregar")
     public String guardar(@Valid @ModelAttribute Comida comida,
             BindingResult result,
-            Model model) {
+            Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            RedirectAttributes attributes) {
         if (result.hasErrors()) {
             model.addAttribute("comidas", comidaService.findAll());
             model.addAttribute("action", "agregar");
             model.addAttribute("estado", true);
             return "admin/comida-formulario";
+        } else {
+            try {
+                comidaService.save(comida, imagen);
+                attributes.addAttribute("exito", "REGISTRO EXITOSO!");
+                return "redirect:/comidas/todos";
+            } catch (Exception e) {
+                attributes.addAttribute("error", e.getMessage());
+                return "redirect:/comidas/todos";
+            }
         }
-        comidaService.save(comida);
-        return "redirect:/comidas/todos";
+
     }
 
     @GetMapping("/editar/{id}")
@@ -69,15 +80,24 @@ public class ComidaController {
     public String modificar(@Valid @ModelAttribute Comida comida,
             BindingResult result,
             Model model,
-            @PathVariable Integer id) {
+            @PathVariable Integer id, @RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            RedirectAttributes attributes) {
         if (result.hasErrors()) {
             model.addAttribute("comidas", comidaService.findAll());
             model.addAttribute("action", "editar/" + id);
             model.addAttribute("estado", true);
             return "admin/comida-formulario";
+        } else {
+            try {
+                comidaService.update(comida, imagen);
+                attributes.addAttribute("exito", "MODIFICACIÓN CON EXITO!");
+                return "redirect:/comidas/todos";
+            } catch (Exception e) {
+                attributes.addAttribute("error", e.getMessage());
+                return "redirect:/comidas/todos";
+            }
         }
-        comidaService.update(comida);
-        return "redirect:/comidas/todos";
+
     }
 
     @PostMapping("/desactivar/{id}")
