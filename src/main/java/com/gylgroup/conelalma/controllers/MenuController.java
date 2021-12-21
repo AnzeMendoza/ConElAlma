@@ -1,6 +1,10 @@
 package com.gylgroup.conelalma.controllers;
 
+import com.gylgroup.conelalma.entities.Combo;
 import com.gylgroup.conelalma.entities.Menu;
+import com.gylgroup.conelalma.entities.Usuario;
+import com.gylgroup.conelalma.exception.ExceptionService;
+import com.gylgroup.conelalma.services.ComboService;
 import com.gylgroup.conelalma.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -19,6 +25,9 @@ public class MenuController {
 
     @Autowired
     private MenuService service;
+
+    @Autowired
+    private ComboService comboService;
 
     @GetMapping("/todos")
     public ModelAndView obtenerMenu(){
@@ -124,5 +133,34 @@ public class MenuController {
         }
 
         return redirectView;
+    }
+
+    @GetMapping("/crear")
+    public ModelAndView crearMenu(@RequestParam(required=false,name = "comboid") Integer idCombo, HttpSession session){
+        ModelAndView mav = new ModelAndView();
+        Usuario user = (Usuario) session.getAttribute("user");
+        Menu menu=new Menu();
+
+        if(user.getRol().getNombre().equals("CLIENTE")){
+            Combo combo = comboService.findById(idCombo);
+            menu.setCombo(Collections.singletonList(comboService.findById(idCombo)));
+            mav.setViewName("public/menu-formulario");
+            mav.addObject("menu",menu);
+            mav.addObject("usuario",user);
+            mav.addObject("comboId",idCombo);
+        }else{
+            mav.setViewName("redirect: /menu/todos");
+        }
+
+        return mav;
+    }
+
+    @PostMapping (value="/saveMenuUser")
+    private RedirectView persistir(@ModelAttribute("menu") Menu menu, RedirectAttributes attributes ) throws ExceptionService {
+        Menu m = menu;
+        attributes.addFlashAttribute("menu", menu);
+        service.save(menu);
+        RedirectView reMav= new RedirectView("/presupuesto/crear");
+        return reMav;
     }
 }

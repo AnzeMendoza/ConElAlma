@@ -1,6 +1,6 @@
 package com.gylgroup.conelalma.controllers;
 
-import com.gylgroup.conelalma.entities.PresupuestoLive;
+import com.gylgroup.conelalma.entities.*;
 import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/presupuesto")
@@ -31,6 +37,12 @@ public class PresupuestoLiveController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private ReservaService reservaService;
+
+    @Autowired
+    private ComboService comboService;
 
     @GetMapping("/todos")
     public ModelAndView listar() {
@@ -97,6 +109,54 @@ public class PresupuestoLiveController {
         model.addAttribute("locales", localService.findAllAndEstado());
         model.addAttribute("cupones", cuponService.findAllAndEstado(true));
         model.addAttribute("usuarios",  usuarioService.findAllByEstado(true));*/
+    }
+
+    @GetMapping("/crear")
+    public ModelAndView crearPresupuesto(HttpSession session, HttpServletRequest request, RedirectAttributes attributes) throws Exception {
+        Usuario user = (Usuario) session.getAttribute("user");
+        Map<String,?> map = RequestContextUtils.getInputFlashMap(request);
+        PresupuestoLive presupuesto = new PresupuestoLive();
+        ModelAndView mav = new ModelAndView("public/presupuesto-formulario");
+        mav = cargarObjetos(user,presupuesto,map);
+        request.setAttribute("presupuesto",presupuesto);
+        attributes.addFlashAttribute("presupuesto",presupuesto);
+        if(user.getRol().getNombre().equals("CLIENTE")){
+            mav.setViewName("public/presupuesto-formulario");
+        }
+        return mav;
+    }
+
+    @PostMapping("/savePresupuestoUser")
+    public RedirectView guardarPresupuestoUser(RedirectAttributes attributes,@ModelAttribute("presupuestoLive") PresupuestoLive presupuesto, HttpSession session){
+        RedirectView reMav = new RedirectView("/reservas/crear");
+        presupuesto.setUsuario((Usuario) session.getAttribute("user"));
+        presupuesto.setCantidadComensales(presupuesto.getMenu().getCantidadBaseComensales());
+        presupuestoLiveService.save(presupuesto);
+
+        attributes.addFlashAttribute("exito", "Presupuesto agregado con exito");
+        return reMav;
+    }
+
+    private double precioMenu(Menu menu){
+        Double precioBase=menu.getCantidadBaseComensales()*menu.getCombo().get(0).getPrecioCombo();
+
+        return precioBase;
+    }
+
+
+    private ModelAndView cargarObjetos(Usuario user, PresupuestoLive presupuestoLive, Map map){
+        ModelAndView mav = new ModelAndView();
+        //CARGA DE RESERVA
+        Menu menu = (Menu) map.get("menu");
+        presupuestoLive.setMenu(menuService.findById(menu.getId()));
+        presupuestoLive.setCantidadComensales(menu.getCantidadBaseComensales());
+        presupuestoLive.setTipoEvento(menu.getTipoEvento().name());
+        presupuestoLive.setPrecioFinal(precioMenu(menu));
+        presupuestoLive.setUsuario(user);
+        mav.addObject("usuario",user);
+        mav.addObject("presupuestoLive", presupuestoLive);
+
+        return mav;
     }
 }
 

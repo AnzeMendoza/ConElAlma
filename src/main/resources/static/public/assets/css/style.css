@@ -1092,6 +1092,17 @@ section {
   background: #d3af71;
 }
 
+ a[type=submit] {
+  background: #cda45e;
+  border: 0;
+  padding: 10px 35px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+a[type=submit]:hover {
+  background: #d3af71;
+}
 /*--------------------------------------------------------------
 # Testimonials
 --------------------------------------------------------------*/

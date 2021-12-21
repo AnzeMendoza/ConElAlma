@@ -90,50 +90,49 @@
 
       <div class="col-lg-8 mt-5 mt-lg-0">
 
-        <form modelAttribute="reserva" th:action="@{/reservas/guardar}" th:object="${reserva}"
+        <form modelAttribute="menu" th:action="@{/menu/saveMenuUser}" th:object="${menu}"
          method="POST" role="form" class="email-form" >
-
-         <input th:field="*{id}" th:name="id" type="hidden"/>
-
-         <div class="row">
-          <label for="fechaReserva">Fecha de Reserva</label>
-          <div class="col-md-6 form-group" > 
-            
-            <input type="date" th:name="fechaReserva" id="fechaReserva" th:field="*{fechaReserva}" readonly 
-            th:placeholder="${fechaReserva}" required>
-          </div>
-         </div>
          
-         <div class="row">
-          <div class="col-md-6 form-group" > 
-            <label for="tipoDePago">Tipo de Pago</label>
-            <select aria-label="Elegir Tpo de Pago" class="form-select form-control" id="tipoDePago" required th:field="*{tipoDePago}">
-              <option selected value="">Tipo de Pago</option>
-              <option th:each="tipoDePago : ${T(com.gylgroup.conelalma.enums.TipoDePago).values()}" th:text="${tipoDePago}"
-                      th:value="${tipoDePago}"></option>
-          </select>
-          </div>
-         </div>
+          <input th:field="*{id}" class="form-control" type="hidden" id="id"/>
 
-         <div class="row">
-          <label for="fechaReserva">Precio Final</label>
-          <div class="col-md-6 form-group" >            
-            <input type="text" th:name="precioFinal" id="precioFinal"  readonly 
-            th:placeholder="${precioFinal}">
-          </div>
-         </div>
-        </br>
+          <div class="row">
+            <label for="name">Nombre de Combo</label>
+            <div class="col-md-6 form-group input-group" > 
 
-        <div class="row">
-          <label for="fechaReserva">Descuento por Cupon</label>
-          <div class="col-md-6 form-group" >            
-            <input type="text" th:name="descuento" id="descuento"  readonly 
-            th:placeholder="|${descuento}%|">
+                  <input type="text"  class="form-control"  readonly    
+                  th:placeholder="${menu.combo[(0)].nombre}" th:field="*{combo}">
+                  <span class="input-group-btn" id="combo">
+                    <button  class="button btn btn-success" type="submit" th:href="@{/combos/}"> 
+                      Elegir combo<span class="fa fa-eye-slash icon"></span>
+                    </button>
+                  </span>
+
+            </div>
           </div>
-         </div>
-        </br>
-        <input th:field="*{presupuestoLive}" th:value="presupuestoLive" hidden>
-         <button id="menu" class="btn btn-success" type="submit">Aceptar</button>
+          <div class="row">
+            <div class="col-md-6 form-group mt-3 mt-md-0">
+              <label for="last-name">Cantidad de comensales</label>
+              <input type="number" class="form-control" name="cantidadBaseComensales" 
+              th:placeholder="${menu.cantidadBaseComensales}" th:field="*{cantidadBaseComensales}"
+               id="cantidadBaseComensales">
+              
+            </div>
+          </div>
+          <div class="row">
+          <div class="form-group mt-3">
+            <label for="qualification">Calificacion</label>
+            <select aria-label="Elegir rol" class="form-select form-control" id="tipoEvento" required th:field="*{tipoEvento}">
+                <option selected value="">Tipo de Evento</option>
+                <option th:each="evento : ${T(com.gylgroup.conelalma.enums.TipoEvento).values()}" th:text="${evento}"
+                        th:value="${evento}"></option>
+            </select>
+          </div>
+          </div>    
+
+
+          </br>
+
+          <button id="menu" class="btn btn-success" type="submit">Aceptar</button>
 
         </form>
         

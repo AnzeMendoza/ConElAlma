@@ -27,11 +27,11 @@ public class Combo {
     private String nombre;
 
     @NotNull(message = "La lista de bebidas debe ser asignada")
-    @OneToMany
+    @ManyToMany
     private List<Bebida> listaBebidas;
 
     @NotNull(message = "La lista de comidas debe ser asignada")
-    @OneToMany
+    @ManyToMany
     private List<Comida> listaComida;
 
     @NotNull(message = "El precio combo es obligatorio.")

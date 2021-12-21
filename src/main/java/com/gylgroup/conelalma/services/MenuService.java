@@ -19,9 +19,9 @@ public class MenuService {
 
     public void save(Menu menu) throws ExceptionService{
 
-        if(repository.findMenuByNombre(menu.getNombre()).isPresent()){
+       /* if(repository.findMenuByNombre(menu.getNombre()).isPresent()){
             throw new ExceptionService("Ya existe un menú con el mismo nombre");
-        }
+        }*/
         menu.setEstado(true);
         repository.save(menu);
 
@@ -36,12 +36,12 @@ public class MenuService {
 
             Menu menuNew = new Menu();
 
-            menuNew.setNombre(menu.getNombre());
+           // menuNew.setNombre(menu.getNombre());
             menuNew.setTipoEvento(menu.getTipoEvento());
             menuNew.setCantidadBaseComensales(menu.getCantidadBaseComensales());
-            menuNew.setPrecioMenu(menu.getPrecioMenu());
+            //menuNew.setPrecioMenu(menu.getPrecioMenu());
             menuNew.setEstado(menu.getEstado());
-            menuNew.setListaCombos(menu.getListaCombos());
+            menuNew.setCombo(menu.getCombo());
             menuNew.setFoto(menu.getFoto());
 
 
@@ -99,6 +99,10 @@ public class MenuService {
             menu.setEstado(true);
             repository.save(menu);
         }
+    }
+
+    public Double calculoPrecioBase(Integer cantPers, Double precioCombo){
+        return cantPers*precioCombo;
     }
 
 }
