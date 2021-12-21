@@ -78,7 +78,6 @@ public class ReservaController {
     @PreAuthorize("hasAnyRole('CLIENTE')")
     public RedirectView modifcarReserva(@ModelAttribute Reserva reserva, RedirectAttributes attributes){
         RedirectView reMav = new RedirectView("/reservas");
-
         try {
             reservaService.update(reserva.getId(), reserva);
             attributes.addAttribute("estado", true);
