@@ -41,7 +41,7 @@ public class MenuService {
             menuNew.setCantidadBaseComensales(menu.getCantidadBaseComensales());
             //menuNew.setPrecioMenu(menu.getPrecioMenu());
             menuNew.setEstado(menu.getEstado());
-            menuNew.setListaCombos(menu.getListaCombos());
+            menuNew.setCombo(menu.getCombo());
             menuNew.setFoto(menu.getFoto());
 
 

@@ -89,56 +89,77 @@
 
 
       <div class="col-lg-8 mt-5 mt-lg-0">
-        <!--
-        <form modelAttribute="menu" th:action="@{/presupuesto/crear}" th:object="${menu}"
-         method="GET" role="form" class="email-form">
+ 
+        <form modelAttribute="presupuestoLive" th:action="@{/presupuesto/savePresupuestoUser}" th:object="${presupuestoLive}"
+         method="POST" role="form" class="email-form" name="presupuestoLive">
          
-          <input th:field="*{id}"  type="hidden"/>
+         <input th:field="*{id}" class="form-control" type="hidden" id="id"/>
 
-          <div class="row">
-            <label for="name">Nombre de Combo</label>
-            <div class="col-md-6 form-group input-group" > 
-              <form th:action="@{/combos/}" >
-                  <input type="text"  class="form-control"  readonly    
-                  th:placeholder="${menu.listaCombos[(0)].nombre}">
-                  <span class="input-group-btn">
-                    <a id="combo" class="button btn btn-success" type="submit" th:href="@{/combos/}"> 
-                      Elegir combo<span class="fa fa-eye-slash icon"></span>
-                    </a>
-                  </span>
-              </form>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 form-group mt-3 mt-md-0">
-              <label for="last-name">Cantidad de comensales</label>
-              <input type="number" class="form-control" name="text" id="last-name"  
-              th:placeholder="${menu.cantidadBaseComensales}" th:field="*{cantidadBaseComensales}">
-              
-            </div>
-          </div>
-          <div class="row">
-          <div class="form-group mt-3">
-            <label for="qualification">Calificacion</label>
-            <select aria-label="Elegir rol" class="form-select" id="rol" required th:field="*{tipoEvento}">
-                <option selected value="">Tipo de Evento</option>
-                <option th:each="evento : ${T(com.gylgroup.conelalma.enums.TipoEvento).values()}" th:text="${evento}"
-                        th:value="${evento}"></option>
-            </select>
-          </div>
-          </div>    
+         <div class="row">
+           <div class="col-md-6 form-group mt-3 mt-md-0">
+             <label for="last-name">Cantidad de comensales</label>
+             <input type="number" class="form-control" name="cantidadBaseComensales" 
+             th:placeholder="${presupuestoLive.menu.cantidadBaseComensales}" th:field="*{menu.cantidadBaseComensales}"
+              id="cantidadBaseComensales" readonly>
+             
+           </div>
+         </div>
 
-          <input th:field="*{menu.id}" hidden>
-          </br>
-          <span class="input-group-btn">
-            <button id="combo" class="btn btn-success" type="submit"> 
-              Aceptar<span class="fa fa-eye-slash icon"></span>
-            </button>
-          </span>
+         <div class="row">
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            <label for="last-name">Codigo de Cupon</label>
+            <input type="text" class="form-control" name="codCupon" 
+            placeholder="Codigo Cupon" th:field="*{codCupon}"
+             id="codCupon" >
+            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            <label for="last-name">Precio base</label>
+            <input type="text" class="form-control" name="precioFinal" 
+            placeholder="Precio Base" th:field="*{precioFinal}"
+             id="precioFinal" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            <label for="last-name">Fecha de Evento</label>
+            <input type="date" class="form-control" name="fechaEventoSolicitada" 
+            placeholder="Fecha del Evento" th:field="*{fechaEventoSolicitada}"
+             id="fechaEventoSolicitada" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            <label for="last-name">Direccion del Evento</label>
+            <input type="text" class="form-control" name="dirEvento" 
+            placeholder="Direccion" th:field="*{dirEvento}"
+             id="dirEvento" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group mt-3 mt-md-0">
+            <label for="last-name">Tipo de Evento</label>
+            <input type="text" class="form-control" name="tipoEvento" 
+            th:placeholder="tipoEvento" th:field="*{tipoEvento}"
+             id="tipoEvento" readonly >
+          </div>
+        </div>
+
+         </br>
+         <input th:field="*{menu.id}" hidden name="menuId">
+
+         <button id="menu" class="btn btn-success" type="submit">Aceptar</button>
+       
         </form>
 
       </div>
-    -->
+
     </div>
 
   </div>

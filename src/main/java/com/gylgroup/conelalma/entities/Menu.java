@@ -28,8 +28,8 @@ public class Menu {
     private TipoEvento tipoEvento;
 
     @NotNull(message = "Lista de combos debe ser asignado")
-    @OneToMany
-    private List<Combo> listaCombos;
+    @ManyToMany
+    private List<Combo> combo;
 
     @NotNull(message = "Debe asignarse cantidad de comensales.")
     @Min(value = 0, message = "tiene que ser mayor a 0")

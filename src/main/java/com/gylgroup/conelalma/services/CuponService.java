@@ -69,4 +69,9 @@ public class CuponService {
         cupon.setEstado(status);
         cuponRepository.save(cupon);
     }
+
+    @Transactional
+    public Cupon findByCodigo(String codigo){
+        return cuponRepository.findByCodigo(codigo);
+    }
 }

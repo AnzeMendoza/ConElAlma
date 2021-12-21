@@ -100,8 +100,8 @@
             <div class="col-md-6 form-group input-group" > 
 
                   <input type="text"  class="form-control"  readonly    
-                  th:placeholder="${menu.listaCombos[(0)].nombre}" th:field="*{listaCombos}">
-                  <span class="input-group-btn" id="listaCombos">
+                  th:placeholder="${menu.combo[(0)].nombre}" th:field="*{combo}">
+                  <span class="input-group-btn" id="combo">
                     <button  class="button btn btn-success" type="submit" th:href="@{/combos/}"> 
                       Elegir combo<span class="fa fa-eye-slash icon"></span>
                     </button>

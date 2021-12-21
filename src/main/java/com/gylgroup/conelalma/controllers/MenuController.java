@@ -16,7 +16,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -144,8 +143,7 @@ public class MenuController {
 
         if(user.getRol().getNombre().equals("CLIENTE")){
             Combo combo = comboService.findById(idCombo);
-            List<Combo> comboList= Collections.singletonList(combo);
-            menu.setListaCombos(comboList);
+            menu.setCombo(Collections.singletonList(comboService.findById(idCombo)));
             mav.setViewName("public/menu-formulario");
             mav.addObject("menu",menu);
             mav.addObject("usuario",user);
@@ -159,9 +157,10 @@ public class MenuController {
 
     @PostMapping (value="/saveMenuUser")
     private RedirectView persistir(@ModelAttribute("menu") Menu menu, RedirectAttributes attributes ) throws ExceptionService {
+        Menu m = menu;
+        attributes.addFlashAttribute("menu", menu);
         service.save(menu);
         RedirectView reMav= new RedirectView("/presupuesto/crear");
-        attributes.addFlashAttribute("menu", menu);
         return reMav;
     }
 }
