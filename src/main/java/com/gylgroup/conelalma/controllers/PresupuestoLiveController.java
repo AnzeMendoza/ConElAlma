@@ -1,15 +1,12 @@
 package com.gylgroup.conelalma.controllers;
 
-import com.gylgroup.conelalma.entities.Bebida;
 import com.gylgroup.conelalma.entities.PresupuestoLive;
-import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
@@ -72,9 +69,9 @@ public class PresupuestoLiveController {
     }
 
     @PostMapping("/editar/{id}")
-    public String editarpresupuesto(@PathVariable Integer id,
-                                    @Valid PresupuestoLive presupuestoLive,
+    public String editarpresupuesto(@Valid PresupuestoLive presupuestoLive,
                                     BindingResult result,
+                                    @PathVariable Integer id,
                                     Model model) {
         try {
             if (result.hasErrors()) {
