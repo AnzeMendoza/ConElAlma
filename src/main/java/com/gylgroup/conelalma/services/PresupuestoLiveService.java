@@ -34,9 +34,8 @@ public class PresupuestoLiveService {
         presupuestoLive.setCupon(cuponService.findByCodigo(presupuestoLive.getCodCupon()));
         presupuestoLive.setMenu(menuService.findById(presupuestoLive.getMenu().getId()));
         presupuestoLive.getCantidadComensales();
-        Reserva reserva = new Reserva();
-        reserva.setTipoDePago(TipoDePago.TARJETA);
-        presupuestoLive.setReservas(Collections.singletonList(reserva));
+
+        presupuestoLive.setReservas(Collections.emptyList());
         return presupuestoLiveRepository.save(presupuestoLive);
     }
 
@@ -84,6 +83,11 @@ public class PresupuestoLiveService {
         if (!presupuestoLiveRepository.existsById(id)) {
             throw new Exception();
         }
+    }
+
+    @Transactional
+    public PresupuestoLive findByIdUsuario(Integer idUsuario){
+        return presupuestoLiveRepository.findByIdUsuario(idUsuario);
     }
 
     private void changeStatus(Integer id, boolean status) {

@@ -128,7 +128,7 @@ public class PresupuestoLiveController {
 
     @PostMapping("/savePresupuestoUser")
     public RedirectView guardarPresupuestoUser(RedirectAttributes attributes,@ModelAttribute("presupuestoLive") PresupuestoLive presupuesto, HttpSession session){
-        RedirectView reMav = new RedirectView("/");
+        RedirectView reMav = new RedirectView("/reservas/crear");
         presupuesto.setUsuario((Usuario) session.getAttribute("user"));
         presupuesto.setCantidadComensales(presupuesto.getMenu().getCantidadBaseComensales());
         presupuestoLiveService.save(presupuesto);
