@@ -40,13 +40,14 @@
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:if="${logueado}">
 
       <h1><a th:href="@{/}">ConElAlma</a></h1>
-     
+
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
           <li>
-            <b> 
-              <a class="nav-link scrollto active" >Usuario:</a>
-            </b></li>
+            <b>
+              <a class="nav-link scrollto active">Usuario:</a>
+            </b>
+          </li>
           <li>
             <i>
               <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
@@ -64,7 +65,8 @@
 
     </div>
 
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between" th:unless="${logueado}">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between"
+      th:unless="${logueado}">
 
       <h1><a th:href="@{/}">ConElAlma</a></h1>
 
@@ -87,42 +89,42 @@
 
   </header><!-- Fin Header -->
 
- <!-- ======= Home seccion ======= -->
- <main id="main">
+  <!-- ======= Home seccion ======= -->
+  <main id="main">
 
-<div th:if="${error}" class="container mt-4 text-center">
-    </br></br></br></br></br></br>
-    <div class="row col-md-4 mx-auto">
+    <div th:if="${error}" class="container mt-4 text-center">
+      </br></br></br></br></br></br>
+      <div class="row col-md-4 mx-auto">
         <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
-    </div>
-</div>
-
-<div th:if="${logout}" class="container mt-4 text-center">
-    </br></br></br></br></br></br>
-    <div class="row col-md-4 mx-auto">        
-        <div th:text="${logout}" class="alert alert-success m-0 shadow"></div>
-    </div>
-</div>
-
-<div th:if="${exito}" class="container mt-4 text-center">
-  </br></br></br></br></br></br>
-  <div class="row col-md-4 mx-auto">
-      <div th:text="${exito}" class="alert alert-success m-0 shadow"></div>
-  </div>
-</div>
-
- <section id="hero" class="d-flex align-items-center">
-  <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
-    <div class="row">
-      <div class="col-lg-8">
-        <h1>Bienvenido a <span>Con El Alma</span></h1>
-        <h2>Servicio integral de catering para todo tipo de eventos.</h2>
-
-        <div class="btns">
-          <a href="#menu" class="btn-menu animated fadeInUp scrollto">Nuestros menús</a>
-          <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Promociones</a>
-        </div>
       </div>
+    </div>
+
+    <div th:if="${logout}" class="container mt-4 text-center">
+      </br></br></br></br></br></br>
+      <div class="row col-md-4 mx-auto">
+        <div th:text="${logout}" class="alert alert-success m-0 shadow"></div>
+      </div>
+    </div>
+
+    <div th:if="${exito}" class="container mt-4 text-center">
+      </br></br></br></br></br></br>
+      <div class="row col-md-4 mx-auto">
+        <div th:text="${exito}" class="alert alert-success m-0 shadow"></div>
+      </div>
+    </div>
+
+    <section id="hero" class="d-flex align-items-center">
+      <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+        <div class="row">
+          <div class="col-lg-8">
+            <h1>Bienvenido a <span>Con El Alma</span></h1>
+            <h2>Servicio integral de catering para todo tipo de eventos.</h2>
+
+            <div class="btns">
+              <a href="#menu" class="btn-menu animated fadeInUp scrollto">Nuestros menús</a>
+              <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Promociones</a>
+            </div>
+          </div>
     </section><!-- Fin home seccion -->
 
     <!-- ======= Seccion nosotros ======= -->
@@ -555,8 +557,9 @@
               </div>
 
               <div class="phone">
-                <i class="bi bi-phone"></i>
-                <h4>Telefono:</h4>
+                <i class="bi bi-whatsapp"></i>
+                <h4><a href="https://api.whatsapp.com/send?phone=543876138363" target="_blank">Whatsapp. Click aqui!</a>
+                </h4>
                 <p>+54 11-5878-9654</p>
               </div>
 
