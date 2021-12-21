@@ -34,9 +34,13 @@ public class ComboController {
     public ModelAndView listarTodos(HttpSession session){
         ModelAndView mav = new ModelAndView("public/combos");
         Usuario user = (Usuario) session.getAttribute("user");
-        List list = comboService.findAllAndEstado();
-        mav.addObject("combos", comboService.findAllAndEstado());
-        mav.addObject("usuario",user);
+        if(user.getRol().getNombre().equals("CLIENTE")){
+            mav.addObject("combos", comboService.findAllAndEstado());
+            mav.addObject("usuario",user);
+        }else{
+            //FALTA VISTA PARA ADMIN DE COMBOS
+        }
+
         return mav;
     }
     

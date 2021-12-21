@@ -1,6 +1,7 @@
 package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Reserva;
+import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.enums.TipoDePago;
 import com.gylgroup.conelalma.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
@@ -74,16 +76,16 @@ public class ReservaController {
 
     @PostMapping("/modifcar")
     @PreAuthorize("hasAnyRole('CLIENTE')")
-    public RedirectView modifcarReserva(@ModelAttribute Reserva reserva,RedirectAttributes attributes){
+    public RedirectView modifcarReserva(@ModelAttribute Reserva reserva, RedirectAttributes attributes){
         RedirectView reMav = new RedirectView("/reservas");
 
         try {
-            reservaService.update(id, reserva);
-            model.addAttribute("estado", true);
+            reservaService.update(reserva.getId(), reserva);
+            attributes.addAttribute("estado", true);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/reservas/todos";
+        return reMav;
     }
 
     @PostMapping("/baja/{id}")
@@ -91,7 +93,11 @@ public class ReservaController {
     public RedirectView bajaRerserva(@PathVariable Integer id, HttpSession session){
         RedirectView reMav = new RedirectView("/reservas");
         Usuario user = (Usuario) session.getAttribute("user");
-        reservaService.disable(id);
+        try {
+            reservaService.disable(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if(user.getRol().getNombre().equals("CLIENTE")){
             reMav.setUrl("/");
         }else{
@@ -106,7 +112,11 @@ public class ReservaController {
     public RedirectView habilitarRerserva(@PathVariable Integer id,HttpSession session){
         RedirectView reMav = new RedirectView("/reservas");
         Usuario user = (Usuario) session.getAttribute("user");
-        reservaService.enable(id);
+        try {
+            reservaService.enable(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if(user.getRol().getNombre().equals("CLIENTE")){
             reMav.setUrl("/");
         }else{

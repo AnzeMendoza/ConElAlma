@@ -3,6 +3,7 @@ package com.gylgroup.conelalma.controllers;
 import com.gylgroup.conelalma.entities.Combo;
 import com.gylgroup.conelalma.entities.Menu;
 import com.gylgroup.conelalma.entities.Usuario;
+import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.services.ComboService;
 import com.gylgroup.conelalma.services.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +137,7 @@ public class MenuController {
     }
 
     @GetMapping("/crear")
-    public ModelAndView crearMenu(@RequestParam(value="comboid",required=false,name = "comboid") Integer idCombo, HttpSession session){
+    public ModelAndView crearMenu(@RequestParam(required=false,name = "comboid") Integer idCombo, HttpSession session){
         ModelAndView mav = new ModelAndView();
         Usuario user = (Usuario) session.getAttribute("user");
         Menu menu=new Menu();
@@ -150,9 +151,17 @@ public class MenuController {
             mav.addObject("usuario",user);
             mav.addObject("comboId",idCombo);
         }else{
-
+            mav.setViewName("redirect: /menu/todos");
         }
 
         return mav;
+    }
+
+    @PostMapping (value="/saveMenuUser")
+    private RedirectView persistir(@ModelAttribute("menu") Menu menu, RedirectAttributes attributes ) throws ExceptionService {
+        service.save(menu);
+        RedirectView reMav= new RedirectView("/presupuesto/crear");
+        attributes.addFlashAttribute("menu", menu);
+        return reMav;
     }
 }

@@ -1,6 +1,8 @@
 package com.gylgroup.conelalma.controllers;
 
+import com.gylgroup.conelalma.entities.Menu;
 import com.gylgroup.conelalma.entities.PresupuestoLive;
+import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.exception.ExceptionService;
 import com.gylgroup.conelalma.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/presupuesto")
@@ -97,6 +103,21 @@ public class PresupuestoLiveController {
         model.addAttribute("locales", localService.findAllAndEstado());
         model.addAttribute("cupones", cuponService.findAllAndEstado(true));
         model.addAttribute("usuarios",  usuarioService.findAllByEstado(true));*/
+    }
+
+    @GetMapping("/crear")
+    public ModelAndView crearPresupuesto(HttpSession session, HttpServletRequest request) throws Exception {
+        Usuario user = (Usuario) session.getAttribute("user");
+        Map<String,?> map = RequestContextUtils.getInputFlashMap(request);
+        Menu menu = (Menu) map.get("menu");
+        ModelAndView mav = new ModelAndView();
+
+        if(user.getRol().getNombre().equals("CLIENTE")){
+            mav.setViewName("public/presupuesto-formulario");
+            mav.addObject("usuario",user);
+
+        }
+        return mav;
     }
 }
 

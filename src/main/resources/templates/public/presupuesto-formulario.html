@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Formulario Menu</title>
+  <title>Formulario Presupuesto</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -79,7 +79,7 @@
   <div class="container" data-aos="fade-up">
 </br>
     <div class="section-title">
-      <h2>Formulario Menu</h2>
+      <h2>Presupuesto</h2>
     </div>
   </div>
 
@@ -89,39 +89,38 @@
 
 
       <div class="col-lg-8 mt-5 mt-lg-0">
-
-        <form modelAttribute="menu" th:action="@{/menu/saveMenuUser}" th:object="${menu}"
-         method="POST" role="form" class="email-form" >
+        <!--
+        <form modelAttribute="menu" th:action="@{/presupuesto/crear}" th:object="${menu}"
+         method="GET" role="form" class="email-form">
          
-          <input th:field="*{id}" class="form-control" type="hidden" id="id"/>
+          <input th:field="*{id}"  type="hidden"/>
 
           <div class="row">
             <label for="name">Nombre de Combo</label>
             <div class="col-md-6 form-group input-group" > 
-
+              <form th:action="@{/combos/}" >
                   <input type="text"  class="form-control"  readonly    
-                  th:placeholder="${menu.listaCombos[(0)].nombre}" th:field="*{listaCombos}">
-                  <span class="input-group-btn" id="listaCombos">
-                    <button  class="button btn btn-success" type="submit" th:href="@{/combos/}"> 
+                  th:placeholder="${menu.listaCombos[(0)].nombre}">
+                  <span class="input-group-btn">
+                    <a id="combo" class="button btn btn-success" type="submit" th:href="@{/combos/}"> 
                       Elegir combo<span class="fa fa-eye-slash icon"></span>
-                    </button>
+                    </a>
                   </span>
-
+              </form>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6 form-group mt-3 mt-md-0">
               <label for="last-name">Cantidad de comensales</label>
-              <input type="number" class="form-control" name="cantidadBaseComensales" 
-              th:placeholder="${menu.cantidadBaseComensales}" th:field="*{cantidadBaseComensales}"
-               id="cantidadBaseComensales">
+              <input type="number" class="form-control" name="text" id="last-name"  
+              th:placeholder="${menu.cantidadBaseComensales}" th:field="*{cantidadBaseComensales}">
               
             </div>
           </div>
           <div class="row">
           <div class="form-group mt-3">
             <label for="qualification">Calificacion</label>
-            <select aria-label="Elegir rol" class="form-select form-control" id="tipoEvento" required th:field="*{tipoEvento}">
+            <select aria-label="Elegir rol" class="form-select" id="rol" required th:field="*{tipoEvento}">
                 <option selected value="">Tipo de Evento</option>
                 <option th:each="evento : ${T(com.gylgroup.conelalma.enums.TipoEvento).values()}" th:text="${evento}"
                         th:value="${evento}"></option>
@@ -129,15 +128,17 @@
           </div>
           </div>    
 
-
+          <input th:field="*{menu.id}" hidden>
           </br>
-
-          <button id="menu" class="btn btn-success" type="submit">Aceptar</button>
-
+          <span class="input-group-btn">
+            <button id="combo" class="btn btn-success" type="submit"> 
+              Aceptar<span class="fa fa-eye-slash icon"></span>
+            </button>
+          </span>
         </form>
-        
-      </div>
 
+      </div>
+    -->
     </div>
 
   </div>
