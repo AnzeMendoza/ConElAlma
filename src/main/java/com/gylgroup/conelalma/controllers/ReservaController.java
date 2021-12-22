@@ -61,7 +61,7 @@ public class ReservaController {
         reserva.setFechaReserva(presupuestoLive.getFechaEventoSolicitada());
         reserva.setPresupuestoLive(presupuestoLive);
         presupuestoLive.setPrecioFinal(precioFinal);
-        presupuestoService.update(presupuestoLive,presupuestoLive.getId());
+        presupuestoService.update(presupuestoLive.getId(), presupuestoLive);
         mav.addObject("reserva",reserva);
         mav.addObject("usuario",user);
         mav.addObject("precioFinal",precioFinal);
