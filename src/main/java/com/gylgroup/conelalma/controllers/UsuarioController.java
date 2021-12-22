@@ -117,7 +117,7 @@ public class UsuarioController {
                 usuarioService.update(id, usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
                 if(user.getRol().getNombre().equals("CLIENTE")){
-                    mav.setViewName("redirect:/");
+                    mav.setViewName("/public/index");
                 }else{
                     mav.setViewName("redirect:/usuario/todos");
                 }
