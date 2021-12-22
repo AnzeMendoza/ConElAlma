@@ -166,7 +166,7 @@
                           th:disabled="${comida.estado} == false">Editar</a>
 
                         <form method="post"
-                          th:action="${comida.estado} ? @{/comida/desactivar/__${comida.id}__} : @{/comida/activar/__${comida.id}__}">
+                          th:action="${comida.estado} ? @{/comidas/desactivar/__${comida.id}__} : @{/comidas/activar/__${comida.id}__}">
                           <button style="width: 100px;"
                             th:class="${comida.estado} ? 'btn btn-danger btn-sm' : 'btn btn-primary btn-sm'"
                             type="submit" th:text="${comida.estado} ? 'Deshabilitar' : 'Habilitar'"></button>

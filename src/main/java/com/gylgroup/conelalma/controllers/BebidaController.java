@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
@@ -36,8 +37,8 @@ public class BebidaController {
 
     @PostMapping("/agregar")
     public String guardarBebida(@Valid Bebida bebida,
-                                BindingResult bindingResult,
-                                Model model) {
+            BindingResult bindingResult,
+            Model model, RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("bebidas", bebidaService.findAll());
             model.addAttribute("bebida", bebida);
@@ -47,8 +48,10 @@ public class BebidaController {
         }
         try {
             bebidaService.save(bebida);
+            attributes.addFlashAttribute("exito", "REGISTRO CON EXITO!");
         } catch (ExceptionService e) {
             e.printStackTrace();
+            attributes.addFlashAttribute("error", e.getMessage());
         }
         return "redirect:/bebida/todos";
     }
@@ -67,9 +70,9 @@ public class BebidaController {
 
     @PostMapping("/editar/{id}")
     public String editarBebida(@PathVariable Integer id,
-                               @Valid Bebida bebida,
-                               BindingResult result,
-                               Model model) {
+            @Valid Bebida bebida,
+            BindingResult result,
+            Model model, RedirectAttributes attributes) {
         try {
             if (result.hasErrors()) {
                 model.addAttribute("bebidas", bebidaService.findAll());
@@ -77,9 +80,11 @@ public class BebidaController {
                 model.addAttribute("estado", true);
                 return "admin/bebidas-formulario";
             }
+            attributes.addFlashAttribute("exito", "MODIFICACIÓN CON EXITO!");
             bebidaService.update(id, bebida);
         } catch (Exception ex) {
             ex.printStackTrace();
+            attributes.addFlashAttribute("error", ex.getMessage());
         }
         return "redirect:/bebida/todos";
     }

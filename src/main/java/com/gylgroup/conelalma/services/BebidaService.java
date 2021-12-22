@@ -17,9 +17,9 @@ public class BebidaService {
     private BebidaRepository repository;
 
     @Transactional
-    public void save(Bebida bebida) throws ExceptionService{
+    public void save(Bebida bebida) throws ExceptionService {
 
-        if(repository.findBebidaByNombre(bebida.getNombre()).isPresent()){
+        if (repository.findBebidaByNombre(bebida.getNombre()).isPresent()) {
             throw new ExceptionService("Ya existe una bebida con el mismo nombre");
         }
         bebida.setEstado(true);
@@ -27,46 +27,46 @@ public class BebidaService {
     }
 
     @Transactional
-    public void update(Integer id,Bebida bebida) throws ExceptionService{
+    public void update(Integer id, Bebida bebida) throws ExceptionService {
         Optional<Bebida> opBebida = repository.findById(id);
 
-        if(!opBebida.isPresent()){
+        if (!opBebida.isPresent()) {
             throw new ExceptionService("No existe esta bebida");
         }
 
         Bebida bebidaNew = opBebida.get();
         bebidaNew.setNombre(bebida.getNombre());
-        bebidaNew.setEstado(bebida.getEstado());
+        bebidaNew.setEstado(true);
         bebidaNew.setPrecioUnitario(bebida.getPrecioUnitario());
         repository.save(bebidaNew);
     }
 
     @Transactional(readOnly = true)
-    public List<Bebida> findAll(){
+    public List<Bebida> findAll() {
         return repository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Bebida findById(Integer id){
+    public Bebida findById(Integer id) {
         return repository.findById(id).orElse(null);
     }
 
     @Transactional(readOnly = true)
-    public List<Bebida> findAllByEstado() throws ExceptionService{
+    public List<Bebida> findAllByEstado() throws ExceptionService {
         List<Bebida> listaBebida = repository.findAllByEstado();
 
-        if (listaBebida.isEmpty()){
+        if (listaBebida.isEmpty()) {
             throw new ExceptionService("No existen bebidas en alta");
-        }else{
+        } else {
             return listaBebida;
         }
     }
 
     @Transactional
-    public void disable(Integer id){
+    public void disable(Integer id) {
         Optional<Bebida> opBebida = repository.findById(id);
 
-        if (opBebida.isPresent()){
+        if (opBebida.isPresent()) {
             Bebida bebida = opBebida.get();
             bebida.setEstado(false);
             repository.save(bebida);
@@ -74,9 +74,9 @@ public class BebidaService {
     }
 
     @Transactional
-    public void enable(Integer id){
+    public void enable(Integer id) {
         Optional<Bebida> opBebida = repository.findById(id);
-        if (opBebida.isPresent()){
+        if (opBebida.isPresent()) {
             Bebida bebida = opBebida.get();
             bebida.setEstado(true);
             repository.save(bebida);
@@ -84,8 +84,7 @@ public class BebidaService {
     }
 
     @Transactional
-    public boolean existsById(Integer id){
+    public boolean existsById(Integer id) {
         return repository.existsById(id);
     }
 }
-

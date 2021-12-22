@@ -110,7 +110,7 @@
             <label for="last-name">Codigo de Cupon</label>
             <input type="text" class="form-control" name="codCupon" 
             placeholder="Codigo Cupon" th:field="*{codCupon}"
-             id="codCupon" >
+             id="codCupon" required>
             
           </div>
         </div>
@@ -120,7 +120,7 @@
             <label for="last-name">Precio base</label>
             <input type="text" class="form-control" name="precioFinal" 
             placeholder="Precio Base" th:field="*{precioFinal}"
-             id="precioFinal" >
+             id="precioFinal" readonly>
           </div>
         </div>
 
@@ -129,7 +129,7 @@
             <label for="last-name">Fecha de Evento</label>
             <input type="date" class="form-control" name="fechaEventoSolicitada" 
             placeholder="Fecha del Evento" th:field="*{fechaEventoSolicitada}"
-             id="fechaEventoSolicitada" >
+             id="fechaEventoSolicitada" required>
           </div>
         </div>
 
@@ -138,7 +138,7 @@
             <label for="last-name">Direccion del Evento</label>
             <input type="text" class="form-control" name="dirEvento" 
             placeholder="Direccion" th:field="*{dirEvento}"
-             id="dirEvento" >
+             id="dirEvento" required>
           </div>
         </div>
 

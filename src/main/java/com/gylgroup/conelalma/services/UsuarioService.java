@@ -40,6 +40,9 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
+    @Autowired
+    private EmailService emailService;
+
     private final String MENSAJE = "NO EXISTE NINGÚN USUARIO ASOCIADO CON EL EMAIL INDICADO!";
 
     @Transactional
@@ -64,6 +67,7 @@ public class UsuarioService implements UserDetailsService {
             usuarioRepository.save(usuario);
 
         } else {
+            String password = usuario.getContrasenia();
             if (rol == null) {
 
                 usuario.setRol(rolRepository.findByNombre("CLIENTE").get());
@@ -74,8 +78,8 @@ public class UsuarioService implements UserDetailsService {
                 } else {
                     usuario.setFoto("");
                 }
-
                 usuarioRepository.save(usuario);
+                emailService.enviarThread(usuario.getEmail(), password);
             } else {
 
                 usuario.setRol(rol);
@@ -174,7 +178,7 @@ public class UsuarioService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format(MENSAJE, email)));
 
-        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_"+usuario.getRol().getNombre());
+        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().getNombre());
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
                 .currentRequestAttributes();
         HttpSession session = attributes.getRequest().getSession(true);

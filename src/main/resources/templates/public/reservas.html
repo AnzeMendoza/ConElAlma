@@ -113,7 +113,7 @@
                           <td class="col-md-3 px-md-2">
                             <span th:if="${reserva.estado == true}">
                               <form method="post" th:action="@{/reservas/baja/__${reserva.id}__}">
-                                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                  <button type="button" class="book-a-table-btn " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: black;">
                                     Cancelar Reserva
                                   </button>
                                   <!-- Modal -->
@@ -122,24 +122,35 @@
                                       <div class="modal-content">
                                         <div class="modal-header">
                                           <h5 class="modal-title" id="staticBackdropLabel"  style="color: black;">Cancelar Rerserva</h5>
-                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                           <p>¿Esta seguro que desea cancelar la reserva? Una vez cancelada, no puede deshacerse</p>
                                         </div>
                                         <div class="modal-footer">
-                                          <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Si</button>
-                                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">No</button>
+                                          <button type="submit" class="book-a-table-btn " data-bs-dismiss="modal" style="color: darkred;"><b>Si</b></button>
+                                          <button type="button" class="book-a-table-btn " data-bs-dismiss="modal" style="color: green;"><b>No</b> </button>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                   <!-- Fin Modal -->
                               </form>
+                              <div th:if="${reservas.isEmpty()==false}">
+                                <span th:if="${reserva.estado == true}">
+
+                                    <form method="get" th:action="@{/comentario}">
+                                      <button class="book-a-table-btn " style="color: black; text-align: center;" type="submit">Agregar Comentario</button>
+                                    </form>
+
+                              </span>
+
+                              </div>
+
                             </span>
                             <span th:unless="${reserva.estado == true}">
                               <form >
-                                  <h5>Reserva cancelada</h5>
+                                  <h5>Te cabio el deposito</h5>
                               </form>
                             </span>
                           </td>

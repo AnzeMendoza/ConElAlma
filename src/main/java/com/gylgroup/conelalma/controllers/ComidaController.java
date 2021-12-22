@@ -54,10 +54,10 @@ public class ComidaController {
         } else {
             try {
                 comidaService.save(comida, imagen);
-                attributes.addAttribute("exito", "REGISTRO EXITOSO!");
+                attributes.addFlashAttribute("exito", "REGISTRO CON EXITO!");
                 return "redirect:/comidas/todos";
             } catch (Exception e) {
-                attributes.addAttribute("error", e.getMessage());
+                attributes.addFlashAttribute("error", e.getMessage());
                 return "redirect:/comidas/todos";
             }
         }
@@ -90,10 +90,10 @@ public class ComidaController {
         } else {
             try {
                 comidaService.update(comida, imagen);
-                attributes.addAttribute("exito", "MODIFICACIÓN CON EXITO!");
+                attributes.addFlashAttribute("exito", "MODIFICACIÓN CON EXITO!");
                 return "redirect:/comidas/todos";
             } catch (Exception e) {
-                attributes.addAttribute("error", e.getMessage());
+                attributes.addFlashAttribute("error", e.getMessage());
                 return "redirect:/comidas/todos";
             }
         }
