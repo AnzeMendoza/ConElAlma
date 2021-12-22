@@ -22,15 +22,18 @@ public class PresupuestoLive {
     @OneToOne
     private Menu menu;
 
-//    @NotNull(message = "Local debe ser asignado")
+   /* @NotNull(message = "Local debe ser asignado")
     @OneToOne
-    private Local local;
+    private Local local;*/
 
-//    @NotNull(message = "Cupon debe ser asignado")
+
+    //@NotNull(message = "Cupon debe ser asignado")
     @OneToOne
     private Cupon cupon;
 
-//    @NotNull(message = "Usuario debe ser asignado")
+    private String codCupon;
+
+    @NotNull(message = "Usuario debe ser asignado")
     @ManyToOne
     private Usuario usuario;
 
@@ -56,6 +59,12 @@ public class PresupuestoLive {
     private Date fechaEventoSolicitada;
 
     private Boolean estado;
+
+    @NotNull
+    private String dirEvento;
+
+    @NotNull
+    private String tipoEvento;
 
     public PresupuestoLive() {
         fechaPresupuesto = new Date();

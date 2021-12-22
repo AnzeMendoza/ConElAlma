@@ -18,6 +18,7 @@ public class ReservaService {
 
     @Transactional
     public void save(Reserva reserva) {
+
         reservaRepository.save(reserva);
     }
 
@@ -70,6 +71,11 @@ public class ReservaService {
     @Transactional
     public boolean existsById(int id){
         return reservaRepository.existsById(id);
+    }
+
+    @Transactional
+    public  List<Reserva> findByUserId(Integer userId){
+       return reservaRepository.findByUser(userId);
     }
 
 }

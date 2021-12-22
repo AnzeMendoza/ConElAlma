@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
@@ -43,7 +44,8 @@ public class LocalController {
     @PostMapping("/agregar")
     public String guardarLocal(@Valid @ModelAttribute Local local,
             BindingResult result,
-            Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+            Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            RedirectAttributes attributes) {
         if (result.hasErrors()) {
             model.addAttribute("locales", localService.findAll());
             model.addAttribute("action", "agregar");
@@ -52,10 +54,10 @@ public class LocalController {
         } else {
             try {
                 localService.save(local, imagen);
-                model.addAttribute("exito", "REGISTRO EXITOSO!");
+                attributes.addFlashAttribute("exito", "REGISTRO EXITOSO!");
                 return "redirect:/locales/todos";
             } catch (Exception e) {
-                model.addAttribute("error", e.getMessage());
+                attributes.addFlashAttribute("error", e.getMessage());
                 return "redirect:/locales/todos";
             }
         }
@@ -77,7 +79,8 @@ public class LocalController {
     public String modificarLocal(@PathVariable Integer id,
             @Valid @ModelAttribute Local local,
             BindingResult result,
-            Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+            Model model, @RequestParam(value = "imagen", required = false) MultipartFile imagen,
+            RedirectAttributes attributes) {
         if (result.hasErrors()) {
             model.addAttribute("locales", localService.findAll());
 
@@ -87,10 +90,10 @@ public class LocalController {
         } else {
             try {
                 localService.update(local, imagen);
-                model.addAttribute("exito", "ACTUALIZACIÓN EXITOSA!");
+                attributes.addFlashAttribute("exito", "ACTUALIZACIÓN EXITOSA!");
                 return "redirect:/locales/todos";
             } catch (Exception e) {
-                model.addAttribute("error", e.getMessage());
+                attributes.addFlashAttribute("error", e.getMessage());
                 return "redirect:/locales/todos";
             }
         }

@@ -26,4 +26,10 @@ public interface ReservaRepository extends JpaRepository<Reserva,Integer> {
     Optional<Reserva> findById(Integer id);
 
     boolean existsById(Integer id);
+
+    @Query(value = "SELECT r.* FROM reserva r\n" +
+            "INNER JOIN presupuesto_live pl ON(r.presupuesto_live_id = pl.id)\n" +
+            "INNER JOIN usuario u ON (u.id=?1);"
+            ,nativeQuery = true)
+    List<Reserva> findByUser(Integer idUser);
 }

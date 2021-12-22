@@ -32,7 +32,6 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-cente">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
@@ -40,20 +39,27 @@
      
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
-          <li><a class="nav-link scrollto" href="#about">Nosotros</a></li>
-          <li><a class="nav-link scrollto" href="#menu">Platos</a></li>
-          <li><a class="nav-link scrollto" href="#gallery">Locales</a></li>
-          <li><a class="nav-link scrollto" href="#events">Eventos</a></li>
-          <li><a class="nav-link scrollto" href="#testimonials">Comentarios</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contacto</a></li>
+          <li>
+            <b> 
+              <a class="nav-link scrollto active" >Usuario:</a>
+            </b></li>
+          <li>
+            <i>
+              <b><a class="nav-link scrollto active" th:text="|${usuario.nombre} ${usuario.apellido}|"></a></b>
+            </i>
+          </li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario/miscomentarios}">Mis comentarios</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/reservas}">Mis reservas</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/comentario}">Agregar comentario</a></li>
+          <li><a class="nav-link scrollto " th:href="@{#}">Presupuesto</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/usuario/misdatos}">Editar perfil</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/logout}">Cerrar sesion</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-      <a th:href="@{/login}" class="book-a-table-btn scrollto d-none d-lg-flex">Login</a>
-      <a th:href="@{/signup}" class="book-a-table-btn scrollto d-none d-lg-flex">Registrarse</a>
 
     </div>
+
   </header><!-- Fin Header -->
 
 </br>
@@ -68,28 +74,55 @@
 
         <div class="row">
           <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+            <!--
             <div class="about-img">
               <img th:src="@{/img/COMBO-TERNERA-XXL.jpg}" alt="">
             </div>
+            -->
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3>NOMBRE DEL COMBO</h3>
-            <p>-------------LISTA DE PLATOS----------------</p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-            </ul>
-            <p>-------------LISTA DE BEBIDAS----------------</p>
-            <ul>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-            </ul>
-          </div>
-        </div>
+            <h3>Nuestros combos</h3>
+            <form th:action="@{/menu/crear}" method="GET" >
+             <div class="list-group list-group-item-dark">
+                <a class="list-group-item list-group-item-action list-group-item-dark" aria-current="true">
+                  <div class="d-flex w-100 justify-content-between">
 
-      </div>
+                    <ul class="list-group list-group-item-dark" th:each=" combo: ${combos}">
+                      
+                      <br>
+                        <button type="submit" class="book-a-table-btn" style="color: black; text-align: center;" th:value="${combo.id}"  name="comboid">Elegir combo</button>
+                      </br>
+                        
+                        <li class="list-group-item" th:text="${combo.nombre}"></li>
+                        <li class="list-group-item">Platos</li>
+                        <table class="table-responsive table table-dark table-striped table-bordered"> 
+                          <tbody th:each=" comida: ${combo.listaComida}">
+                            <td class="col-md-2 px-md-2" th:text="${comida.nombre}"></td>
+                            <td class="col-md-2 px-md-2" th:text="${comida.precioUnitario}"></td>
+                            <td class="col-md-2 px-md-2">ACA VA LA FOTO</td>
+                            
+                          </tbody> 
+                          
+                        </table>
+                        <li class="list-group-item">Bebidas</li>
+                        <table class="table-responsive table table-dark table-striped table-bordered"> 
+                           <tbody th:each=" bebida: ${combo.listaBebidas}">
+                            <td class="col-md-2 px-md-2" th:text="${bebida.nombre}"></td>
+                            <td class="col-md-2 px-md-2" th:text="${bebida.precioUnitario}"></td>
+                             <td class="col-md-2 px-md-2">ACA VA LA FOTO</td>
+                           </tbody>
+                        </table>
+                        
+                    </ul>  
+                    
+                </a>
+                
+              </div>
+            </form>
+
+
+
+          </div>
     </section><!-- End About Section -->
 
   </main><!-- End #main -->

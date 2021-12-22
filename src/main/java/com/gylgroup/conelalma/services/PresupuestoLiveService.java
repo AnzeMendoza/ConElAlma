@@ -1,11 +1,14 @@
 package com.gylgroup.conelalma.services;
 
 import com.gylgroup.conelalma.entities.PresupuestoLive;
+import com.gylgroup.conelalma.entities.Reserva;
+import com.gylgroup.conelalma.enums.TipoDePago;
 import com.gylgroup.conelalma.repositories.PresupuestoLiveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,8 +20,22 @@ public class PresupuestoLiveService {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private CuponService cuponService;
+
+    @Autowired
+    private MenuService menuService;
+
+    @Autowired
+    private ReservaService reservaService;
+
     @Transactional
     public PresupuestoLive save(PresupuestoLive presupuestoLive) {
+        presupuestoLive.setCupon(cuponService.findByCodigo(presupuestoLive.getCodCupon()));
+        presupuestoLive.setMenu(menuService.findById(presupuestoLive.getMenu().getId()));
+        presupuestoLive.getCantidadComensales();
+
+        presupuestoLive.setReservas(Collections.emptyList());
         return presupuestoLiveRepository.save(presupuestoLive);
     }
 
@@ -75,6 +92,11 @@ public class PresupuestoLiveService {
     @Transactional
     public boolean existsById(int id) {
         return presupuestoLiveRepository.existsById(id);
+    }
+
+    @Transactional
+    public PresupuestoLive findByIdUsuario(Integer idUsuario){
+        return presupuestoLiveRepository.findByIdUsuario(idUsuario);
     }
 
     private void changeStatus(Integer id, boolean status) {

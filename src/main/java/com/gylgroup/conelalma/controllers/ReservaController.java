@@ -1,8 +1,11 @@
 package com.gylgroup.conelalma.controllers;
 
+import com.gylgroup.conelalma.entities.PresupuestoLive;
 import com.gylgroup.conelalma.entities.Reserva;
 import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.enums.TipoDePago;
+import com.gylgroup.conelalma.repositories.PresupuestoLiveRepository;
+import com.gylgroup.conelalma.services.PresupuestoLiveService;
 import com.gylgroup.conelalma.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,14 +26,17 @@ public class ReservaController {
     @Autowired
     private ReservaService reservaService;
 
+    @Autowired
+    private PresupuestoLiveService presupuestoService;
+
     @GetMapping
-        @PreAuthorize("hasAnyRole('CLIENTE')")
+    @PreAuthorize("hasAnyRole('CLIENTE')")
     public ModelAndView listaReservas(HttpSession session){
         ModelAndView mav = new ModelAndView("public/reservas");
 
         if(session.getAttribute("user")!=null){
             Usuario user = (Usuario) session.getAttribute("user");
-            mav.addObject("reservas",reservaService.findAll());
+            mav.addObject("reservas",reservaService.findByUserId(user.getId()));
             mav.addObject("usuario",user);
             mav.addObject("logueado","true");
         }else{
@@ -41,22 +47,36 @@ public class ReservaController {
 
     }
 
-    @GetMapping("crear")
+    @GetMapping("/crear")
     @PreAuthorize("hasAnyRole('CLIENTE')")
-    public ModelAndView save(){
-        ModelAndView mav = new ModelAndView("reserva-formulario");
-
-        mav.addObject("reserva",new Reserva());
+    public ModelAndView save(HttpSession session) throws Exception {
+        ModelAndView mav = new ModelAndView("public/reserva-formulario");
+        Reserva reserva = new Reserva();
+        Usuario user = (Usuario) session.getAttribute("user");
+        PresupuestoLive presupuestoLive = presupuestoService.findByIdUsuario(user.getId());
+        Double precioFinal;
+        Integer descuento = presupuestoLive.getCupon().getDescuento();
+        precioFinal= (( Double.parseDouble(String.valueOf(descuento))) /100)*presupuestoLive.getPrecioFinal();
+        reserva.setPresupuestoLive(presupuestoLive);
+        reserva.setFechaReserva(presupuestoLive.getFechaEventoSolicitada());
+        reserva.setPresupuestoLive(presupuestoLive);
+        presupuestoLive.setPrecioFinal(precioFinal);
+        presupuestoService.update(presupuestoLive,presupuestoLive.getId());
+        mav.addObject("reserva",reserva);
+        mav.addObject("usuario",user);
+        mav.addObject("precioFinal",precioFinal);
+        mav.addObject("descuento",presupuestoLive.getCupon().getDescuento());
         mav.addObject("action","guardar");
+        mav.addObject("presupuestoLive",presupuestoLive);
         mav.addObject("title","Registrar nueva reserva");
 
         return mav;
     }
 
     @GetMapping("/editar/{id}")
-    @PreAuthorize("hasAnyRole('CLIENTE')")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
     public ModelAndView editarReserva(@PathVariable Integer id){
-        ModelAndView mav = new ModelAndView("reserva-formulario");
+        ModelAndView mav = new ModelAndView("public/reserva-formulario");
 
         mav.addObject("reserva",reservaService.findById(id));
         mav.addObject("action","modificar");
@@ -132,4 +152,6 @@ public class ReservaController {
         mav.addObject("reservas",reservaService.findAll());
         return mav;
     }
+
+
 }
