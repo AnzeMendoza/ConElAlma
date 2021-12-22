@@ -97,21 +97,15 @@
 
           <div class="row">
             <label for="name">Nombre de Combo</label>
-            <div class="col-md-6 form-group input-group" > 
-
+            <div class="col-md-6 form-group input-group"> 
+                  <input type="hidden" th:field="*{combo}" >
                   <input type="text"  class="form-control"  readonly    
-                  th:placeholder="${menu.combo[(0)].nombre}" th:field="*{combo}">
+                     th:value="${menu.combo[0].nombre}" >
                   <span class="input-group-btn" id="combo">
                     <button  class="button btn btn-success" type="submit" th:href="@{/combos/}"> 
                       Elegir combo<span class="fa fa-eye-slash icon"></span>
                     </button>
                   </span>
-
-                  <span th:if="${comentario.estado == true}">
-                    <form method="post" th:action="@{/cometario/editar/__${comentario.id}__}">
-                        <a class="btn btn-success btn-sm" type="submit">Agregar Comentario</a>
-                    </form>
-                </span>
 
             </div>
 
