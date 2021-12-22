@@ -107,12 +107,19 @@
                     </button>
                   </span>
 
+                  <span th:if="${comentario.estado == true}">
+                    <form method="post" th:action="@{/cometario/editar/__${comentario.id}__}">
+                        <a class="btn btn-success btn-sm" type="submit">Agregar Comentario</a>
+                    </form>
+                </span>
+
             </div>
+
           </div>
           <div class="row">
             <div class="col-md-6 form-group mt-3 mt-md-0">
               <label for="last-name">Cantidad de comensales</label>
-              <input type="number" class="form-control" name="cantidadBaseComensales" 
+              <input type="number" class="form-control" name="cantidadBaseComensales" required
               th:placeholder="${menu.cantidadBaseComensales}" th:field="*{cantidadBaseComensales}"
                id="cantidadBaseComensales">
               

@@ -1,10 +1,12 @@
 package com.gylgroup.conelalma.controllers;
 
+import com.gylgroup.conelalma.entities.Comentario;
 import com.gylgroup.conelalma.entities.PresupuestoLive;
 import com.gylgroup.conelalma.entities.Reserva;
 import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.enums.TipoDePago;
 import com.gylgroup.conelalma.repositories.PresupuestoLiveRepository;
+import com.gylgroup.conelalma.services.ComentarioService;
 import com.gylgroup.conelalma.services.PresupuestoLiveService;
 import com.gylgroup.conelalma.services.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/reservas")
@@ -29,6 +32,9 @@ public class ReservaController {
     @Autowired
     private PresupuestoLiveService presupuestoService;
 
+    @Autowired
+    private ComentarioService comentarioService;
+
     @GetMapping
     @PreAuthorize("hasAnyRole('CLIENTE')")
     public ModelAndView listaReservas(HttpSession session){
@@ -36,9 +42,11 @@ public class ReservaController {
 
         if(session.getAttribute("user")!=null){
             Usuario user = (Usuario) session.getAttribute("user");
+            List<Comentario> listaPorReserva= comentarioService.findByUsuarioId(user.getId());
             mav.addObject("reservas",reservaService.findByUserId(user.getId()));
             mav.addObject("usuario",user);
             mav.addObject("logueado","true");
+            mav.addObject("listaPorReserva",listaPorReserva);
         }else{
             mav.addObject("logueado","false");
         }
@@ -118,7 +126,7 @@ public class ReservaController {
             e.printStackTrace();
         }
         if(user.getRol().getNombre().equals("CLIENTE")){
-            reMav.setUrl("/");
+            reMav.setUrl("/reservas");
         }else{
             reMav.setUrl("/reservas/todos");
 

@@ -1,6 +1,7 @@
 package com.gylgroup.conelalma.controllers;
 
 import com.gylgroup.conelalma.entities.Comentario;
+import com.gylgroup.conelalma.entities.Reserva;
 import com.gylgroup.conelalma.entities.Usuario;
 import com.gylgroup.conelalma.repositories.ReservaRepository;
 import com.gylgroup.conelalma.repositories.UsuarioRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,11 +43,10 @@ public class ComentarioController {
      }*/
     @GetMapping
     @PreAuthorize("hasAnyRole('CLIENTE')")
-    public ModelAndView save(HttpSession session, HttpServletRequest request){//AGREGAR FLASHMAP para exito/error en html
+    public ModelAndView save(HttpSession session, HttpServletRequest request) throws Exception {//AGREGAR FLASHMAP para exito/error en html
         ModelAndView mav = new ModelAndView("public/comentario-formulario");
         Comentario comentario = new Comentario();
         mav=cargarObjetos(session,request,comentario,mav);
-
         return mav;
     }
 
@@ -66,7 +67,9 @@ public class ComentarioController {
         try {
             comentarioService.save(comentario);
             attributes.addFlashAttribute("exito","Comentario registrado con exito.");
-            return new RedirectView("/");
+            RedirectView reMav = new RedirectView();
+            reMav.setUrl("/comentario/miscomentarios");
+            return reMav;
         } catch (Exception e) {
             attributes.addFlashAttribute("comentario",comentario);
             attributes.addFlashAttribute("error-name",e.getMessage());
@@ -82,7 +85,7 @@ public class ComentarioController {
         try {
             comentarioService.update(comentario);
             attributes.addFlashAttribute("exito", "Modificacion exitosa");
-            reMav.setUrl("/");
+            reMav.setUrl("/reservas");
         } catch (Exception e) {
             attributes.addFlashAttribute("comentario",comentario);
             attributes.addFlashAttribute("error-name",e.getMessage());
