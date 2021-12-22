@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import com.gylgroup.conelalma.entities.Rol;
@@ -46,7 +47,7 @@ public class UsuarioService implements UserDetailsService {
     private final String MENSAJE = "NO EXISTE NINGÚN USUARIO ASOCIADO CON EL EMAIL INDICADO!";
 
     @Transactional
-    public void save(Usuario usuario, Rol rol, MultipartFile foto) throws ExceptionService {
+    public void save(Usuario usuario, Rol rol, MultipartFile foto) throws ExceptionService, MessagingException {
 
         Optional<Usuario> opUsuario = usuarioRepository.findByEmail(usuario.getEmail());
         if (opUsuario.isPresent()) {
@@ -79,7 +80,7 @@ public class UsuarioService implements UserDetailsService {
                     usuario.setFoto("");
                 }
                 usuarioRepository.save(usuario);
-                emailService.enviarThread(usuario.getEmail(), password);
+                emailService.enviarEmail(usuario.getEmail(), usuario.getNombre(), password);
             } else {
 
                 usuario.setRol(rol);
