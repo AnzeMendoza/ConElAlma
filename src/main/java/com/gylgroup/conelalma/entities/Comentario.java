@@ -29,7 +29,7 @@ public class Comentario {
 
     @Column(length = 255)
     @NotEmpty(message = "El nombre es obligatorio")
-    @Size(min = 10, max = 255, message = "Debe tener min 10 caracteres y menos de 255")
+    @Size(min = 1, max = 255, message = "Debe tener min 10 caracteres y menos de 255")
     @Pattern(regexp = "[a-zA-Z0-9 ]{2,64}", message = "Debe contener solo letras y numeros.")
     private String descripcion;
 
