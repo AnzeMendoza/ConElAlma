@@ -27,12 +27,12 @@ public class ComentarioService {
     //FALTA VALIDAR QUE EXISTA EL USUARIO POR ID
     @Transactional
     public void save(Comentario dto ) throws Exception{
-        if(dto.getDescripcion().trim()==null || dto.getDescripcion().trim().length()<10){
+        /*if(dto.getDescripcion().trim()==null || dto.getDescripcion().trim().length()<10){
             throw new Exception("La descripcion no puede estar vacia o tener menos de 10 caracteres");
         }
         if(comentarioRepository.existsComentarioById(dto.getId())){
             throw new Exception("Ya existe un comentario asociado al ID: "+dto.getId());
-        }
+        }*/
 
         Comentario comentario = new Comentario();
 
@@ -91,13 +91,13 @@ public class ComentarioService {
     @Transactional
     public List<Comentario> findByReserva(Comentario dto) throws Exception{
 
-        if(!comentarioRepository.existsComentarioById(dto.getId())){
+      /*  if(!comentarioRepository.existsComentarioById(dto.getId())){
             throw new Exception("No existe un comentario asociado al ID: "+dto.getId());
         }
 
         if(!reservaRepository.existsById(dto.getReserva().getId())){
             throw new Exception("No existe un comentario asociado a la reserva con ID : "+dto.getReserva().getId());
-        }
+        }*/
 
         return comentarioRepository.findByReserva(dto.getReserva().getId());
     }

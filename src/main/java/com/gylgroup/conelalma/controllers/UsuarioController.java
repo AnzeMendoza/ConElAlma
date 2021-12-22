@@ -98,7 +98,7 @@ public class UsuarioController {
     public ModelAndView modificarUsuario(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
             @RequestParam Integer id, @Valid Usuario usuario, BindingResult bindingResult,
             @RequestParam Rol rol,
-            RedirectAttributes attributes) {
+            RedirectAttributes attributes, HttpSession session) {
 
         ModelAndView mav = new ModelAndView();
 
@@ -113,10 +113,15 @@ public class UsuarioController {
         } else {
 
             try {
-
+                Usuario user = (Usuario) session.getAttribute("user");
                 usuarioService.update(id, usuario, rol, imagen);
                 attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
-                mav.setViewName("redirect:/usuario/todos");
+                if(user.getRol().getNombre().equals("CLIENTE")){
+                    mav.setViewName("redirect:/");
+                }else{
+                    mav.setViewName("redirect:/usuario/todos");
+                }
+
             } catch (Exception e) {
 
                 attributes.addFlashAttribute("error", e.getMessage());
