@@ -36,7 +36,7 @@ public class UsuarioController {
     private RolService rolService;
 
     @GetMapping("/todos")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public ModelAndView obtenerUsuarios() {
 
         ModelAndView mav = new ModelAndView("/admin/usuarios-formulario");
@@ -95,6 +95,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/modificar")
+    @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
     public ModelAndView modificarUsuario(@RequestParam(value = "imagen", required = false) MultipartFile imagen,
             @RequestParam Integer id, @Valid Usuario usuario, BindingResult bindingResult,
             @RequestParam Rol rol,
@@ -114,18 +115,27 @@ public class UsuarioController {
 
             try {
                 Usuario user = (Usuario) session.getAttribute("user");
-                usuarioService.update(id, usuario, rol, imagen);
-                attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
                 if(user.getRol().getNombre().equals("CLIENTE")){
-                    mav.setViewName("/public/index");
+
+                    usuarioService.updatePerfil(id, usuario, rol, imagen);
+                    attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
+                    mav.setViewName("redirect:/");
+
                 }else{
+                    usuarioService.update(id, usuario, rol, imagen);
+                    attributes.addFlashAttribute("exito", "MODIFICACION EXITOSA!");
                     mav.setViewName("redirect:/usuario/todos");
                 }
 
             } catch (Exception e) {
 
                 attributes.addFlashAttribute("error", e.getMessage());
-                mav.setViewName("redirect:/usuario/todos");
+                if(usuario.getRol().getNombre().equals("CLIENTE")){
+                    mav.setViewName("redirect:/");
+                }else{
+                    mav.setViewName("redirect:/usuario/todos");
+                }
+
             }
 
         }

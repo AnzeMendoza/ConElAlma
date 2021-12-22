@@ -27,9 +27,10 @@ public interface ReservaRepository extends JpaRepository<Reserva,Integer> {
 
     boolean existsById(Integer id);
 
-    @Query(value = "SELECT r.* FROM reserva r\n" +
-            "INNER JOIN presupuesto_live pl ON(r.presupuesto_live_id = pl.id)\n" +
-            "INNER JOIN usuario u ON (u.id=?1);"
+    @Query(value = "SELECT r.* FROM reserva r \n" +
+            "INNER JOIN presupuesto_live pl ON ( r.usuario_id=pl.usuario_id) \n" +
+            "WHERE (r.usuario_id = ?1) " +
+            "GROUP BY r.id"
             ,nativeQuery = true)
     List<Reserva> findByUser(Integer idUser);
 }

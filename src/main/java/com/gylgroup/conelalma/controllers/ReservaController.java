@@ -68,6 +68,7 @@ public class ReservaController {
         reserva.setPresupuestoLive(presupuestoLive);
         reserva.setFechaReserva(presupuestoLive.getFechaEventoSolicitada());
         reserva.setPresupuestoLive(presupuestoLive);
+        reserva.setUsuario(user);
         presupuestoLive.setPrecioFinal(precioFinal);
         presupuestoService.update(presupuestoLive.getId(), presupuestoLive);
         mav.addObject("reserva",reserva);
@@ -96,8 +97,10 @@ public class ReservaController {
 
     @PostMapping("/guardar")
     @PreAuthorize("hasAnyRole('ADMIN','CLIENTE')")
-    public RedirectView persistirReserva(@ModelAttribute Reserva reserva){
+    public RedirectView persistirReserva(@ModelAttribute Reserva reserva, HttpSession session){
         RedirectView reMav = new RedirectView("/reservas");
+        Usuario user = (Usuario) session.getAttribute("user");
+        reserva.setUsuario(user);
         reservaService.save(reserva);
         return reMav;
     }

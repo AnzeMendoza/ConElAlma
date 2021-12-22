@@ -113,7 +113,7 @@
           <div class="row">
             <div class="col-md-6 form-group mt-3 mt-md-0">
               <label for="last-name">Cantidad de comensales</label>
-              <input type="number" class="form-control" name="cantidadBaseComensales" required
+              <input type="number" class="form-control" name="cantidadBaseComensales" 
               th:placeholder="${menu.cantidadBaseComensales}" th:field="*{cantidadBaseComensales}"
                id="cantidadBaseComensales">
               
@@ -122,7 +122,7 @@
           <div class="row">
           <div class="form-group mt-3">
             <label for="qualification">Calificacion</label>
-            <select aria-label="Elegir rol" class="form-select form-control" id="tipoEvento" required th:field="*{tipoEvento}">
+            <select aria-label="Elegir rol" class="form-select form-control" id="tipoEvento"  th:field="*{tipoEvento}">
                 <option selected value="">Tipo de Evento</option>
                 <option th:each="evento : ${T(com.gylgroup.conelalma.enums.TipoEvento).values()}" th:text="${evento}"
                         th:value="${evento}"></option>
