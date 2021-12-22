@@ -18,13 +18,14 @@ public class PresupuestoLive {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Menu debe ser asignado")
+//    @NotNull(message = "Menu debe ser asignado")
     @OneToOne
     private Menu menu;
 
    /* @NotNull(message = "Local debe ser asignado")
     @OneToOne
     private Local local;*/
+
 
     //@NotNull(message = "Cupon debe ser asignado")
     @OneToOne
@@ -36,7 +37,6 @@ public class PresupuestoLive {
     @ManyToOne
     private Usuario usuario;
 
-    @NotNull(message = "Reserva debe ser asignado")
     @OneToMany(mappedBy = "presupuestoLive")
     private List<Reserva> reservas;
 

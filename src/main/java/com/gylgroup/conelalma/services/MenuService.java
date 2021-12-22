@@ -63,17 +63,8 @@ public class MenuService {
     }
 
     @Transactional(readOnly = true)
-    public List<Menu> findAllByEstado() throws ExceptionService {
-
-        List<Menu> listaMenu = repository.findAllByEstado();
-
-        if (listaMenu.isEmpty()){
-            throw new ExceptionService("No existen menus en alta");
-
-        }else{
-            return listaMenu;
-        }
-
+    public List<Menu> findAllByEstado(boolean estado) {
+            return repository.findAllByEstado(estado);
     }
 
     @Transactional

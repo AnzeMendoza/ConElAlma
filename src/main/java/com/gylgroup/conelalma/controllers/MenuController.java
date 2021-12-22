@@ -44,7 +44,7 @@ public class MenuController {
         List<Menu> menuActivos = null;
 
         try{
-            menuActivos = service.findAllByEstado();
+            menuActivos = service.findAllByEstado(true);
 
         }catch(Exception e){
             e.printStackTrace();

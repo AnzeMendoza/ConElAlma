@@ -22,6 +22,6 @@ public interface LocalRepository extends JpaRepository<Local,Integer> {
     @Query(value = "SELECT * FROM local WHERE direccion =: direccion", nativeQuery = true)
     List<Local> BuscarPorDireccion(@Param("direccion") String direccion);
     
-    @Query(value = "SELECT * FROM local WHERE estado = 1", nativeQuery = true)
-    List<Local> findAllByActivo();
+    @Query(value = "SELECT * FROM local WHERE estado = :estado", nativeQuery = true)
+    List<Local> findByEstado(@Param("estado") boolean estado);
 }

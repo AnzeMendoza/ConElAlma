@@ -45,7 +45,7 @@ public class Cupon {
     @Column(nullable = false, updatable = false)
     private Date fechaModificacion;
 
-    /*
+    /* Todo ver porque tiene que estar asociado a un Usuario, no tiene logica
      * @NotNull(message = "Debe asignarse un usuario")
      * 
      * @OneToOne

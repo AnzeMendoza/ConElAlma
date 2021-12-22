@@ -57,8 +57,8 @@ public class LocalService {
     }
 
     @Transactional
-    public List<Local> findAllAndEstado() {
-        return localRepository.findAllByActivo();
+    public List<Local> findByEstado(boolean estado) {
+        return localRepository.findByEstado(estado);
     }
 
     @Transactional

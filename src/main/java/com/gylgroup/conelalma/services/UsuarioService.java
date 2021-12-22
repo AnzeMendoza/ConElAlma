@@ -185,6 +185,6 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public List<Usuario> findAllByEstado(boolean estado) {
-        return findAllByEstado(estado);
+        return usuarioRepository.findAllByEstado(estado);
     }
 }

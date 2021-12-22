@@ -8,8 +8,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link th:href="@{/assets/img/favicon.png}" rel="icon">
-  <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+  <link th:href="@{/admin/assets/img/favicon.png}" rel="icon">
+  <link th:href="@{/admin/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -18,17 +18,17 @@
           rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+  <link th:href="@{/admin/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link th:href="@{/assets/css/style.css}" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link th:href="@{/admin/assets/css/style.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/admin/css/style.css}">
   <title>Con el Alma - Listado Presupuesto</title>
 </head>
 
@@ -61,30 +61,74 @@
 
           <div class="card text-center shadow">
 
-            <form th:action="@{/presupuesto/agregar/0}" th:object="${presupuesto}" method="POST">
-              <!--              <div class="form-group text-center">
-                              <img th:src="@{/img/logo0.png}" width="180" alt="Letras solo con el alma">
-                              <h4 class="text-secondary">Registro</h4>
-                            </div>
+            <form th:action="@{/presupuesto/__${action}__}" th:object="${presupuesto}" method="POST">
+              <div class="form-group text-center">
+                <img th:src="@{/admin/img/logo0.png}" width="180" alt="Letras solo con el alma">
+                <h4 class="text-secondary">Registro</h4>
+              </div>
 
-                            <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
-                                   th:if="${rol!=null}" />-->
+              <input hidden class="form-control" id="id" placeholder="Id" th:field="*{id}" type="text"
+                     th:if="${rol!=null}"/>
+
+              <div class="form-group mx-sm-4 pt-2">
+                <label for="menu">Menu:</label>
+                <select class="form-control" id="menu" th:field="*{menu}">
+                  <option th:each="menu:${menues}"
+                          th:value="${menu.id}"
+                          th:text="${menu.nombre}">
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group mx-sm-4 pt-2">
+                <label for="local">Local:</label>
+                <select class="form-control" id="local" th:field="*{local}">
+                  <option th:each="local:${locales}"
+                          th:value="${local.id}"
+                          th:text="${local.nombre}">
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group mx-sm-4 pt-2">
+                <label for="cupon">Cupon:</label>
+                <select class="form-control" id="cupon" th:field="*{cupon}">
+                  <option th:each="cupon:${cupones}"
+                          th:value="${cupon.id}"
+                          th:text="${cupon.codigo}">
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group mx-sm-4 pt-2">
+                <label for="usuario">Usuario:</label>
+                <select class="form-control" id="usuario" th:field="*{usuario}">
+                  <option th:each="usuario:${usuarios}"
+                          th:value="${usuario.id}"
+                          th:text="${usuario.nombre}">
+                  </option>
+                </select>
+              </div>
+
               <div class="form-group mx-sm-4 pt-2">
                 <input id="cantidadComensales" type="number" th:field="*{cantidadComensales}" placeholder="Cantidad de comensales"
                        class="form-control"/>
-                <div class="text-danger" style="text-align: left;" th:errors="*{cantidadComensales}"></div>
+                <span th:if="${#fields.hasErrors('cantidadComensales')}" th:errors="*{cantidadComensales}"
+                      class="text-danger" style="text-align: left;"></span>
               </div>
 
               <div class="form-group mx-sm-4 pt-2">
                 <input id="precioFinal" type="number" th:field="*{precioFinal}" placeholder="Precio final"
                        class="form-control"/>
-                <div class="text-danger" style="text-align: left;" th:errors="*{precioFinal}"></div>
+                <span th:if="${#fields.hasErrors('precioFinal')}" th:errors="*{precioFinal}"
+                      class="text-danger" style="text-align: left;"></span>
               </div>
 
               <div class="form-group mx-sm-4 pt-2">
-                <input id="fechaEventoSolicitada" type="datetime-local" th:field="*{fechaEventoSolicitada}" placeholder="Precio final"
+                <input id="fechaEventoSolicitada" type="date" th:field="*{fechaEventoSolicitada}" placeholder="Precio final"
                        class="form-control"/>
-                <div class="text-danger" style="text-align: left;" th:errors="*{fechaEventoSolicitada}"></div>
+                <span th:if="${#fields.hasErrors('fechaEventoSolicitada')}" th:errors="*{fechaEventoSolicitada}"
+                      class="text-danger" style="text-align: left;"></span>
               </div>
 
               <div class="form-group d-grid gap-2 pt-4">
@@ -122,6 +166,7 @@
                 <tr>
                   <th class="col-md-3 px-md-2" scope="col">Cantidad de Comensales:</th>
                   <th class="col-md-3 px-md-2" scope="col">Precio final</th>
+                  <th class="col-md-3 px-md-2" scope="col">Estado</th>
                   <th class="col-md-3 px-md-2 text-center" scope="col">Fecha de evento:</th>
                 </tr>
                 </thead>
@@ -131,12 +176,13 @@
                       hidden></th>
                   <td class="col-md-2 px-md-2" th:text="${presupuesto.cantidadComensales}"></td>
                   <td class="col-md-2 px-md-2" th:text="${presupuesto.precioFinal}"></td>
+                  <td class="col-md-2 px-md-2" th:text="${presupuesto.estado}"></td>
                   <td class="col-md-2 px-md-2" th:text="${presupuesto.fechaEventoSolicitada}"></td>
                   <td class="col-md-2 px-md-2 d-flex justify-content-around w-100">
 
                     <a style="width: 100px;"
                        th:class="${presupuesto.estado} ? 'btn btn-warning btn-sm' : 'btn btn-light btn-sm'"
-                       th:href="${presupuesto.estado} != false ? (@{/presupuesto/agregar/__${presupuesto.id}__}) : '#' "
+                       th:href="${presupuesto.estado} != false ? @{/presupuesto/editar/__${presupuesto.id}__} : '#' "
                        th:disabled="${presupuesto.estado} == false">Editar</a>
 
                     <form method="post"
@@ -171,18 +217,18 @@
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
 
-<script th:src="@{/js/role.js}"></script>
+<script th:src="@{/admin/js/role.js}"></script>
 <!-- Vendor JS Files -->
-<script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
-<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-<script th:src="@{/assets/vendor/chart.js/chart.min.js}"></script>
-<script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
-<script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
-<script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
-<script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/chart.js/chart.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/echarts/echarts.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/quill/quill.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+<script th:src="@{/admin/assets/vendor/tinymce/tinymce.min.js}"></script>
 
 <!-- Template Main JS File -->
-<script th:src="@{/assets/js/main.js}"></script>
+<script th:src="@{/admin/assets/js/main.js}"></script>
 </body>
 
 </html>

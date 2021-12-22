@@ -40,20 +40,26 @@ public class PresupuestoLiveService {
     }
 
     @Transactional
-    public PresupuestoLive update(PresupuestoLive presupuestoLiveActualizado, Integer id) throws Exception {
-        existsById(id);
+    public PresupuestoLive update(Integer id, PresupuestoLive presupuestoLiveActualizado) throws Exception {
+        if (!presupuestoLiveRepository.existsById(id)) {
+            throw new Exception("no se encontro el id");
+        }
         return save(presupuestoLiveActualizado);
     }
 
     @Transactional
     public void delete(Integer id) throws Exception {
-        existsById(id);
+        if (!presupuestoLiveRepository.existsById(id)) {
+            throw new Exception("no se encontro el id");
+        }
         presupuestoLiveRepository.deleteById(id);
     }
 
     @Transactional(readOnly = true)
     public PresupuestoLive findById(Integer id) throws Exception {
-        existsById(id);
+        if (!presupuestoLiveRepository.existsById(id)) {
+            throw new Exception("no se encontro el id");
+        }
         return presupuestoLiveRepository.getById(id);
     }
 
@@ -64,25 +70,28 @@ public class PresupuestoLiveService {
 
     @Transactional
     public void enable(Integer id) throws Exception {
-        existsById(id);
+        if (!presupuestoLiveRepository.existsById(id)) {
+            throw new Exception("no se encontro el id");
+        }
         changeStatus(id, true);
     }
 
     @Transactional
     public void disable(Integer id) throws Exception {
-        existsById(id);
+        if (!presupuestoLiveRepository.existsById(id)) {
+            throw new Exception("no se encontro el id");
+        }
         changeStatus(id, false);
     }
 
     @Transactional
-    public List<PresupuestoLive> findByEstadoTrue(){
+    public List<PresupuestoLive> findByEstadoTrue() {
         return presupuestoLiveRepository.findByEstadoTrue();
     }
 
-    private void existsById(Integer id) throws Exception {
-        if (!presupuestoLiveRepository.existsById(id)) {
-            throw new Exception();
-        }
+    @Transactional
+    public boolean existsById(int id) {
+        return presupuestoLiveRepository.existsById(id);
     }
 
     @Transactional
