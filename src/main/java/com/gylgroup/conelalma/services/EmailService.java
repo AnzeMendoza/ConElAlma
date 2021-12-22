@@ -55,17 +55,18 @@ public class EmailService {
                 " </td>\n" +
                 " </tr>\n" +
                 " <tr>\n" +
-                " <td style=\"background-color: #ecf0f1\">\n" +
-                " <div style=\"color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">\n" +
+                " <td style=\"background-image: linear-gradient(to right top, #330537, #57085f, #7d0a8b, #a40eb9, #cd12eb);\">\n"
+                +
+                " <div style=\"color: white; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif\">\n" +
                 " <h2 style=\"color: #e67e22; margin: 0 0 7px\">Hola " + nombre + "!</h2>\n" +
-                " <p style=\"margin: 2px; font-size: 15px\">\n" +
+                " <p style=\"color: white; margin: 2px; font-size: 15px\">\n" +
                 " Realizamos Servicios de Catering y Organización de Eventos para fiestas y eventos Empresariales,\n" +
                 " Familiares y Casamientos.<br>\n" +
                 " Muchas gracias por confiar en nosotros!<br>\n" +
                 " Tu cuenta fue creada con exito:</p>\n" +
                 " <ul style=\"font-size: 15px;  margin: 10px 0\">\n" +
                 " <li>Datos de acceso:</li>\n" +
-                " <li>Email: " + to + "</li>\n" +
+                " <li>Email: <a style=\"color:white\">" + to + "</a> </li>\n" +
                 " <li>Contraseña: " + password + "</li>\n" +
                 " </ul>\n" +
                 " <div style=\"width: 100%;margin:20px 0; display: inline-block;text-align: center\">\n" +
