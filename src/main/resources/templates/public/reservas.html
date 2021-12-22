@@ -113,11 +113,13 @@
                           <td class="col-md-3 px-md-2">
                             <span th:if="${reserva.estado == true}">
                               <form method="post" th:action="@{/reservas/baja/__${reserva.id}__}">
-                                  <button type="button" class="book-a-table-btn " data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: black;">
+                                  <button type="button" class="btn btn-modal-trigger" data-bs-toggle="modal"
+                                  th:attr="data-target='#customerModel'+${reserva.id}"
+                                  th:onclick="'javascript:verModal(' + ${reserva.id} + ')'">
                                     Cancelar Reserva
                                   </button>
                                   <!-- Modal -->
-                                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                  <div class="modal fade" th:id="${reserva.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
@@ -179,6 +181,9 @@
   </div>
 </footer><!-- Fin Footer -->
 
+<script th:src="@{/jquery.min.js}"></script>
+<script th:src="@{/jquery.easing.min.js}"></script>
+
 <!-- Vendor JS Files -->
 <script th:src="@{/public/assets/vendor/aos/aos.js}"></script>
 <script th:src="@{/public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -189,6 +194,16 @@
   
 <!-- Template Main JS File -->
 <script th:src="@{/public/assets/js/main.js}"></script>
+
+
+<script>
+
+  function verModal(id) {
+    $('#' + id).modal('show');
+  }
+
+</script>
+
 
 </body>
 
