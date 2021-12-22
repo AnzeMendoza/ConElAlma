@@ -89,30 +89,32 @@
 
  <!-- ======= Home seccion ======= -->
  <main id="main">
-
-<div th:if="${error}" class="container mt-4 text-center">
-    </br></br></br></br></br></br>
-    <div class="row col-md-4 mx-auto">
-        <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
-    </div>
-</div>
-
-<div th:if="${logout}" class="container mt-4 text-center">
-    </br></br></br></br></br></br>
-    <div class="row col-md-4 mx-auto">        
-        <div th:text="${logout}" class="alert alert-success m-0 shadow"></div>
-    </div>
-</div>
+  <div>
+    <div th:if="${error}" class="container mt-4 text-center">
+      
+      <div class="row col-md-4 mx-auto">
+          <div th:text="${error}" class="alert alert-danger m-0 shadow"></div>
+      </div>
+  </div>
+  
+  <div th:if="${logout}" class="container mt-4 text-center">
+      
+      <div class="row col-md-4 mx-auto">        
+          <div th:text="${logout}" class="alert alert-success m-0 shadow"></div>
+      </div>
+  </div>
+  </div>
 
 <div th:if="${exito}" class="container mt-4 text-center">
-  </br></br></br></br></br></br>
+  
   <div class="row col-md-4 mx-auto">
       <div th:text="${exito}" class="alert alert-success m-0 shadow"></div>
   </div>
 </div>
-
  <section id="hero" class="d-flex align-items-center">
+
   <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+
     <div class="row">
       <div class="col-lg-8">
         <h1>Bienvenido a <span>Con El Alma</span></h1>

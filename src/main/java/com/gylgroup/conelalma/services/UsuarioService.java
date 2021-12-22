@@ -108,7 +108,9 @@ public class UsuarioService implements UserDetailsService {
             upUsuario.setEstado(true);
             upUsuario.setRol(rol);
             if (!foto.isEmpty()) {
-                upUsuario.setFoto(fotoService.saveFile(foto));
+                usuario.setFoto(fotoService.saveFile(foto));
+            } else {
+                usuario.setFoto("");
             }
 
             usuarioRepository.save(upUsuario);
@@ -186,5 +188,32 @@ public class UsuarioService implements UserDetailsService {
     @Transactional
     public List<Usuario> findAllByEstado(boolean estado) {
         return findAllByEstado(estado);
+    }
+
+    @Transactional
+    public void updatePerfil(Integer id, Usuario usuario, Rol rol, MultipartFile foto) throws ExceptionService {
+
+        Optional<Usuario> opUsuario = usuarioRepository.findById(id);
+        if (opUsuario.isPresent()) {
+
+            Usuario upUsuario = opUsuario.get();
+            upUsuario.setNombre(usuario.getNombre());
+            upUsuario.setApellido(usuario.getApellido());
+            upUsuario.setCelular(usuario.getCelular());
+            upUsuario.setEmail(usuario.getEmail());
+            upUsuario.setContrasenia(encoder.encode(usuario.getContrasenia()));
+            upUsuario.setEstado(true);
+            upUsuario.setRol(rol);
+           /* if (!foto.equals("")) {
+                usuario.setFoto(fotoService.saveFile(foto));
+            } else {
+                usuario.setFoto("");
+            }*/
+
+            usuarioRepository.save(upUsuario);
+        } else {
+            throw new ExceptionService("NO EXISTE EL USUARIO!");
+        }
+
     }
 }

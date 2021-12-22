@@ -113,7 +113,7 @@
                           <td class="col-md-3 px-md-2">
                             <span th:if="${reserva.estado == true}">
                               <form method="post" th:action="@{/reservas/baja/__${reserva.id}__}">
-                                  <button type="button" class="btn btn-modal-trigger" data-bs-toggle="modal"
+                                  <button type="button" class="btn btn-modal-trigger book-a-table-btn" data-bs-toggle="modal"
                                   th:attr="data-target='#customerModel'+${reserva.id}"
                                   th:onclick="'javascript:verModal(' + ${reserva.id} + ')'">
                                     Cancelar Reserva
@@ -138,6 +138,7 @@
                                   </div>
                                   <!-- Fin Modal -->
                               </form>
+                            </br>
                               <div th:if="${reservas.isEmpty()==false}">
                                 <span th:if="${reserva.estado == true}">
 
