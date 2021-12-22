@@ -14,5 +14,5 @@ public interface MenuRepository extends JpaRepository<Menu, Integer> {
     @Query(value = "SELECT * FROM Menu WHERE estado=:estado", nativeQuery = true)
     List<Menu> findAllByEstado(@Param("estado") boolean estado);
 
-    Optional<Menu> findMenuByNombre(String nombre);
+   // Optional<Menu> findMenuByNombre(String nombre);
 }
